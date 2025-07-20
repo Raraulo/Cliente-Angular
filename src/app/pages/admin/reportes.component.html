@@ -1,0 +1,172 @@
+<main class="bg-gray-100 min-h-screen py-8">
+  <!-- Barra superior -->
+  <div class="w-full max-w-7xl mx-auto px-4">
+    <h1 class="text-3xl font-extrabold text-purple-700 tracking-tight">Dashboard Administrador</h1>
+  </div>
+
+  <!-- Barra meta productos vendidos -->
+  <div class="w-full max-w-7xl mx-auto px-4 mt-8 mb-6">
+    <div class="flex flex-col md:flex-row md:items-center gap-4">
+      <div class="font-semibold text-gray-800 text-lg flex items-center gap-2">
+        <i class="fa-solid fa-bullseye text-emerald-600"></i> Meta de productos vendidos
+      </div>
+      <div class="w-full flex flex-col gap-2">
+        <div class="w-full h-5 bg-gray-200 rounded-full overflow-hidden shadow-inner">
+          <div class="h-full bg-emerald-500 transition-all duration-700"
+               [ngStyle]="{ width: metaAvancePorc + '%' }"></div>
+        </div>
+        <div class="flex justify-between text-sm text-gray-600">
+          <span>{{ totalProductosVendidos }} vendidos</span>
+          <span>Meta: {{ metaProductos }} productos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRID DE REPORTES -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-7xl mx-auto px-4">
+
+    <!-- 1. DIAGRAMA DE LÍNEA: Ventas por Día 2025 (ocupa 2 columnas) -->
+    <section class="bg-white rounded-2xl p-6 shadow-lg flex flex-col transition-transform hover:scale-105 col-span-1 md:col-span-2">
+      <h2 class="text-xl font-semibold text-indigo-600 mb-4 flex items-center">
+        <i class="fa-solid fa-chart-line mr-2"></i> Ventas por Día (2025)
+      </h2>
+      <div style="height: 420px; max-height: 420px; width: 100%;">
+        <canvas baseChart
+          [type]="'line'"
+          [data]="ventasPorDiaLineData"
+          [options]="ventasPorDiaLineOptions"
+          aria-label="Gráfico de líneas de ventas por día 2025"
+          role="img"
+          style="max-height: 420px; height: 100%; width: 100%;">
+        </canvas>
+      </div>
+    </section>
+
+    <!-- 2. STOCK DISPONIBLE: Línea (ocupa 2 columnas) -->
+    <section class="bg-white rounded-2xl p-6 shadow-lg flex flex-col transition-transform hover:scale-105 col-span-1 md:col-span-2">
+      <h2 class="text-xl font-semibold text-emerald-600 mb-4 flex items-center">
+        <i class="fa-solid fa-warehouse mr-2"></i> Stock Disponible
+      </h2>
+      <div style="height: 320px; max-height: 320px; width: 100%;">
+        <canvas baseChart
+          [type]="'line'"
+          [data]="stockDisponibleLineaData"
+          [options]="stockDisponibleLineaOptions"
+          aria-label="Gráfico de líneas de stock disponible"
+          role="img"
+          style="max-height:320px; height:100%; width:100%;">
+        </canvas>
+      </div>
+      <!-- Paginador -->
+      <div *ngIf="stockDisponible.length > productosPorPaginaStock" class="flex justify-center items-center gap-3 mt-4">
+        <button (click)="paginaAnteriorStockDisponible()" [disabled]="paginaStockDisponible === 0"
+                class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 disabled:opacity-50 transition-colors">
+          ← Anterior
+        </button>
+        <span class="text-sm font-medium">Página {{ paginaStockDisponible + 1 }} de {{ totalPaginasStockDisponible }}</span>
+        <button (click)="paginaSiguienteStockDisponible()" [disabled]="paginaStockDisponible >= totalPaginasStockDisponible - 1"
+                class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 disabled:opacity-50 transition-colors">
+          Siguiente →
+        </button>
+      </div>
+    </section>
+    
+
+    <!-- 3. Top Clientes y Productos Más Vendidos: 2 columnas, misma fila -->
+    <section class="bg-white rounded-2xl p-6 shadow-lg flex flex-col transition-transform hover:scale-105 h-full">
+      <h2 class="text-xl font-semibold text-purple-600 mb-4 flex items-center">
+        <i class="fa-solid fa-user-tie mr-2"></i> Top Clientes
+      </h2>
+      <div style="height: 320px; max-height: 320px; width: 100%;">
+        <canvas baseChart 
+          [type]="'bar'" 
+          [data]="clientesBarData" 
+          [options]="clientesBarOptions"
+          aria-label="Gráfico de barras de top clientes"
+          role="img"
+          style="max-height:320px; height:100%; width:100%;">
+        </canvas>
+      </div>
+    </section>
+    <section class="bg-white rounded-2xl p-6 shadow-lg flex flex-col transition-transform hover:scale-105 h-full">
+      <h2 class="text-xl font-semibold text-yellow-600 mb-4 flex items-center">
+        <i class="fa-solid fa-donut mr-2"></i> Productos Más Vendidos
+      </h2>
+      <div style="height: 320px; max-height: 320px; width: 100%;">
+        <canvas baseChart 
+          [type]="'doughnut'" 
+          [data]="vendidosDoughnutData" 
+          [options]="vendidosDoughnutOptions"
+          aria-label="Gráfico de dona de productos más vendidos"
+          role="img"
+          style="max-height:320px; height:100%; width:100%;">
+        </canvas>
+      </div>
+    </section>
+
+    <!-- 4. Valor del Stock y Total Recaudado (ocupa 2 columnas) -->
+    <section class="bg-white rounded-2xl p-6 shadow-lg flex flex-col transition-transform hover:scale-105 col-span-1 md:col-span-2">
+      <h2 class="text-xl font-semibold text-indigo-600 mb-6 flex items-center">
+        <i class="fa-solid fa-wallet mr-2"></i> Resumen Financiero
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="w-full bg-purple-100 border border-purple-400 text-purple-700 rounded-xl px-6 py-5 shadow-lg flex items-center gap-4">
+          <i class="fa-solid fa-cubes-stacked text-3xl"></i>
+          <div>
+            <div class="text-sm text-gray-600 font-bold">Valor del Stock</div>
+            <div class="text-2xl font-extrabold">$ {{ valorTotalStock | number:'1.2-2' }}</div>
+          </div>
+        </div>
+        <div class="w-full bg-emerald-100 border border-emerald-400 text-emerald-700 rounded-xl px-6 py-5 shadow-lg flex items-center gap-4">
+          <i class="fa-solid fa-sack-dollar text-3xl"></i>
+          <div>
+            <div class="text-sm text-gray-600 font-bold">Total Recaudado</div>
+            <div class="text-2xl font-extrabold">$ {{ totalRecaudado | number:'1.2-2' }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- TABLA DE PRODUCTOS CON BAJO STOCK -->
+<section class="bg-white rounded-2xl p-6 shadow-lg flex flex-col transition-transform hover:scale-105 col-span-1 md:col-span-2">
+  <h2 class="text-xl font-semibold text-red-600 mb-4 flex items-center">
+    <i class="fa-solid fa-triangle-exclamation mr-2"></i> Productos con Stock Bajo (&lt; 10)
+  </h2>
+  <ng-container *ngIf="productosBajoStock.length > 0; else sinBajoStock">
+    <div class="overflow-x-auto">
+      <table class="min-w-full table-auto border border-gray-300">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="py-2 px-4 border-b text-left">#</th>
+            <th class="py-2 px-4 border-b text-left">Producto</th>
+            <th class="py-2 px-4 border-b text-left">Stock</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let prod of productosBajoStock; let i = index">
+            <td class="py-2 px-4 border-b">{{ i + 1 }}</td>
+            <td class="py-2 px-4 border-b">{{ prod.nombre }}</td>
+            <td 
+              class="py-2 px-4 border-b font-semibold text-center rounded-lg"
+              [ngClass]="{
+                'bg-red-200 text-red-800': prod.stock === 0,
+                'bg-yellow-200 text-yellow-900': prod.stock > 0 && prod.stock <= 6,
+                'bg-green-200 text-green-800': prod.stock > 6
+              }"
+            >
+              {{ prod.stock }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+  <ng-template #sinBajoStock>
+    <div class="text-green-700 font-semibold p-4">No hay productos con bajo stock 🎉</div>
+  </ng-template>
+</section>
+
+  </div>
+</main>

@@ -1,0 +1,55 @@
+/* --- Animaciones suaves --- */
+@keyframes fade-in {
+  from { opacity: 0; transform: scale(.97) translateY(20px);}
+  to   { opacity: 1; transform: scale(1) translateY(0);}
+}
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(60px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+@keyframes fade-in-delayed {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fade-in         { animation: fade-in 0.4s cubic-bezier(.4,0,.2,1) both; }
+.animate-fade-in-up      { animation: fade-in-up 0.5s cubic-bezier(.4,0,.2,1) both; }
+.animate-fade-in-delayed { animation: fade-in-delayed 0.8s 0.2s cubic-bezier(.4,0,.2,1) both; }
+
+/* --- Glassmorphism input buscador --- */
+.glass-search {
+  background: rgba(255,255,255,0.75);
+  box-shadow: 0 4px 32px 0 rgba(80,80,160,0.08), 0 1.5px 5px rgba(0,0,0,0.09);
+  backdrop-filter: blur(7px);
+  border: 0;
+  border-radius: 18px;
+  transition: box-shadow .3s;
+}
+.glass-search:focus {
+  box-shadow: 0 0 0 3px #7b4fff55, 0 8px 40px 0 rgba(80,80,160,0.12);
+}
+
+/* --- Shadow tarjetas --- */
+.lux-shadow {
+  box-shadow: 0 2px 18px 0 rgba(80,80,160,0.13), 0 1.5px 5px rgba(0,0,0,0.11);
+  transition: box-shadow .25s;
+}
+.lux-shadow:hover, .lux-shadow:focus-within {
+  box-shadow: 0 8px 32px 0 rgba(80,80,160,0.22), 0 6px 24px rgba(0,0,0,0.12);
+}
+
+/* --- Modal lujo (animación y fondo glass) --- */
+.modal-lujo-bg {
+  background: rgba(26,26,39,0.55);
+  backdrop-filter: blur(8px);
+  animation: fade-in 0.28s cubic-bezier(.4,0,.2,1) both;
+}
+.modal-lujo {
+  animation: fade-in-up 0.44s cubic-bezier(.4,0,.2,1) both;
+  border-radius: 2rem !important;
+  box-shadow: 0 10px 48px 0 rgba(60,20,160,0.17), 0 2px 14px rgba(0,0,0,0.09);
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .modal-lujo { padding: 1.5rem !important; }
+}

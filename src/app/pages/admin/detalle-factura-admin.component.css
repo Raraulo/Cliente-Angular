@@ -1,0 +1,8 @@
+/* Optional: Fine-tune the toggle switch */
+.theme-toggle input:checked + span {
+  background-color: #d1d5db; /* Matches Tailwind bg-gray-300 */
+}
+
+.theme-toggle input:checked + span span {
+  transform: translateX(28px);
+}

@@ -1,0 +1,150 @@
+<!-- Back-drop -->
+<div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+
+  <!-- Card contenedor ( + ancho ) -->
+  <div class="bg-white w-full max-w-4xl rounded-2xl overflow-hidden relative flex flex-col md:flex-row">
+
+    <!-- ╔════════════════ FORMULARIO ═════════════════╗ -->
+    <ng-container *ngIf="!success; else successTpl">
+
+      <div class="w-full md:w-1/2 p-8 space-y-4 overflow-y-auto max-h-[90vh]">
+        <button
+          class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-xl leading-none"
+          (click)="close.emit()" aria-label="Cerrar">✕</button>
+
+        <h3 class="text-3xl font-extrabold text-indigo-700 text-center mb-2">
+          Crear cuenta
+        </h3>
+
+        <!-- Cédula + Nombre -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm font-medium">Cédula *</label>
+            <input [(ngModel)]="cedula" name="ced" required
+                   class="w-full border rounded-lg px-3 py-2"/>
+          </div>
+          <div>
+            <label class="text-sm font-medium">Nombre *</label>
+            <input [(ngModel)]="nombre" name="nom" required
+                   class="w-full border rounded-lg px-3 py-2"/>
+          </div>
+        </div>
+
+        <!-- Apellido + Mail -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm font-medium">Apellido</label>
+            <input [(ngModel)]="apellido" name="ape"
+                   class="w-full border rounded-lg px-3 py-2"/>
+          </div>
+          <div>
+            <label class="text-sm font-medium">Correo Electrónico</label>
+            <input type="email" [(ngModel)]="mail" name="mail"
+                   class="w-full border rounded-lg px-3 py-2"/>
+          </div>
+        </div>
+
+        <!-- Teléfono (+593) + Sexo -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm font-medium">Teléfono *</label>
+            <div class="flex">
+              <span class="inline-flex items-center px-3 bg-gray-100 border border-r-0 rounded-l-lg text-gray-600">
+                🇪🇨 +593
+              </span>
+              <input [(ngModel)]="telefono" name="tel" required
+                     class="w-full border rounded-r-lg px-3 py-2"/>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-sm font-medium">Sexo</label>
+            <select [(ngModel)]="sexo" name="sex"
+                    class="w-full border rounded-lg px-3 py-2">
+              <option value="" disabled selected>Selecciona</option>
+              <option value="M">Hombre</option>
+              <option value="F">Mujer</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Dirección -->
+        <div>
+          <label class="text-sm font-medium">Dirección</label>
+          <textarea rows="2" [(ngModel)]="direccion" name="dir"
+                    class="w-full border rounded-lg px-3 py-2"></textarea>
+        </div>
+
+        <!-- Usuario -->
+        <div>
+          <label class="text-sm font-medium">Nombre de usuario *</label>
+          <input [(ngModel)]="usuario" name="usr" required
+                 class="w-full border rounded-lg px-3 py-2"/>
+        </div>
+
+        <!-- Contraseñas (con «mostrar») -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+          <div class="relative">
+            <label class="text-sm font-medium">Contraseña *</label>
+            <input [type]="passVisible ? 'text' : 'password'"
+                   [(ngModel)]="pass" name="p1" required
+                   class="w-full border rounded-lg px-3 py-2 pr-20"/>
+            <button type="button"
+              class="absolute right-3 top-8 text-indigo-600 text-xs"
+              (click)="passVisible = !passVisible">
+              {{ passVisible ? 'Ocultar' : 'Mostrar' }}
+            </button>
+          </div>
+
+          <div class="relative">
+            <label class="text-sm font-medium">Confirma contraseña *</label>
+            <input [type]="pass2Visible ? 'text' : 'password'"
+                   [(ngModel)]="pass2" name="p2" required
+                   class="w-full border rounded-lg px-3 py-2 pr-20"/>
+            <button type="button"
+              class="absolute right-3 top-8 text-indigo-600 text-xs"
+              (click)="pass2Visible = !pass2Visible">
+              {{ pass2Visible ? 'Ocultar' : 'Mostrar' }}
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Error -->
+        <div *ngIf="errorMsg" class="text-red-500 text-sm">{{ errorMsg }}</div>
+
+        <!-- Botón registrar -->
+        <button class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700"
+                (click)="registrar()">
+          Registrarse
+        </button>
+      </div>
+
+      <!-- Imagen lateral -->
+      <div class="hidden md:block md:w-1/2">
+        <img src="https://ae01.alicdn.com/kf/S25439a7aa499482e8c7c10aa0e00532bo.jpg?width=1000&height=1000&hash=2000"
+             alt="Registro" class="w-full h-full object-cover">
+      </div>
+    </ng-container>
+
+    <!-- ╔════════════ ALERTA ÉXITO ════════════╗ -->
+    <ng-template #successTpl>
+      <div class="flex flex-col items-center justify-center w-full p-8 space-y-6">
+        <img src="https://www.clarin.com/img/2018/04/26/HkxmPvypG_600x600__1.jpg"
+             alt="Bienvenido" class="w-52 h-52 rounded-full shadow-lg object-cover">
+
+        <!-- Texto verde animado -->
+        <h4 class="text-3xl font-extrabold text-green-600 animate-pulse text-center">
+          USUARIO CREADO CON ÉXITO ✅
+        </h4>
+
+        <button class="bg-indigo-600 text-white px-10 py-2 rounded-lg hover:bg-indigo-700"
+                (click)="cerrarTodo()">
+          OK
+        </button>
+      </div>
+    </ng-template>
+
+  </div>
+</div>

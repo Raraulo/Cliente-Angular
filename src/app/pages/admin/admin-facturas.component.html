@@ -1,0 +1,32 @@
+<div class="p-8 bg-gray-900 min-h-screen text-white">
+  <h1 class="text-3xl font-bold mb-6">🧾 Gestión de Facturas</h1>
+
+  <div *ngIf="error" class="bg-red-500 text-white p-3 rounded mb-4">{{ error }}</div>
+
+  <table class="w-full text-left border border-gray-700 rounded overflow-hidden">
+    <thead class="bg-gray-800 text-gray-200">
+      <tr>
+        <th class="p-3">ID</th>
+        <th class="p-3">Cliente ID</th>
+        <th class="p-3">Fecha</th>
+        <th class="p-3">Total</th>
+        <th class="p-3">Pago</th>
+        <th class="p-3 text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let f of facturas" class="hover:bg-gray-800 transition-all">
+        <td class="p-3">{{ f.id }}</td>
+        <td class="p-3">{{ f.persona_id }}</td>
+        <td class="p-3">{{ f.fecha | date:'short' }}</td>
+        <td class="p-3 font-bold text-green-400">${{ f.total }}</td>
+        <td class="p-3">{{ f.metodo_pago }}</td>
+        <td class="p-3 text-center">
+          <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm">Editar</button>
+          <button class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-sm ml-2"
+            (click)="eliminar(f.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

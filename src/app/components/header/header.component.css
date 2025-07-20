@@ -1,0 +1,17 @@
+/* Estilo para el fondo en blanco y negro cuando el modal está abierto */
+:host-context(.modal-open) .bg-gray-900,
+:host-context(.modal-open) .bg-gray-50,
+:host-context(.modal-open) .bg-indigo-700 {
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+/* Estilo del modal */
+.modal {
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.modal-open .modal {
+  transform: translateX(0);
+}

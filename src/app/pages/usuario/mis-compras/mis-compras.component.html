@@ -1,0 +1,107 @@
+<!-- src/app/pages/usuario/mis-compras/mis-compras.component.html -->
+<main class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+  <header class="bg-emerald-500 py-20 text-center shadow-md">
+    <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight drop-shadow-md">🛍️ Mis Compras</h1>
+    <p class="mt-4 text-lg md:text-xl opacity-90 font-light">
+      Revisa el historial completo de tus compras y facturación.
+    </p>
+  </header>
+
+  <section class="max-w-7xl mx-auto px-6 md:px-12 py-12">
+    <div class="flex justify-end mb-10">
+      <button
+        class="px-6 md:px-8 py-3 md:py-4 bg-emerald-600 hover:bg-emerald-700 text-white text-lg rounded-full shadow-lg transition-all duration-300 ease-in-out hover:scale-105 active:scale-95"
+      >
+        <span class="inline-flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 4v16m8-8H4" /></svg>
+          Exportar PDF
+        </span>
+      </button>
+    </div>
+
+    <div
+      class="grid gap-10"
+      [ngStyle]="{ 'grid-template-columns': 'repeat(auto-fit, minmax(350px, 1fr))' }"
+    >
+      <article
+        *ngFor="let f of facturas"
+        [id]="'factura-' + f.id"
+        class="bg-white text-gray-900 rounded-3xl shadow-2xl overflow-hidden transition-all duration-500 ease-in-out flex flex-col"
+        [ngClass]="{ 'col-span-full': f.showDetalle }"
+      >
+        <div class="flex flex-col md:flex-row">
+          <!-- parte principal -->
+          <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between w-full md:w-1/2">
+            <h2 class="text-2xl font-bold mb-1">Factura #{{ f.id }}</h2>
+            <p class="text-sm text-gray-500">{{ f.fecha | date:'fullDate' }}</p>
+            <span
+              class="inline-block mt-4 text-xs font-semibold uppercase bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full tracking-wide"
+            >
+              {{ f.metodo_pago }}
+            </span>
+
+            <div class="mt-8 space-y-3 text-base">
+              <div class="flex justify-between">
+                <span class="text-gray-600">Subtotal:</span>
+                <span class="font-semibold">{{ f.subtotal | currency:'USD' }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">IVA (15%):</span>
+                <span class="font-semibold">{{ f.iva | currency:'USD' }}</span>
+              </div>
+            </div>
+
+            <div class="mt-6 flex items-center justify-between">
+              <p class="text-3xl font-bold text-emerald-600">
+                {{ f.total | currency:'USD' }}
+              </p>
+              <button
+                (click)="toggleDetalle(f)"
+                class="text-emerald-600 hover:underline font-medium transition text-sm"
+              >
+                {{ f.showDetalle ? 'Ocultar' : 'Ver' }} detalles
+              </button>
+            </div>
+          </div>
+
+          <!-- detalles -->
+          <div
+            *ngIf="f.showDetalle"
+            class="bg-gray-50 text-gray-900 w-full md:w-1/2 transition-all duration-300 ease-in-out"
+          >
+            <div class="p-6 sm:p-8 space-y-6">
+              <h3 class="text-xl font-semibold border-b pb-2">🧾 Detalle de productos</h3>
+              <ul class="space-y-5 max-h-96 overflow-auto pr-2">
+                <li *ngFor="let d of f.detalle" class="flex items-start">
+                  <img
+                    [src]="d.imagen"
+                    alt="{{ d.producto_nombre }}"
+                    class="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg shadow-md mr-4"
+                  />
+                  <div class="flex-1">
+                    <p class="text-base sm:text-lg font-medium">{{ d.producto_nombre }}</p>
+                    <p class="text-sm text-gray-600 mt-1">
+                      {{ d.cantidad }} × {{ d.precio_unitario | currency:'USD' }}
+                    </p>
+                  </div>
+                  <p class="text-lg font-semibold text-right text-gray-800 ml-4">
+                    {{ (d.cantidad * d.precio_unitario) | currency:'USD' }}
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <p
+        *ngIf="!cargando && facturas.length === 0"
+        class="col-span-full text-center text-gray-300 text-xl mt-20 font-light"
+      >
+        No tienes compras registradas aún. 🕊️
+      </p>
+    </div>
+  </section>
+</main>

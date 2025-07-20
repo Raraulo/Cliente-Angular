@@ -1,0 +1,85 @@
+<div class="min-h-screen bg-gray-900 text-white p-8">
+  <ng-container *ngIf="factura$ | async as f; else loading">
+    <h1 class="text-4xl font-bold mb-6 flex items-center gap-2">
+      <span class="text-3xl"></span> Detalle Factura #{{ f.id }}
+    </h1>
+
+<!-- Tarjeta con datos del cliente -->
+<div class="bg-gray-800 rounded-lg p-6 mb-6">
+  <h2 class="text-xl font-semibold mb-4"> Datos del cliente</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+    <p><span class="font-semibold">Nombre:</span> {{ f.persona.nombre }} {{ f.persona.apellido }}</p>
+    <p><span class="font-semibold">Cédula:</span> {{ f.persona.cedula }}</p>
+    <p><span class="font-semibold">Correo:</span> {{ f.persona.mail }}</p>
+    <p><span class="font-semibold">Teléfono:</span> {{ f.persona.telefono || 'N/A' }}</p>
+    <p class="md:col-span-2"><span class="font-semibold">Dirección:</span> {{ f.persona.direccion || 'N/A' }}</p>
+  </div>
+</div>
+
+<!-- Datos de la factura -->   <!-- Datos de la factura -->
+<div class="bg-gray-800 rounded-lg p-6 mb-8 space-y-4">
+  <p><span class="font-semibold">Fecha:</span> {{ f.fecha | date:'fullDate' }} {{ f.fecha | date:'shortTime' }}</p>
+  <p><span class="font-semibold">Método de pago:</span> {{ f.metodo_pago }}</p>
+
+  <div class="mt-4 space-y-1 text-lg">
+    <div class="flex justify-between">
+      <span><strong>Subtotal:</strong></span>
+      <span class="text-green-400">{{ f.total / 1.15 | currency:'USD' }}</span>
+    </div>
+    <div class="flex justify-between">
+      <span><strong>IVA (15%):</strong></span>
+      <span class="text-green-400">{{ f.total * 0.15 / 1.15 | currency:'USD' }}</span>
+    </div>
+    <div class="flex justify-between text-xl font-bold mt-2">
+      <span>Total:</span>
+      <span class="text-green-500">{{ f.total | currency:'USD' }}</span>
+    </div>
+  </div>
+</div>
+<!-- Productos -->
+<div class="bg-gray-800 rounded-lg p-6">
+  <h2 class="text-2xl font-semibold mb-4">Detalle de productos</h2>
+  <div *ngIf="f.detalle.length > 0; else noItems" class="space-y-4">
+    <div *ngFor="let d of f.detalle" class="flex items-center bg-gray-700 rounded-lg overflow-hidden shadow">
+      <img
+        [src]="d.imagen"
+        alt="{{ d.producto_nombre }}"
+        class="w-24 h-24 object-cover"
+      />
+      <div class="flex-1 p-4">
+        <p class="font-bold text-lg">{{ d.producto_nombre }}</p>
+        <div class="mt-2 flex justify-between text-sm text-gray-300">
+          <span>Cantidad: {{ d.cantidad }}</span>
+          <span>Precio unit.: {{ d.precio_unitario | currency:'USD' }}</span>
+        </div>
+      </div>
+      <div class="p-4 text-right">
+        <p class="font-semibold text-xl text-green-300">
+          {{ (d.cantidad * d.precio_unitario) | currency:'USD' }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <ng-template #noItems>
+    <p class="text-center text-gray-400 italic">Esta factura no tiene productos detallados.</p>
+  </ng-template>
+</div>
+
+<!-- Botón de regreso -->
+<div class="mt-10 text-center">
+  <button (click)="volver()"
+          class="inline-block bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full transition shadow-lg">
+    ← Volver a ver facturas
+  </button>
+</div>  </ng-container>
+
+  <!-- Loading -->
+  <ng-template #loading>
+    <div class="flex justify-center items-center h-64">
+      <svg class="animate-spin h-12 w-12 text-emerald-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+      </svg>
+    </div>
+  </ng-template></div>
+

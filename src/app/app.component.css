@@ -1,0 +1,67 @@
+/* Imagen: entrada con escala suave y rebote */
+@keyframes scaleBounce {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.animate-scalebounce {
+  animation: scaleBounce 1.5s cubic-bezier(0.42, 0, 0.58, 1) forwards;
+}
+
+/* Texto: subida con opacidad y retraso sincronizado */
+@keyframes riseFade {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate-risefade {
+  animation: riseFade 1.5s ease-out 0.5s forwards;
+  opacity: 0;
+}
+
+/* Spinner: fade-in rotatorio elegante */
+@keyframes fadeSpin {
+  0% {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(360deg) scale(1);
+  }
+}
+.animate-fadespin {
+  animation: fadeSpin 1s ease-out 1s forwards;
+  opacity: 0;
+}
+
+/* Pantalla de carga: salida profesional (deslizamiento + blur + fade) */
+@keyframes exitUpBlur {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+    filter: blur(8px);
+    visibility: hidden;
+  }
+}
+.slide-up {
+  animation: exitUpBlur 1.2s ease-in-out forwards;
+}

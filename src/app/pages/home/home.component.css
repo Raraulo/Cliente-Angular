@@ -1,0 +1,15 @@
+
+button[aria-label][type="button"] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding: 0;
+  transition: background 0.2s;
+}
+button[aria-label][type="button"]:hover {
+  background: rgba(255,255,255,0.08);
+}
+svg {
+  display: block;
+}

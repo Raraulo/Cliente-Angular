@@ -1,0 +1,23 @@
+.container {
+  max-width: 900px;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th, td {
+  font-size: 1rem;
+}
+th {
+  font-weight: 600;
+}
+tbody tr:nth-child(even) {
+  background-color: #f9f9ff;
+}
+canvas {
+  display: block;
+  max-width: 100% !important;
+  width: 100% !important;
+  max-height: 420px !important;
+  height: 100% !important;
+}

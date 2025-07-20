@@ -1,0 +1,463 @@
+<!-- HERO con video de fondo SOLO en esta sección -->
+<section class="relative w-full min-h-[60vh] md:min-h-[80vh] lg:min-h-screen overflow-hidden bg-gray-900">
+
+  <!-- Video de Fondo SOLO para el Hero -->
+  <video
+    #heroVideo
+    class="absolute inset-0 w-full h-full object-cover object-center"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    loading="lazy"
+    aria-hidden="true"
+  >
+    <source src="assets/img/videopets.mp4" type="video/mp4" />
+    <source src="assets/img/videopets.webm" type="video/webm" />
+    <img
+      src="assets/img/videopets-fallback.jpg"
+      alt="Fondo de hero de PawLuxury"
+      class="w-full h-full object-cover"
+      loading="lazy"
+    />
+  </video>
+
+  <!-- Botón Play/Pause minimalista -->
+  <button
+    class="absolute bottom-6 left-6 z-30 flex items-center justify-center w-11 h-11 bg-transparent rounded-full outline-none border-none p-0 focus:outline-none"
+    (click)="toggleVideo()"
+    [attr.aria-label]="videoPausado ? 'Reproducir video' : 'Pausar video'"
+    tabindex="0"
+    type="button"
+  >
+    <ng-container *ngIf="videoPausado; else pauseIcon">
+      <!-- Ícono Play minimalista -->
+      <svg width="34" height="34" viewBox="0 0 32 32">
+        <polygon points="8,6 26,16 8,26" fill="none" stroke="white" stroke-width="2.5"/>
+      </svg>
+    </ng-container>
+    <ng-template #pauseIcon>
+      <!-- Ícono Pause minimalista -->
+      <svg width="34" height="34" viewBox="0 0 32 32">
+        <rect x="9" y="7" width="4" height="18" fill="none" stroke="white" stroke-width="2.5"/>
+        <rect x="19" y="7" width="4" height="18" fill="none" stroke="white" stroke-width="2.5"/>
+      </svg>
+    </ng-template>
+  </button>
+
+  <!-- Superposición Oscura -->
+  <div class="absolute inset-0 bg-gradient-to-b from-black/70 to-black/50 z-10"></div>
+
+  <!-- Contenido Hero -->
+  <div class="relative z-20 flex items-start justify-center min-h-[60vh] md:min-h-[80vh] lg:min-h-screen pt-16 md:pt-24 lg:pt-32 px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row items-start justify-between w-full max-w-5xl">
+      <div class="lg:w-1/2 text-left">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-4 drop-shadow-xl animate-fade-in">
+          PawLuxury
+        </h1>
+      </div>
+      <div class="hidden lg:block h-32 w-px bg-gray-200 mx-8"></div>
+      <div class="lg:w-1/2 text-left">
+        <p class="text-lg sm:text-xl lg:text-2xl text-gray-100 mb-8 max-w-md drop-shadow-md animate-fade-in-delayed">
+          Descubre productos premium para tu mascota: juguetes, comida gourmet, accesorios elegantes y más para tu fiel compañero.
+        </p>
+      </div>
+    </div>
+
+    <!-- Indicador de Desplazamiento -->
+    <div class="absolute bottom-16 flex flex-col items-center animate-fade-in-delayed">
+      <span class="text-gray-200 text-sm sm:text-base mb-2">Desplázate para explorar</span>
+      <span class="animate-bounce-smooth">
+        <svg
+          class="w-8 h-8 text-gray-200"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </span>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- CSS Personalizado para Animaciones y Ajustes -->
+<style>
+  /* Animación de entrada para contenido hero */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Animación de entrada retardada para elementos secundarios */
+  @keyframes fadeInDelayed {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Animación de rebote más suave para el indicador de desplazamiento */
+  @keyframes bounceSmooth {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(10px);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
+  }
+
+  .animate-fade-in-delayed {
+    animation: fadeInDelayed 1.5s ease-out forwards;
+  }
+
+  .animate-bounce-smooth {
+    animation: bounceSmooth 2s infinite ease-in-out;
+  }
+
+  /* Asegurar que el video no se distorsione en pantallas pequeñas */
+  @media (max-width: 640px) {
+    video {
+      object-fit: cover;
+    }
+  }
+</style>
+
+<!-- Sección Comprar por Mascota -->
+<section class="bg-gray-50 py-16 sm:py-20 lg:py-24">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center text-purple-700 mb-10 sm:mb-12 lg:mb-16">
+      ¿Para quién compras hoy?
+    </h2>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 lg:gap-10">
+      <!-- Perros -->
+      <a
+        href="/perros"
+        class="flex flex-col items-center group transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+        aria-label="Comprar productos para perros"
+      >
+        <img
+          src="https://img.freepik.com/foto-gratis/primer-plano-ingles-staffordshire-bull-terrier-blanco_181624-28979.jpg?semt=ais_hybrid&w=740"
+          alt="Primer plano de un perro Staffordshire Bull Terrier blanco"
+          class="w-32 sm:w-40 lg:w-48 h-32 sm:h-40 lg:h-48 rounded-full object-cover ring-4 ring-gray-300 group-hover:ring-purple-500 grayscale group-hover:grayscale-0 transition-all duration-300 shadow-md"
+          loading="lazy"
+        />
+        <span class="mt-4 text-base sm:text-lg font-semibold text-gray-700 group-hover:text-purple-600 transition-colors">
+          Perros
+        </span>
+      </a>
+
+      <!-- Gatos -->
+      <a
+        href="/gatos"
+        class="flex flex-col items-center group transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+        aria-label="Comprar productos para gatos"
+      >
+        <img
+          src="https://img.freepik.com/fotos-premium/sentado-pelo-largo-britanico_191971-4519.jpg"
+          alt="Gato británico de pelo largo sentado"
+          class="w-32 sm:w-40 lg:w-48 h-32 sm:h-40 lg:h-48 rounded-full object-cover ring-4 ring-gray-300 group-hover:ring-purple-500 grayscale group-hover:grayscale-0 transition-all duration-300 shadow-md"
+          loading="lazy"
+        />
+        <span class="mt-4 text-base sm:text-lg font-semibold text-gray-700 group-hover:text-purple-600 transition-colors">
+          Gatos
+        </span>
+      </a>
+
+      <!-- Peces -->
+      <a
+        href="/peces"
+        class="flex flex-col items-center group transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+        aria-label="Comprar productos para peces"
+      >
+        <img
+          src="https://i.pinimg.com/564x/f5/07/70/f50770c7e7085e180674aea01584d390.jpg"
+          alt="Pez tropical en acuario"
+          class="w-32 sm:w-40 lg:w-48 h-32 sm:h-40 lg:h-48 rounded-full object-cover ring-4 ring-gray-300 group-hover:ring-purple-500 grayscale group-hover:grayscale-0 transition-all duration-300 shadow-md"
+          loading="lazy"
+        />
+        <span class="mt-4 text-base sm:text-lg font-semibold text-gray-700 group-hover:text-purple-600 transition-colors">
+          Peces
+        </span>
+      </a>
+
+      <!-- Aves -->
+      <a
+        href="/aves"
+        class="flex flex-col items-center group transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+        aria-label="Comprar productos para aves"
+      >
+        <img
+          src="https://png.pngtree.com/background/20240313/original/pngtree-common-pet-parakeet-white-background-animal-budgerigar-photo-picture-image_8062617.jpg"
+          alt="Periquito en fondo blanco"
+          class="w-32 sm:w-40 lg:w-48 h-32 sm:h-40 lg:h-48 rounded-full object-cover ring-4 ring-gray-300 group-hover:ring-purple-500 grayscale group-hover:grayscale-0 transition-all duration-300 shadow-md"
+          loading="lazy"
+        />
+        <span class="mt-4 text-base sm:text-lg font-semibold text-gray-700 group-hover:text-purple-600 transition-colors">
+          Aves
+        </span>
+      </a>
+
+      <!-- Animales Pequeños -->
+      <a
+        href="/pequenos"
+        class="flex flex-col items-center group transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+        aria-label="Comprar productos para animales pequeños"
+      >
+        <img
+          src="https://us.123rf.com/450wm/ksena32/ksena321507/ksena32150700536/42529319-hamster-on-a-white-background.jpg"
+          alt="Hámster en fondo blanco"
+          class="w-32 sm:w-40 lg:w-48 h-32 sm:h-40 lg:h-48 rounded-full object-cover ring-4 ring-gray-300 group-hover:ring-purple-500 grayscale group-hover:grayscale-0 transition-all duration-300 shadow-md"
+          loading="lazy"
+        />
+        <span class="mt-4 text-base sm:text-lg font-semibold text-gray-700 group-hover:text-purple-600 transition-colors">
+          Animales Pequeños
+        </span>
+      </a>
+
+      <!-- Granja -->
+      <a
+        href="/granja"
+        class="flex flex-col items-center group transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+        aria-label="Comprar productos para animales de granja"
+      >
+        <img
+          src="https://st2.depositphotos.com/1594920/5329/i/450/depositphotos_53297569-stock-photo-group-of-farm-animals.jpg"
+          alt="Grupo de animales de granja"
+          class="w-32 sm:w-40 lg:w-48 h-32 sm:h-40 lg:h-48 rounded-full object-cover ring-4 ring-gray-300 group-hover:ring-purple-500 grayscale group-hover:grayscale-0 transition-all duration-300 shadow-md"
+          loading="lazy"
+        />
+        <span class="mt-4 text-base sm:text-lg font-semibold text-gray-700 group-hover:text-purple-600 transition-colors">
+          Granja
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- CSS Personalizado para Animaciones -->
+<style>
+  /* Animación de entrada para tarjetas */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Aplicar animación con retraso para cada tarjeta */
+  .grid > a {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  .grid > a:nth-child(1) { animation-delay: 0.1s; }
+  .grid > a:nth-child(2) { animation-delay: 0.2s; }
+  .grid > a:nth-child(3) { animation-delay: 0.3s; }
+  .grid > a:nth-child(4) { animation-delay: 0.4s; }
+  .grid > a:nth-child(5) { animation-delay: 0.5s; }
+  .grid > a:nth-child(6) { animation-delay: 0.6s; }
+
+  /* Asegurar que las imágenes no se distorsionen */
+  @media (max-width: 640px) {
+    img {
+      object-fit: cover;
+    }
+  }
+</style>
+
+
+<section class="bg-indigo-700 text-white px-2 sm:px-6 py-[calc(5rem+38px)]">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[480px]">
+    <!-- Imagen representativa: IZQUIERDA -->
+    <div
+      class="relative w-full h-[340px] md:h-[400px] lg:h-[540px] xl:h-[600px] flex items-stretch rounded-3xl overflow-hidden shadow-2xl border-4 border-indigo-200 order-1 lg:order-none
+             animate-fade-in-left"
+    >
+      <img
+        src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/4H7TOVBRAK3SO3HNBHTNQZ357Q.jpg"
+        alt="Medicinas y suplementos"
+        class="w-full h-full object-cover object-center"
+        loading="lazy"
+      />
+      <!-- Overlay opcional -->
+      <div class="absolute inset-0 bg-gradient-to-t from-indigo-900/30 to-transparent pointer-events-none"></div>
+    </div>
+
+    <!-- Texto informativo: DERECHA -->
+    <div class="flex flex-col justify-center space-y-6 py-6 md:py-12 lg:py-16 animate-fade-in-right">
+      <h3 class="text-4xl xl:text-5xl font-extrabold mb-2 leading-tight drop-shadow-xl">
+        Cuida la salud de tu mascota
+      </h3>
+      <ul class="space-y-1 mb-3">
+        <li class="flex items-start text-xl">
+          <span class="mr-3 text-indigo-300 mt-1">✔️</span>
+          <span><b>Todo para el bienestar físico y emocional de tu compañero.</b></span>
+        </li>
+        <li class="flex items-start text-xl">
+          <span class="mr-3 text-indigo-300 mt-1">✔️</span>
+          <span>Solo productos de confianza, avalados por veterinarios.</span>
+        </li>
+        <li class="italic text-indigo-200 text-lg pl-7">“La salud de tu mascota es nuestra prioridad.”</li>
+      </ul>
+      <p class="text-lg text-indigo-100">
+        Encuentra suplementos, medicamentos y productos de cuidado veterinario para garantizar el bienestar de tu mejor amigo. Trabajamos con marcas confiables y productos aprobados.
+      </p>
+      <a href="/medicin"
+         class="inline-block mt-6 bg-white text-indigo-700 px-8 py-4 rounded-xl font-bold text-lg shadow hover:bg-indigo-50 hover:text-indigo-900 transition-all duration-200 w-full max-w-xl text-center">
+        Ver catálogo de medicinas
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Animaciones personalizadas con Tailwind + CSS -->
+<style>
+@keyframes fadeInLeft {
+  0% { opacity: 0; transform: translateX(-40px);}
+  100% { opacity: 1; transform: translateX(0);}
+}
+@keyframes fadeInRight {
+  0% { opacity: 0; transform: translateX(40px);}
+  100% { opacity: 1; transform: translateX(0);}
+}
+.animate-fade-in-left {
+  animation: fadeInLeft 1.1s cubic-bezier(.68,-0.6,.32,1.6) both;
+}
+.animate-fade-in-right {
+  animation: fadeInRight 1.1s cubic-bezier(.68,-0.6,.32,1.6) 0.18s both;
+}
+</style>
+
+
+<!-- CATÁLOGO DE PRODUCTOS -->
+<section class="relative w-full min-h-[60vh] md:min-h-[80vh] lg:min-h-screen z-20 bg-white">
+  <app-catalogo-productos></app-catalogo-productos>
+</section>
+
+<section class="bg-white py-0 px-0">
+  <div class="w-full grid grid-cols-1 md:grid-cols-2 items-center min-h-[80vh]">
+
+    <!-- Imagen izquierda full size sin cuadro -->
+    <div class="w-full h-full">
+      <img
+        src="https://cdn.royalcanin-weshare-online.io/UyEwa2QBaxEApS7LWvx8/v29/maine-coon-kitten-birth-growth-vet-vhn-emblematic?w=1440&fm=jpg&auto=format%2Ccompress"
+        alt="Gato jugando"
+        class="w-full h-full object-cover"
+      />
+    </div>
+
+    <!-- Texto derecha -->
+    <div class="px-6 py-10">
+      <h3 class="text-5xl font-extrabold text-purple-700 mb-6">
+        Las actividades saludables requieren jugar
+      </h3>
+      <p class="text-gray-700 text-lg leading-relaxed">
+        El tiempo de juego es clave para mantener a tu gato estimulado, activo y en un peso saludable.
+        La cantidad de ejercicio varía en función de factores como la edad, el peso y la raza.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<section class="bg-white py-0 px-0">
+  <div class="w-full grid grid-cols-1 md:grid-cols-2 items-center min-h-[80vh]">
+
+    <!-- Texto a la izquierda -->
+    <div class="px-6 py-10">
+      <h3 class="text-5xl font-extrabold text-purple-700 mb-6">
+        El cuidado de la salud de tu perro
+      </h3>
+      <p class="text-gray-700 text-lg leading-relaxed">
+        Cuanto más sepas sobre la salud y la nutrición de tu perro, mejor podrás atender sus necesidades.
+        Explora artículos, información y guías a continuación.
+      </p>
+    </div>
+
+    <!-- Imagen a la derecha (full size sin cuadro) -->
+    <div class="w-full h-full">
+      <img
+        src="https://cdn.royalcanin-weshare-online.io/0GkrHWsBG95Xk-RBifgR/v5/bd14h-hub-rottweiler-adult-black-and-white?w=960&fm=jpg&auto=format%2Ccompress"
+        alt="Perro Rottweiler"
+        class="w-full h-full object-cover"
+      />
+    </div>
+
+  </div>
+</section>
+
+<section class="bg-white py-16 px-6">
+  <div class="max-w-6xl mx-auto flex flex-col items-center text-center">
+    
+    <!-- Texto arriba -->
+    <div class="mb-8">
+      <h3 class="text-5xl font-extrabold text-purple-700 mb-6">
+        Cuidado y conexión con tu caballo
+      </h3>
+      <p class="text-gray-700 text-lg leading-relaxed">
+        Los caballos requieren atención constante, alimentación adecuada y momentos de recreación.
+        Descubre cómo mantenerlos saludables física y emocionalmente con nuestras guías y recursos.
+      </p>
+    </div>
+
+    <!-- Imagen recortada desde arriba -->
+    <div class="w-full max-h-[600px] overflow-hidden">
+      <img
+        src="https://images.unsplash.com/photo-1601726429844-acd8b1385972?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y2FiYWxsbyUyMGJsYW5jbyUyMHklMjBuZWdyb3xlbnwwfHwwfHx8MA%3D%3D"
+        alt="Caballo blanco y negro"
+        class="w-full h-full object-cover object-top"
+      />
+    </div>
+
+  </div>
+</section>
+
+<!-- Sección fullscreen con imagen de fondo adaptada a cualquier pantalla -->
+<section
+  class="relative w-full min-h-screen bg-center bg-cover bg-no-repeat group"
+  style="background-image: url('https://proyecto-salvavidas.com/wp-content/uploads/2024/05/forms-Recovered2-1.png');"
+>
+  <!-- Capa oscura -->
+  <div class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-20 transition duration-500"></div>
+
+  <!-- Contenido centrado -->
+  <div class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-10 text-center">
+    <a
+      href="https://adopciones-frontend.vercel.app/"
+      target="_blank"
+      class="bg-white text-green-700 px-6 py-3 rounded-full text-base sm:text-lg font-semibold shadow-md hover:bg-green-600 hover:text-white transition duration-300"
+    >
+      ¡Conoce más!
+    </a>
+  </div>
+</section>
