@@ -12,7 +12,7 @@ export interface Animal {
   providedIn: 'root'
 })
 export class AnimalService {
-  private apiUrl = 'http://localhost:4000/api/animal';
+  private apiUrl = 'https://servidor-go.onrender.com/api/animal';
 
   constructor(private http: HttpClient) {}
 

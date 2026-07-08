@@ -59,7 +59,7 @@ filtroApellidoFactura: string = '';
   ngOnInit(): void {
     const id = this.auth.idUsuario;
 
-    this.http.get<any>(`http://localhost:4000/api/user/${id}`)
+    this.http.get<any>(`https://servidor-go.onrender.com/api/user/${id}`)
       .subscribe({
         next: resp => this.usuario = resp.Registro,
         error: err => console.error('Error al obtener usuario', err)
@@ -79,13 +79,13 @@ filtroApellidoFactura: string = '';
   }
 
   cargarPersonas(): Observable<any> {
-    return this.http.get<any>('http://localhost:4000/api/user').pipe(
+    return this.http.get<any>('https://servidor-go.onrender.com/api/user').pipe(
       tap(resp => this.personas = resp.Registro || [])
     );
   }
 
   cargarFacturas(): Observable<any> {
-    return this.http.get<any>('http://localhost:4000/api/factura').pipe(
+    return this.http.get<any>('https://servidor-go.onrender.com/api/factura').pipe(
       tap(resp => {
         this.facturas = (resp.facturas || []).map((f: any) => {
           const p = this.personas.find(x => x.id === f.persona_id) || {};
@@ -127,7 +127,7 @@ filtroApellidoFactura: string = '';
 
   guardarCambios(): void {
     const id = this.auth.idUsuario;
-    this.http.put(`http://localhost:4000/api/user/${id}`, this.usuario).subscribe({
+    this.http.put(`https://servidor-go.onrender.com/api/user/${id}`, this.usuario).subscribe({
       next: () => {
         this.modoEdicion = false;
         alert('Datos actualizados');
@@ -139,7 +139,7 @@ filtroApellidoFactura: string = '';
   eliminarUsuario(): void {
     const id = this.auth.idUsuario;
     if (confirm('¿Eliminar usuario?')) {
-      this.http.delete(`http://localhost:4000/api/user/${id}`).subscribe(() => {
+      this.http.delete(`https://servidor-go.onrender.com/api/user/${id}`).subscribe(() => {
         this.auth.logout();
         window.location.href = '/';
       });
@@ -193,8 +193,8 @@ filtroApellidoFactura: string = '';
 
   guardarPersona(): void {
     const request = this.personaEditando
-      ? this.http.put(`http://localhost:4000/api/user/${this.personaEditando.id}`, this.formPersona)
-      : this.http.post('http://localhost:4000/api/user', this.formPersona);
+      ? this.http.put(`https://servidor-go.onrender.com/api/user/${this.personaEditando.id}`, this.formPersona)
+      : this.http.post('https://servidor-go.onrender.com/api/user', this.formPersona);
 
     request.subscribe({
       next: () => {
@@ -210,7 +210,7 @@ filtroApellidoFactura: string = '';
 
   eliminarPersona(id: number): void {
     if (confirm('¿Eliminar esta persona?')) {
-      this.http.delete(`http://localhost:4000/api/user/${id}`).subscribe(() => {
+      this.http.delete(`https://servidor-go.onrender.com/api/user/${id}`).subscribe(() => {
         this.cargarPersonas().subscribe();
       });
     }

@@ -28,7 +28,7 @@ interface FacturaResponse {
   providedIn: 'root'
 })
 export class FacturaService {
-  private apiUrl = 'http://localhost:4000/api';
+  private apiUrl = 'https://servidor-go.onrender.com/api';
 
   constructor(private http: HttpClient) {}
 

@@ -27,7 +27,7 @@ export class AdminFacturasComponent implements OnInit {
   }
 
   cargarFacturas() {
-    fetch('http://localhost:4000/api/factura', {
+    fetch('https://servidor-go.onrender.com/api/factura', {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(resp => resp.json())
@@ -38,7 +38,7 @@ export class AdminFacturasComponent implements OnInit {
   eliminar(id: number) {
     if (!confirm('¿Estás seguro de eliminar esta factura?')) return;
 
-    fetch(`http://localhost:4000/api/factura/${id}`, {
+    fetch(`https://servidor-go.onrender.com/api/factura/${id}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })

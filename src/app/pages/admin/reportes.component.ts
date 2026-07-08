@@ -143,7 +143,7 @@ export class ReportesComponent implements OnInit, AfterViewInit {
 
   // STOCK DISPONIBLE: línea paginada
   cargarStockDisponible() {
-    this.http.get<any[]>('http://localhost:4000/api/reportes/stock-disponible', {
+    this.http.get<any[]>('https://servidor-go.onrender.com/api/reportes/stock-disponible', {
       headers: new HttpHeaders({ Authorization: `Bearer ${this.token}` })
     }).subscribe(res => {
       this.stockDisponible = res;
@@ -176,7 +176,7 @@ export class ReportesComponent implements OnInit, AfterViewInit {
 
   // TOP CLIENTES (barras)
   cargarTopClientes() {
-    this.http.get<any[]>('http://localhost:4000/api/reportes/top-clientes', {
+    this.http.get<any[]>('https://servidor-go.onrender.com/api/reportes/top-clientes', {
       headers: new HttpHeaders({ Authorization: `Bearer ${this.token}` })
     }).subscribe(res => {
       this.topClientes = res;
@@ -188,7 +188,7 @@ export class ReportesComponent implements OnInit, AfterViewInit {
 
   // PRODUCTOS MÁS VENDIDOS (doughnut)
   cargarTopProductos() {
-    this.http.get<any[]>('http://localhost:4000/api/reportes/top-productos', {
+    this.http.get<any[]>('https://servidor-go.onrender.com/api/reportes/top-productos', {
       headers: new HttpHeaders({ Authorization: `Bearer ${this.token}` })
     }).subscribe(res => {
       this.topProductos = res;
@@ -200,7 +200,7 @@ export class ReportesComponent implements OnInit, AfterViewInit {
 
   // --- NUEVOS MÉTODOS DE REPORTE GLOBAL ---
   cargarValorTotalStock() {
-    this.http.get<any>('http://localhost:4000/api/reportes/valor-stock', {
+    this.http.get<any>('https://servidor-go.onrender.com/api/reportes/valor-stock', {
       headers: new HttpHeaders({ Authorization: `Bearer ${this.token}` })
     }).subscribe(res => {
       this.valorTotalStock = res.valor_total_stock ?? 0;
@@ -208,7 +208,7 @@ export class ReportesComponent implements OnInit, AfterViewInit {
   }
 
   cargarTotalRecaudado() {
-    this.http.get<any>('http://localhost:4000/api/reportes/total-recaudado', {
+    this.http.get<any>('https://servidor-go.onrender.com/api/reportes/total-recaudado', {
       headers: new HttpHeaders({ Authorization: `Bearer ${this.token}` })
     }).subscribe(res => {
       this.totalRecaudado = res.total_recaudado ?? 0;
@@ -216,7 +216,7 @@ export class ReportesComponent implements OnInit, AfterViewInit {
   }
 
   cargarTotalProductosVendidos() {
-    this.http.get<any>('http://localhost:4000/api/reportes/total-vendido', {
+    this.http.get<any>('https://servidor-go.onrender.com/api/reportes/total-vendido', {
       headers: new HttpHeaders({ Authorization: `Bearer ${this.token}` })
     }).subscribe(res => {
       this.totalProductosVendidos = res.total_productos_vendidos ?? 0;
@@ -225,7 +225,7 @@ export class ReportesComponent implements OnInit, AfterViewInit {
 
   // --- NUEVO: Cargar ventas por día (2025) ---
   cargarVentasPorDia2025() {
-    this.http.get<any[]>('http://localhost:4000/api/reportes/ventas-por-dia-2025', {
+    this.http.get<any[]>('https://servidor-go.onrender.com/api/reportes/ventas-por-dia-2025', {
       headers: new HttpHeaders({ Authorization: `Bearer ${this.token}` })
     }).subscribe(res => {
       this.ventasPorDiaLabels = res.map(v => v.dia);
@@ -244,7 +244,7 @@ export class ReportesComponent implements OnInit, AfterViewInit {
 
   // --- NUEVO: Cargar productos bajo stock ---
   cargarBajoStock() {
-    this.http.get<any[]>('http://localhost:4000/api/reportes/bajo-stock', {
+    this.http.get<any[]>('https://servidor-go.onrender.com/api/reportes/bajo-stock', {
       headers: new HttpHeaders({ Authorization: `Bearer ${this.token}` })
     }).subscribe(res => {
       this.productosBajoStock = res;

@@ -17,7 +17,7 @@ export interface LoginResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = 'http://localhost:4000/api/login';
+  private apiUrl = 'https://servidor-go.onrender.com/api/login';
 
   // Estado reactivo del nombre del usuario
   private userSubject = new BehaviorSubject<string | null>(

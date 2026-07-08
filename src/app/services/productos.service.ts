@@ -11,10 +11,10 @@ import { Animal } from '../models/animal.model';
   providedIn: 'root'
 })
 export class ProductosService {
-  private apiUrl = 'http://127.0.0.1:4000/api/producto';
-  private categoriaUrl = 'http://127.0.0.1:4000/api/categoria';
-  private animalUrl = 'http://127.0.0.1:4000/api/animal';
-  private masVendidosUrl = 'http://localhost:4000/api/catalogo/mas-vendidos'; // ← ENDPOINT PÚBLICO
+  private apiUrl = 'https://servidor-go.onrender.com/api/producto';
+  private categoriaUrl = 'https://servidor-go.onrender.com/api/categoria';
+  private animalUrl = 'https://servidor-go.onrender.com/api/animal';
+  private masVendidosUrl = 'https://servidor-go.onrender.com/api/catalogo/mas-vendidos'; // ← ENDPOINT PÚBLICO
 
   constructor(private http: HttpClient) {}
 

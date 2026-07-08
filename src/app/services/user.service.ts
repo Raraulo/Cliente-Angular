@@ -18,7 +18,7 @@ export interface Persona {
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private api = 'http://localhost:4000/api/user';
+  private api = 'https://servidor-go.onrender.com/api/user';
 
   constructor(private http: HttpClient) {}
 

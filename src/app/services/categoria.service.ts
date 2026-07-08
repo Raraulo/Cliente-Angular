@@ -5,7 +5,7 @@ import { Categoria } from '../models/categoria.model';
 
 @Injectable({ providedIn: 'root' })
 export class CategoriaService {
-  private baseUrl = 'http://localhost:4000/api/categoria';
+  private baseUrl = 'https://servidor-go.onrender.com/api/categoria';
 
   constructor(private http: HttpClient) {}
 
