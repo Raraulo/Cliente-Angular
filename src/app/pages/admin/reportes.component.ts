@@ -86,13 +86,13 @@ export class ReportesComponent implements OnInit, AfterViewInit {
     plugins: { legend: { position: 'top' as const } }
   };
 
-  // --- 4. Diagrama de línea: Ventas por día 2025 ---
+  // --- 4. Diagrama de línea: Ventas por día 2026 ---
   ventasPorDiaLabels: string[] = [];
   ventasPorDiaData: number[] = [];
   ventasPorDiaLineData = {
     labels: [] as string[],
     datasets: [{
-      label: 'Ventas por Día (2025)',
+      label: 'Ventas por Día (2026)',
       data: [] as number[],
       borderColor: '#6366f1',
       backgroundColor: 'rgba(99,102,241,0.08)',
@@ -131,7 +131,7 @@ export class ReportesComponent implements OnInit, AfterViewInit {
     this.cargarValorTotalStock();
     this.cargarTotalRecaudado();
     this.cargarTotalProductosVendidos();
-    this.cargarVentasPorDia2025();
+    this.cargarVentasPorDia2026();
     this.cargarBajoStock();   // <--- Cargar bajo stock al iniciar
   }
 
@@ -223,9 +223,9 @@ export class ReportesComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // --- NUEVO: Cargar ventas por día (2025) ---
-  cargarVentasPorDia2025() {
-    this.http.get<any[]>('https://servidor-go.onrender.com/api/reportes/ventas-por-dia-2025', {
+  // --- NUEVO: Cargar ventas por día (2026) ---
+  cargarVentasPorDia2026() {
+    this.http.get<any[]>('https://servidor-go.onrender.com/api/reportes/ventas-por-dia-2026', {
       headers: new HttpHeaders({ Authorization: `Bearer ${this.token}` })
     }).subscribe(res => {
       this.ventasPorDiaLabels = res.map(v => v.dia);
