@@ -76,7 +76,7 @@ export class ReportesComponent implements OnInit, AfterViewInit {
       label: 'Vendidos',
       data: [] as number[],
       backgroundColor: [
-        '#818cf8','#fbbf24','#a3e635','#f87171','#34d399'
+        '#818cf8', '#fbbf24', '#a3e635', '#f87171', '#34d399'
       ]
     }]
   };
@@ -118,10 +118,10 @@ export class ReportesComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(BaseChartDirective) charts!: QueryList<BaseChartDirective>;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
-    if (this.login !== 'admin1') {
+    if (this.login !== 'admin') {
       this.router.navigate(['/login']);
       return;
     }

@@ -25,7 +25,7 @@ export class AuthService {
   );
   user$ = this.userSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   // Método para iniciar sesión
   login(login: string, pass: string): Observable<LoginResponse> {
@@ -83,8 +83,8 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
-  // Verifica si el usuario es 'admin1'
+  // Verifica si el usuario es 'admin'
   get esAdmin(): boolean {
-    return this.loginUsuario === 'admin1';
+    return this.loginUsuario === 'admin';
   }
 }
