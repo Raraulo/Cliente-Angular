@@ -29,7 +29,7 @@ export class FinalizarCompraComponent implements OnInit {
     private cartService: CartService,
     private facturaService: FacturaService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Suscribe a los items del carrito
@@ -99,13 +99,13 @@ export class FinalizarCompraComponent implements OnInit {
           text: 'Tu compra ha sido realizada con éxito.',
           confirmButtonText: 'Aceptar'
         });
-        
+
         this.cartService.clearCart();
         this.router.navigate(['/usuario/mis-compras']);
       },
       error: (error: any) => {
         console.error('Error al realizar la compra', error);
-        alert('❌ Error al realizar la compra - Prueba cerrando e iniciando sesión nuevamente');
+        alert(' Error al realizar la compra - Prueba cerrando e iniciando sesión nuevamente');
       }
     });
   }

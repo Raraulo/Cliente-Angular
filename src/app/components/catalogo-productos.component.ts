@@ -23,11 +23,11 @@ export class CatalogoProductosComponent implements OnInit, OnDestroy {
   constructor(
     private productosService: ProductosService,
     private cartService: CartService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.isLogged = !!localStorage.getItem('token');
-    this.isAdmin = (localStorage.getItem('login') === 'admin1');
+    this.isAdmin = (localStorage.getItem('login') === 'admin');
 
     // Responsive: 1 producto por página en mobile, 2 en desktop/tablet
     this.setProductosPorPagina();

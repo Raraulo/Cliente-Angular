@@ -40,6 +40,7 @@ export class PerfilComponent implements OnInit {
     direccion: '',
     sexo: ''
   };
+  mostrarPassword = false;
 
   // --- Filtros buscador ---
   filtroCedula = '';

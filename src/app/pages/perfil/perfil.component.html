@@ -1,262 +1,479 @@
 <!-- Contenedor principal con imagen de fondo -->
-<div class="min-h-screen flex flex-col md:flex-row bg-cover bg-center"
-  style="background-image: url('assets/img/imgper.jpg')">
-  <!-- Menú lateral admin -->
-  <aside *ngIf="auth.esAdmin" [class.w-16]="!mostrarMenu" [class.w-60]="mostrarMenu"
-    class="bg-gray-900 text-white transition-all duration-300 shadow-lg z-20">
-    <div class="flex justify-end p-3">
-      <button (click)="toggleMenu()" class="text-white focus:outline-none">
+<div class="min-h-screen flex flex-col md:flex-row relative overflow-hidden bg-gray-900 font-sans">
+  
+  <!-- Fondos y overlays premium -->
+  <div class="absolute inset-0 bg-cover bg-center z-0 mix-blend-overlay opacity-60" style="background-image: url('assets/img/imgper.jpg')"></div>
+  <div class="absolute inset-0 bg-gradient-to-br from-gray-900/95 via-indigo-950/80 to-gray-900/95 z-0 backdrop-blur-[2px]"></div>
+
+  <!-- ===================== MENÚ LATERAL ADMIN ===================== -->
+  <aside *ngIf="auth.esAdmin" 
+    [class.w-20]="!mostrarMenu" [class.w-72]="mostrarMenu"
+    class="relative z-20 flex flex-col bg-white/5 backdrop-blur-2xl border-r border-white/10 text-white transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] shadow-[4px_0_24px_rgba(0,0,0,0.2)]">
+    
+    <div class="flex items-center justify-between p-5 border-b border-white/10">
+      <span *ngIf="mostrarMenu" class="text-xs font-bold tracking-[0.2em] text-white/70 uppercase pl-2 animate-fade-in">PANEL ADMIN</span>
+      <button (click)="toggleMenu()" 
+        class="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all duration-300 ml-auto border border-white/5 hover:border-white/20 hover:scale-105 active:scale-95"
+        [attr.aria-label]="mostrarMenu ? 'Contraer menú' : 'Expandir menú'">
         <svg xmlns="http://www.w3.org/2000/svg" [class.rotate-180]="mostrarMenu"
-          class="w-6 h-6 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          class="w-5 h-5 transition-transform duration-500 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
       </button>
     </div>
-    <nav *ngIf="mostrarMenu" class="flex flex-col px-4 py-6 space-y-3">
-      <button (click)="toggleFacturas()" class="flex items-center gap-3 hover:text-purple-300 transition">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M9 17v-6h6v6m-6 0H5a2 2 0 01-2-2v-7a2 2 0 012-2h14a2 2 0 012 2v7a2 2 0 01-2 2h-4m-6 0v2a2 2 0 002 2h0a2 2 0 002-2v-2" />
-        </svg>
-        Facturas
+
+    <nav class="flex flex-col px-3 py-6 space-y-2 flex-1">
+      <button (click)="toggleFacturas()"
+        class="group flex items-center gap-4 px-3 py-3 rounded-xl hover:bg-white/10 transition-all duration-300 border border-transparent hover:border-white/10 relative overflow-hidden"
+        [ngClass]="{'bg-white/10 border-white/10': mostrarFacturas}">
+        <div class="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-purple-500/10 to-transparent -translate-x-full group-hover:animate-shimmer z-0"></div>
+        <div class="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-300 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 z-10 shadow-[0_0_15px_rgba(168,85,247,0.2)]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m-6 4h6m-6 4h4M7 3h10a1 1 0 011 1v16l-2.5-1.5L13 20l-2.5-1.5L8 20l-2.5-1.5L3 20V4a1 1 0 011-1z" />
+          </svg>
+        </div>
+        <span *ngIf="mostrarMenu" class="text-sm font-semibold tracking-wide z-10">Facturas</span>
       </button>
-      <button (click)="togglePersonas()" class="flex items-center gap-3 hover:text-purple-300 transition">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M17 20h5v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2h5m4-14a4 4 0 110 8 4 4 0 010-8z" />
-        </svg>
-        Clientes
+
+      <button (click)="togglePersonas()"
+        class="group flex items-center gap-4 px-3 py-3 rounded-xl hover:bg-white/10 transition-all duration-300 border border-transparent hover:border-white/10 relative overflow-hidden"
+        [ngClass]="{'bg-white/10 border-white/10': mostrarPersonas}">
+        <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/0 via-indigo-500/10 to-transparent -translate-x-full group-hover:animate-shimmer z-0"></div>
+        <div class="w-10 h-10 rounded-lg bg-indigo-500/20 text-indigo-300 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 z-10 shadow-[0_0_15px_rgba(99,102,241,0.2)]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </div>
+        <span *ngIf="mostrarMenu" class="text-sm font-semibold tracking-wide z-10">Clientes</span>
       </button>
-      <!-- Botón Reportes SOLO para admin -->
+
       <button *ngIf="auth.esAdmin" (click)="irAReportes()"
-        class="flex items-center gap-3 hover:text-purple-300 transition">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M9 17v-2a2 2 0 012-2h2a2 2 0 012 2v2m4 0a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v8a2 2 0 002 2" />
-        </svg>
-        Reportes
+        class="group flex items-center gap-4 px-3 py-3 rounded-xl hover:bg-white/10 transition-all duration-300 border border-transparent hover:border-white/10 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-transparent -translate-x-full group-hover:animate-shimmer z-0"></div>
+        <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 z-10 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v18h18M7 15v3M12 10v8M17 6v12" />
+          </svg>
+        </div>
+        <span *ngIf="mostrarMenu" class="text-sm font-semibold tracking-wide z-10">Reportes</span>
       </button>
     </nav>
-
   </aside>
 
-  <!-- Contenido principal -->
-  <main class="flex-1 p-6 md:p-10 overflow-y-auto">
-    <h1 *ngIf="usuario.nombre" class="text-4xl md:text-5xl font-bold text-white text-right drop-shadow-lg mb-10">
-      Hola, {{ usuario.nombre }}
-    </h1>
-
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mb-10">
-      <div (click)="goMisCompras()"
-        class="bg-purple-800 hover:bg-purple-900 text-white p-4 rounded-xl text-center shadow-md cursor-pointer">
-        <span class="block font-semibold">Historial De Compras</span>
+  <!-- ===================== CONTENIDO PRINCIPAL ===================== -->
+  <main class="relative z-10 flex-1 overflow-y-auto p-6 md:p-12 scroll-smooth">
+    
+    <!-- Encabezado con Avatar -->
+    <div class="flex flex-col-reverse md:flex-row items-end justify-between gap-6 mb-12 animate-fade-in-up">
+      <div *ngIf="auth.esAdmin" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/20 border border-indigo-400/30 backdrop-blur-md self-start md:self-end">
+        <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+        <span class="text-indigo-200 text-xs font-bold tracking-wider uppercase">Administrador</span>
       </div>
-      <div class="bg-purple-800 hover:bg-purple-900 text-white p-4 rounded-xl text-center shadow-md cursor-pointer">
-        <span class="block font-semibold">Autoship</span>
-      </div>
-      <div class="bg-purple-800 hover:bg-purple-900 text-white p-4 rounded-xl text-center shadow-md cursor-pointer">
-        <span class="block font-semibold">Recomprar</span>
-      </div>
-      <div class="bg-purple-800 hover:bg-purple-900 text-white p-4 rounded-xl text-center shadow-md cursor-pointer">
-        <span class="block font-semibold">Mascotas</span>
-      </div>
-      <div class="bg-purple-800 hover:bg-purple-900 text-white p-4 rounded-xl text-center shadow-md cursor-pointer">
-        <span class="block font-semibold">Suscripción</span>
-      </div>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-6 mb-10">
-      <div class="bg-white rounded-xl shadow p-6">
-        <h3 class="text-lg font-bold mb-2">Añadir número</h3>
-        <p class="text-sm text-gray-600">Inicio de sesión sin contraseña y seguridad adicional.</p>
-      </div>
-      <div class="bg-white rounded-xl shadow p-6">
-        <h3 class="text-lg font-bold mb-2">Agregar mascota</h3>
-        <p class="text-sm text-gray-600">Recibe consejos personalizados para su cuidado.</p>
+      
+      <div class="flex items-center gap-5 text-right w-full justify-end">
+        <div>
+          <p class="text-white/50 text-sm font-medium tracking-widest uppercase mb-1">Bienvenido de vuelta</p>
+          <h1 *ngIf="usuario.nombre" class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-100 to-indigo-300 drop-shadow-sm">
+            {{ usuario.nombre }} <span *ngIf="usuario.apellido" class="font-light">{{ usuario.apellido }}</span>
+          </h1>
+        </div>
+        <div class="relative group">
+          <div class="absolute inset-0 bg-indigo-500 rounded-full blur group-hover:blur-md transition-all duration-300 opacity-40"></div>
+          <div class="relative w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-purple-700 flex items-center justify-center text-white shadow-2xl border-2 border-white/20 transform group-hover:scale-105 transition-transform duration-300">
+            <span class="text-2xl font-black">{{ usuario.nombre ? usuario.nombre.charAt(0).toUpperCase() : '?' }}</span>
+          </div>
+        </div>
       </div>
     </div>
 
-    <section class="bg-white rounded-xl shadow-lg p-6 max-w-4xl ml-auto mb-10">
-      <div *ngIf="!modoEdicion" class="space-y-2 text-gray-700 text-base">
-        <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>
-        <p><strong>Apellido:</strong> {{ usuario.apellido }}</p>
-        <p><strong>Correo:</strong> {{ usuario.mail }}</p>
-        <p><strong>Teléfono:</strong> {{ usuario.telefono }}</p>
-        <p><strong>Dirección:</strong> {{ usuario.direccion }}</p>
-        <p><strong>Sexo:</strong> {{ usuario.sexo }}</p>
-        <div class="flex justify-end gap-4 mt-4">
-          <button (click)="activarEdicion()"
-            class="bg-purple-600 text-white px-5 py-2 rounded-full hover:bg-purple-700">
-            ✏️
-          </button>
+    <!-- Accesos rápidos (usuario normal) -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-6 mb-12">
+      <div (click)="goMisCompras()" tabindex="0" role="button" (keydown.enter)="goMisCompras()"
+        class="group relative bg-white/5 backdrop-blur-md border border-white/10 hover:border-indigo-400/50 hover:bg-white/10 rounded-2xl p-6 text-center shadow-lg hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] cursor-pointer flex flex-col items-center gap-3 transition-all duration-300 hover:-translate-y-2 animate-fade-in-up" style="animation-delay: 0.1s;">
+        <div class="w-12 h-12 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center group-hover:bg-indigo-500 group-hover:text-white transition-colors duration-300">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+          </svg>
+        </div>
+        <span class="text-sm font-bold text-white/90 group-hover:text-white transition-colors tracking-wide">Mis Compras</span>
+      </div>
 
+      <div tabindex="0" role="button"
+        class="group relative bg-white/5 backdrop-blur-md border border-white/10 hover:border-pink-400/50 hover:bg-white/10 rounded-2xl p-6 text-center shadow-lg hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] cursor-pointer flex flex-col items-center gap-3 transition-all duration-300 hover:-translate-y-2 animate-fade-in-up" style="animation-delay: 0.15s;">
+        <div class="w-12 h-12 rounded-xl bg-pink-500/20 text-pink-300 flex items-center justify-center group-hover:bg-pink-500 group-hover:text-white transition-colors duration-300">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <span class="text-sm font-bold text-white/90 group-hover:text-white transition-colors tracking-wide">Autoship</span>
+      </div>
+
+      <div tabindex="0" role="button"
+        class="group relative bg-white/5 backdrop-blur-md border border-white/10 hover:border-emerald-400/50 hover:bg-white/10 rounded-2xl p-6 text-center shadow-lg hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] cursor-pointer flex flex-col items-center gap-3 transition-all duration-300 hover:-translate-y-2 animate-fade-in-up" style="animation-delay: 0.2s;">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-300">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+        </div>
+        <span class="text-sm font-bold text-white/90 group-hover:text-white transition-colors tracking-wide">Recomprar</span>
+      </div>
+
+      <div tabindex="0" role="button"
+        class="group relative bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-400/50 hover:bg-white/10 rounded-2xl p-6 text-center shadow-lg hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] cursor-pointer flex flex-col items-center gap-3 transition-all duration-300 hover:-translate-y-2 animate-fade-in-up" style="animation-delay: 0.25s;">
+        <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-white transition-colors duration-300">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </div>
+        <span class="text-sm font-bold text-white/90 group-hover:text-white transition-colors tracking-wide">Mascotas</span>
+      </div>
+
+      <div tabindex="0" role="button"
+        class="group relative bg-white/5 backdrop-blur-md border border-white/10 hover:border-sky-400/50 hover:bg-white/10 rounded-2xl p-6 text-center shadow-lg hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] cursor-pointer flex flex-col items-center gap-3 transition-all duration-300 hover:-translate-y-2 animate-fade-in-up" style="animation-delay: 0.3s;">
+        <div class="w-12 h-12 rounded-xl bg-sky-500/20 text-sky-300 flex items-center justify-center group-hover:bg-sky-500 group-hover:text-white transition-colors duration-300">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+          </svg>
+        </div>
+        <span class="text-sm font-bold text-white/90 group-hover:text-white transition-colors tracking-wide">Suscripción</span>
+      </div>
+    </div>
+
+    <!-- Perfil del usuario (Glassmorphism Completo) -->
+    <section class="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.25)] p-8 md:p-10 max-w-5xl ml-auto mb-12 animate-fade-in-up transition-all duration-500" style="animation-delay: 0.4s;">
+      
+      <div class="flex items-center justify-between mb-8 border-b border-white/10 pb-6">
+        <div>
+          <h2 class="text-2xl font-bold text-white tracking-wide">Mi Perfil</h2>
+          <p class="text-white/60 text-sm mt-1">Gestiona tu información personal y preferencias.</p>
+        </div>
+        <button *ngIf="!modoEdicion" (click)="activarEdicion()"
+          class="group flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/20 text-white font-semibold transition-all duration-300 hover:border-indigo-400 hover:shadow-[0_0_20px_rgba(129,140,248,0.2)]">
+          <svg class="w-4 h-4 text-indigo-300 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+          Editar
+        </button>
+      </div>
+
+      <!-- Vista de datos -->
+      <div *ngIf="!modoEdicion" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 fade-swap">
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-colors duration-300 relative overflow-hidden group">
+          <div class="absolute right-0 top-0 opacity-10 transform translate-x-4 -translate-y-4 group-hover:scale-110 transition-transform">
+            <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+          </div>
+          <p class="text-indigo-200/70 text-xs uppercase tracking-widest font-bold mb-2">Nombre</p>
+          <p class="text-white font-semibold text-lg">{{ usuario.nombre || '—' }}</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-colors duration-300">
+          <p class="text-indigo-200/70 text-xs uppercase tracking-widest font-bold mb-2">Apellido</p>
+          <p class="text-white font-semibold text-lg">{{ usuario.apellido || '—' }}</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-colors duration-300">
+          <p class="text-indigo-200/70 text-xs uppercase tracking-widest font-bold mb-2">Correo</p>
+          <p class="text-white font-semibold text-lg truncate">{{ usuario.mail || '—' }}</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-colors duration-300">
+          <p class="text-indigo-200/70 text-xs uppercase tracking-widest font-bold mb-2">Teléfono</p>
+          <p class="text-white font-semibold text-lg">{{ usuario.telefono || '—' }}</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-colors duration-300 lg:col-span-2">
+          <p class="text-indigo-200/70 text-xs uppercase tracking-widest font-bold mb-2">Dirección</p>
+          <p class="text-white font-semibold text-lg">{{ usuario.direccion || '—' }}</p>
         </div>
       </div>
 
-      <form *ngIf="modoEdicion" (ngSubmit)="guardarCambios()" class="grid sm:grid-cols-2 gap-4 mt-4 text-gray-900">
-        <input [(ngModel)]="usuario.nombre" name="nombre" class="input" placeholder="Nombre" />
-        <input [(ngModel)]="usuario.apellido" name="apellido" class="input" placeholder="Apellido" />
-        <input [(ngModel)]="usuario.mail" name="mail" class="input" placeholder="Correo" type="email" />
-        <input [(ngModel)]="usuario.telefono" name="telefono" class="input" placeholder="Teléfono" />
-        <input [(ngModel)]="usuario.direccion" name="direccion" class="input" placeholder="Dirección" />
-        <input [(ngModel)]="usuario.sexo" name="sexo" class="input" placeholder="Sexo" />
-        <div class="col-span-2 flex justify-end gap-4 mt-2">
-          <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700">
-            Guardar
-          </button>
+      <!-- Formulario de edición con Floating Labels -->
+      <form *ngIf="modoEdicion" (ngSubmit)="guardarCambios()" class="grid sm:grid-cols-2 gap-6 fade-swap">
+        <div class="relative group">
+          <input [(ngModel)]="usuario.nombre" name="nombre" id="p_nombre" placeholder=" "
+            class="block w-full px-5 py-4 text-white bg-white/5 border border-white/20 rounded-xl focus:outline-none focus:border-indigo-400 focus:bg-white/10 peer transition-all duration-300 shadow-inner" />
+          <label for="p_nombre" class="absolute text-sm text-white/50 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-900/80 px-2 rounded-md peer-focus:text-indigo-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-placeholder-shown:bg-transparent peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-4 pointer-events-none">Nombre</label>
+        </div>
+        <div class="relative">
+          <input [(ngModel)]="usuario.apellido" name="apellido" id="p_apellido" placeholder=" "
+            class="block w-full px-5 py-4 text-white bg-white/5 border border-white/20 rounded-xl focus:outline-none focus:border-indigo-400 focus:bg-white/10 peer transition-all duration-300 shadow-inner" />
+          <label for="p_apellido" class="absolute text-sm text-white/50 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-900/80 px-2 rounded-md peer-focus:text-indigo-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-placeholder-shown:bg-transparent peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-4 pointer-events-none">Apellido</label>
+        </div>
+        <div class="relative">
+          <input [(ngModel)]="usuario.mail" name="mail" type="email" id="p_mail" placeholder=" "
+            class="block w-full px-5 py-4 text-white bg-white/5 border border-white/20 rounded-xl focus:outline-none focus:border-indigo-400 focus:bg-white/10 peer transition-all duration-300 shadow-inner" />
+          <label for="p_mail" class="absolute text-sm text-white/50 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-900/80 px-2 rounded-md peer-focus:text-indigo-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-placeholder-shown:bg-transparent peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-4 pointer-events-none">Correo</label>
+        </div>
+        <div class="relative">
+          <input [(ngModel)]="usuario.telefono" name="telefono" id="p_tel" placeholder=" "
+            class="block w-full px-5 py-4 text-white bg-white/5 border border-white/20 rounded-xl focus:outline-none focus:border-indigo-400 focus:bg-white/10 peer transition-all duration-300 shadow-inner" />
+          <label for="p_tel" class="absolute text-sm text-white/50 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-900/80 px-2 rounded-md peer-focus:text-indigo-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-placeholder-shown:bg-transparent peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-4 pointer-events-none">Teléfono</label>
+        </div>
+        <div class="relative sm:col-span-2">
+          <input [(ngModel)]="usuario.direccion" name="direccion" id="p_dir" placeholder=" "
+            class="block w-full px-5 py-4 text-white bg-white/5 border border-white/20 rounded-xl focus:outline-none focus:border-indigo-400 focus:bg-white/10 peer transition-all duration-300 shadow-inner" />
+          <label for="p_dir" class="absolute text-sm text-white/50 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-900/80 px-2 rounded-md peer-focus:text-indigo-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-placeholder-shown:bg-transparent peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-4 pointer-events-none">Dirección</label>
+        </div>
+        
+        <div class="col-span-1 sm:col-span-2 flex justify-end gap-4 mt-6 border-t border-white/10 pt-6">
           <button type="button" (click)="cancelar()"
-            class="bg-gray-400 text-white px-6 py-2 rounded-full hover:bg-gray-500">
+            class="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 transition-all duration-300">
             Cancelar
+          </button>
+          <button type="submit"
+            class="group px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transform hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2">
+            <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            Guardar Cambios
           </button>
         </div>
       </form>
     </section>
 
-    <!-- Facturas -->
-    <section *ngIf="mostrarFacturas && auth.esAdmin" class="mt-10 bg-white rounded-xl shadow-lg p-6">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-        <h2 class="text-xl font-bold text-purple-700">Facturas</h2>
-        <!-- Buscador de cliente -->
-        <div class="flex flex-wrap items-center gap-2">
-          <input [(ngModel)]="filtroNombreFactura" placeholder="Buscar nombre cliente"
-            class="rounded px-2 py-1 border border-gray-300 text-sm" />
-          <input [(ngModel)]="filtroApellidoFactura" placeholder="Buscar apellido cliente"
-            class="rounded px-2 py-1 border border-gray-300 text-sm" />
-          <button (click)="filtroNombreFactura=''; filtroApellidoFactura='';"
-            class="ml-2 text-xs px-2 py-1 rounded bg-gray-200 hover:bg-gray-300">Limpiar</button>
-        </div>
-      </div>
-      <div class="overflow-x-auto">
-        <table class="min-w-full text-sm text-gray-800">
-          <thead class="bg-gray-100">
-            <tr>
-              <th class="px-4 py-2">ID</th>
-              <th class="px-4 py-2">Cliente</th>
-              <th class="px-4 py-2">Fecha</th>
-              <th class="px-4 py-2">Total</th>
-              <th class="px-4 py-2">Método</th>
-              <th class="px-4 py-2">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let f of facturasFiltradas" class="border-b hover:bg-gray-50">
-              <td class="px-4 py-2">{{ f.id }}</td>
-              <td class="px-4 py-2">{{ f.clienteNombre }} {{ f.clienteApellido }}</td>
-              <td class="px-4 py-2">{{ f.fecha | date:'short' }}</td>
-              <td class="px-4 py-2">{{ f.total | currency:'USD' }}</td>
-              <td class="px-4 py-2">{{ f.metodo_pago }}</td>
-              <td class="px-4 py-2">
-                <a [routerLink]="['/admin/facturas', f.id]" class="text-blue-600 hover:underline cursor-pointer">
-                  Ver detalles
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-
-    <!-- ...contenido previo sin cambios... -->
-
-    <!-- Personas -->
-    <section *ngIf="mostrarPersonas" class="mt-10 bg-white rounded-xl shadow-lg p-6">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-        <h2 class="text-xl font-bold text-purple-700">Clientes</h2>
-        <!-- Buscador -->
-        <div class="flex flex-wrap items-center gap-2">
-          <input [(ngModel)]="filtroCedula" placeholder="Buscar por cédula"
-            class="rounded px-2 py-1 border border-gray-300 text-sm" />
-          <input [(ngModel)]="filtroApellido" placeholder="Buscar por apellido"
-            class="rounded px-2 py-1 border border-gray-300 text-sm" />
-          <button (click)="filtroCedula='';filtroApellido='';"
-            class="ml-2 text-xs px-2 py-1 rounded bg-gray-200 hover:bg-gray-300">Limpiar</button>
-          <button (click)="abrirModalCrear()"
-            class="ml-4 bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700">
-            + Nuevo
-          </button>
-        </div>
-      </div>
-      <div class="overflow-x-auto">
-        <table class="min-w-full text-sm text-gray-800">
-          <thead class="bg-gray-100">
-            <tr>
-              <th class="px-4 py-2">ID</th>
-              <th class="px-4 py-2">Cédula</th>
-              <th class="px-4 py-2">Nombre</th>
-              <th class="px-4 py-2">Apellido</th>
-              <th class="px-4 py-2">Correo</th>
-              <th class="px-4 py-2">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let p of personasFiltradas" class="border-b hover:bg-gray-50">
-              <td class="px-4 py-2">{{ p.id }}</td>
-              <td class="px-4 py-2">{{ p.cedula || '-' }}</td>
-              <td class="px-4 py-2">{{ p.nombre }}</td>
-              <td class="px-4 py-2">{{ p.apellido }}</td>
-              <td class="px-4 py-2">{{ p.mail }}</td>
-              <td class="px-4 py-2 space-x-2">
-                <!-- No mostrar acciones para admin -->
-                <ng-container *ngIf="p.login !== 'admin'">
-                  <button (click)="abrirModalEditar(p)" class="text-purple-600 hover:underline">
-                    Editar
-                  </button>
-                  <button (click)="eliminarPersona(p.id)" class="text-red-600 hover:underline">
-                    Eliminar
-                  </button>
-                </ng-container>
-                <ng-container *ngIf="p.login === 'admin'">
-                  <span class="text-gray-400 italic">Admin principal</span>
-                </ng-container>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-
-
-    <!-- Modal -->
-    <div id="modal-persona" class="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center hidden">
-      <div id="modal-contenido"
-        class="bg-white/30 backdrop-blur-md border border-white border-opacity-20 rounded-xl shadow-2xl w-full max-w-xl p-6 scale-95 opacity-0 transition-all duration-300 transform">
-        <h2 class="text-xl font-semibold text-white text-center mb-4">
-          {{ personaEditando ? ("Editar Persona") : ("Nueva Persona") }}
-        </h2>
-        <form (ngSubmit)="guardarPersona()" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-900">
-          <input [(ngModel)]="formPersona.nombre" name="nombre" class="rounded px-4 py-2 bg-white" placeholder="Nombre"
-            required />
-          <input [(ngModel)]="formPersona.apellido" name="apellido" class="rounded px-4 py-2 bg-white"
-            placeholder="Apellido" required />
-
-          <!-- Login solo editable si no es admin -->
-          <input [(ngModel)]="formPersona.login" name="login" class="rounded px-4 py-2 bg-white" placeholder="Login"
-            required [readonly]="personaEditando && formPersona.login === 'admin'" />
-
-          <input [(ngModel)]="formPersona.mail" name="mail" class="rounded px-4 py-2 bg-white" placeholder="Correo"
-            required />
-
-          <!-- Contraseña solo si es nuevo -->
-          <input *ngIf="!personaEditando" [(ngModel)]="formPersona.password" name="password"
-            class="rounded px-4 py-2 bg-white" placeholder="Contraseña" type="password" required />
-
-          <input [(ngModel)]="formPersona.telefono" name="telefono" class="rounded px-4 py-2 bg-white"
-            placeholder="Teléfono" />
-          <input [(ngModel)]="formPersona.direccion" name="direccion" class="rounded px-4 py-2 bg-white"
-            placeholder="Dirección" />
-          <input [(ngModel)]="formPersona.sexo" name="sexo" class="rounded px-4 py-2 bg-white" placeholder="Sexo" />
-
-          <div class="col-span-2 flex justify-end gap-4 mt-4">
-            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full shadow">
-              Guardar
-            </button>
-            <button type="button" (click)="cerrarModal()"
-              class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-full shadow">
-              Cancelar
+    <!-- ===================== FACTURAS (ADMIN) ===================== -->
+    <section #facturasSection *ngIf="mostrarFacturas && auth.esAdmin" class="mb-12 animate-fade-in-up">
+      <div class="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
+        
+        <!-- Header Tabla -->
+        <div class="p-6 md:p-8 border-b border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-6 bg-black/20">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center border border-purple-500/30">
+              <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6h6v6m-6 0H5a2 2 0 01-2-2v-7a2 2 0 012-2h14a2 2 0 012 2v7a2 2 0 01-2 2h-4m-6 0v2a2 2 0 002 2h0a2 2 0 002-2v-2" /></svg>
+            </div>
+            <div>
+              <h2 class="text-2xl font-bold text-white">Facturas</h2>
+              <p class="text-white/50 text-sm mt-1">Gestión de transacciones</p>
+            </div>
+          </div>
+          
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="w-4 h-4 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+              </div>
+              <input [(ngModel)]="filtroNombreFactura" placeholder="Nombre cliente" class="pl-9 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 text-sm focus:outline-none focus:border-purple-400 focus:bg-white/10 transition-all w-40 focus:w-48" />
+            </div>
+            <div class="relative">
+              <input [(ngModel)]="filtroApellidoFactura" placeholder="Apellido cliente" class="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 text-sm focus:outline-none focus:border-purple-400 focus:bg-white/10 transition-all w-40 focus:w-48" />
+            </div>
+            <button (click)="filtroNombreFactura=''; filtroApellidoFactura='';" class="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 text-sm font-medium transition-all">
+              Limpiar
             </button>
           </div>
-        </form>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead class="text-xs text-white/40 uppercase bg-white/5 border-b border-white/10">
+              <tr>
+                <th scope="col" class="px-6 py-4 font-semibold tracking-wider">ID</th>
+                <th scope="col" class="px-6 py-4 font-semibold tracking-wider">Cliente</th>
+                <th scope="col" class="px-6 py-4 font-semibold tracking-wider">Fecha</th>
+                <th scope="col" class="px-6 py-4 font-semibold tracking-wider">Total</th>
+                <th scope="col" class="px-6 py-4 font-semibold tracking-wider">Método</th>
+                <th scope="col" class="px-6 py-4 font-semibold tracking-wider text-right">Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 text-white/80">
+              <tr *ngFor="let f of facturasFiltradas" class="hover:bg-white/5 transition-colors group">
+                <td class="px-6 py-4 font-mono text-white/50">#{{ f.id }}</td>
+                <td class="px-6 py-4 font-medium text-white">{{ f.clienteNombre }} {{ f.clienteApellido }}</td>
+                <td class="px-6 py-4 text-white/60">{{ f.fecha | date:'short' }}</td>
+                <td class="px-6 py-4 font-bold text-emerald-400">{{ f.total | currency:'USD' }}</td>
+                <td class="px-6 py-4">
+                  <span class="px-3 py-1 text-xs font-semibold rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/20">{{ f.metodo_pago }}</span>
+                </td>
+                <td class="px-6 py-4 text-right">
+                  <a [routerLink]="['/admin/facturas', f.id]" class="inline-flex items-center gap-1.5 text-purple-300 hover:text-white font-medium hover:underline transition-colors group-hover:translate-x-[-4px] transform duration-300">
+                    Detalles
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                  </a>
+                </td>
+              </tr>
+              <tr *ngIf="facturasFiltradas.length === 0">
+                <td colspan="6" class="px-6 py-12 text-center text-white/40">No se encontraron facturas.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CLIENTES (ADMIN) ===================== -->
+    <section #personasSection *ngIf="mostrarPersonas" class="mb-12 animate-fade-in-up">
+      <div class="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
+        
+        <!-- Header Tabla -->
+        <div class="p-6 md:p-8 border-b border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-6 bg-black/20">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
+              <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </div>
+            <div>
+              <h2 class="text-2xl font-bold text-white">Clientes</h2>
+              <p class="text-white/50 text-sm mt-1">Directorio de usuarios</p>
+            </div>
+          </div>
+          
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="w-4 h-4 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+              </div>
+              <input [(ngModel)]="filtroCedula" placeholder="Buscar cédula" class="pl-9 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 text-sm focus:outline-none focus:border-indigo-400 focus:bg-white/10 transition-all w-36 focus:w-44" />
+            </div>
+            <div class="relative">
+              <input [(ngModel)]="filtroApellido" placeholder="Buscar apellido" class="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 text-sm focus:outline-none focus:border-indigo-400 focus:bg-white/10 transition-all w-36 focus:w-44" />
+            </div>
+            <button (click)="abrirModalCrear()" class="group px-5 py-2.5 rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white font-bold shadow-lg shadow-indigo-500/30 transition-all flex items-center gap-2">
+              <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+              Nuevo
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead class="text-xs text-white/40 uppercase bg-white/5 border-b border-white/10">
+              <tr>
+                <th scope="col" class="px-6 py-4 font-semibold tracking-wider">ID</th>
+                <th scope="col" class="px-6 py-4 font-semibold tracking-wider">Cédula</th>
+                <th scope="col" class="px-6 py-4 font-semibold tracking-wider">Nombre</th>
+                <th scope="col" class="px-6 py-4 font-semibold tracking-wider">Apellido</th>
+                <th scope="col" class="px-6 py-4 font-semibold tracking-wider">Correo</th>
+                <th scope="col" class="px-6 py-4 font-semibold tracking-wider text-right">Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 text-white/80">
+              <tr *ngFor="let p of personasFiltradas" class="hover:bg-white/5 transition-colors group">
+                <td class="px-6 py-4 font-mono text-white/50">#{{ p.id }}</td>
+                <td class="px-6 py-4 text-white/60">{{ p.cedula || '—' }}</td>
+                <td class="px-6 py-4 font-medium text-white">{{ p.nombre }}</td>
+                <td class="px-6 py-4 font-medium text-white">{{ p.apellido }}</td>
+                <td class="px-6 py-4 text-white/70">{{ p.mail }}</td>
+                <td class="px-6 py-4 text-right">
+                  <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ng-container *ngIf="p.login !== 'admin'">
+                      <button (click)="abrirModalEditar(p)" class="p-2 rounded-lg bg-indigo-500/20 text-indigo-300 hover:bg-indigo-500 hover:text-white transition-colors" title="Editar">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                      </button>
+                      <button (click)="eliminarPersona(p.id)" class="p-2 rounded-lg bg-rose-500/20 text-rose-300 hover:bg-rose-500 hover:text-white transition-colors" title="Eliminar">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M4 7h16M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3" /></svg>
+                      </button>
+                    </ng-container>
+                    <span *ngIf="p.login === 'admin'" class="px-3 py-1 text-xs font-semibold rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/20">
+                      Super Admin
+                    </span>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="personasFiltradas.length === 0">
+                <td colspan="6" class="px-6 py-12 text-center text-white/40">No se encontraron clientes.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ===================== MODAL PERSONA ===================== -->
+<div id="modal-persona" (click)="cerrarModal()" class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center hidden modal-overlay p-4">
+  
+  <div id="modal-contenido" (click)="$event.stopPropagation()" class="modal-card relative bg-gray-900 border border-white/10 rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.5)] w-full max-w-3xl overflow-hidden text-white flex flex-col md:flex-row">
+    
+    <!-- Panel Decorativo Izquierdo -->
+    <div class="hidden md:flex w-2/5 bg-gradient-to-br from-indigo-600 to-purple-800 p-8 flex-col justify-between relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+      <div class="absolute bottom-0 left-0 w-48 h-48 bg-black/20 rounded-full blur-2xl translate-y-1/3 -translate-x-1/4"></div>
+      
+      <div class="relative z-10">
+        <div class="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center mb-6 shadow-lg border border-white/20">
+          <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </div>
+        <h3 class="text-3xl font-black text-white leading-tight mb-2">
+          {{ personaEditando ? 'Actualizar' : 'Registrar' }}<br/><span class="text-indigo-200">Cliente</span>
+        </h3>
+        <p class="text-white/70 text-sm">Ingresa los datos correspondientes en el formulario para gestionar el acceso a la plataforma.</p>
+      </div>
+      
+      <div class="relative z-10 text-xs text-white/40 font-mono">
+        SECURE // {{ auth.esAdmin ? 'ADMIN PANEL' : 'USER' }}
       </div>
     </div>
+
+    <!-- Formulario -->
+    <div class="w-full md:w-3/5 p-8 relative">
+      <button type="button" (click)="cerrarModal()" class="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-white transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+
+      <div class="md:hidden mb-6">
+        <h2 class="text-2xl font-bold text-white">{{ personaEditando ? 'Editar Cliente' : 'Nuevo Cliente' }}</h2>
+      </div>
+
+      <form (ngSubmit)="guardarPersona()" class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
+        <div class="relative">
+          <input [(ngModel)]="formPersona.nombre" name="nombre" id="m_nombre" placeholder=" " required
+            class="block w-full px-4 py-3.5 text-white bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-indigo-500 focus:bg-white/10 peer transition-all" />
+          <label for="m_nombre" class="absolute text-xs text-white/50 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-900 px-1 peer-focus:text-indigo-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-placeholder-shown:bg-transparent peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3 pointer-events-none">Nombre *</label>
+        </div>
+        
+        <div class="relative">
+          <input [(ngModel)]="formPersona.apellido" name="apellido" id="m_apellido" placeholder=" " required
+            class="block w-full px-4 py-3.5 text-white bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-indigo-500 focus:bg-white/10 peer transition-all" />
+          <label for="m_apellido" class="absolute text-xs text-white/50 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-900 px-1 peer-focus:text-indigo-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-placeholder-shown:bg-transparent peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3 pointer-events-none">Apellido *</label>
+        </div>
+
+        <div class="relative">
+          <input [(ngModel)]="formPersona.login" name="login" id="m_login" placeholder=" " required [readonly]="personaEditando && formPersona.login === 'admin'"
+            class="block w-full px-4 py-3.5 text-white bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-indigo-500 focus:bg-white/10 peer transition-all disabled:opacity-50 disabled:cursor-not-allowed" />
+          <label for="m_login" class="absolute text-xs text-white/50 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-900 px-1 peer-focus:text-indigo-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-placeholder-shown:bg-transparent peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3 pointer-events-none">Login *</label>
+        </div>
+
+        <div class="relative">
+          <input [(ngModel)]="formPersona.mail" name="mail" type="email" id="m_mail" placeholder=" " required
+            class="block w-full px-4 py-3.5 text-white bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-indigo-500 focus:bg-white/10 peer transition-all" />
+          <label for="m_mail" class="absolute text-xs text-white/50 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-900 px-1 peer-focus:text-indigo-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-placeholder-shown:bg-transparent peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3 pointer-events-none">Correo *</label>
+        </div>
+
+        <div class="relative" *ngIf="!personaEditando">
+          <input [(ngModel)]="formPersona.password" name="password" id="m_password" placeholder=" " required [type]="mostrarPassword ? 'text' : 'password'"
+            class="block w-full px-4 py-3.5 text-white bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-indigo-500 focus:bg-white/10 peer transition-all pr-10" />
+          <label for="m_password" class="absolute text-xs text-white/50 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-900 px-1 peer-focus:text-indigo-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-placeholder-shown:bg-transparent peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3 pointer-events-none">Contraseña *</label>
+          <button type="button" (click)="mostrarPassword = !mostrarPassword" class="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors">
+            <svg *ngIf="!mostrarPassword" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+            <svg *ngIf="mostrarPassword" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
+          </button>
+        </div>
+
+        <div class="relative">
+          <input [(ngModel)]="formPersona.telefono" name="telefono" id="m_tel" placeholder=" "
+            class="block w-full px-4 py-3.5 text-white bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-indigo-500 focus:bg-white/10 peer transition-all" />
+          <label for="m_tel" class="absolute text-xs text-white/50 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-900 px-1 peer-focus:text-indigo-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-placeholder-shown:bg-transparent peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3 pointer-events-none">Teléfono</label>
+        </div>
+        
+        <div class="relative">
+          <input [(ngModel)]="formPersona.direccion" name="direccion" id="m_dir" placeholder=" "
+            class="block w-full px-4 py-3.5 text-white bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-indigo-500 focus:bg-white/10 peer transition-all" />
+          <label for="m_dir" class="absolute text-xs text-white/50 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-900 px-1 peer-focus:text-indigo-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-placeholder-shown:bg-transparent peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3 pointer-events-none">Dirección</label>
+        </div>
+        
+        <div class="relative sm:col-span-2">
+          <input [(ngModel)]="formPersona.sexo" name="sexo" id="m_sexo" placeholder=" "
+            class="block w-full px-4 py-3.5 text-white bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-indigo-500 focus:bg-white/10 peer transition-all" />
+          <label for="m_sexo" class="absolute text-xs text-white/50 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-900 px-1 peer-focus:text-indigo-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-placeholder-shown:bg-transparent peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3 pointer-events-none">Sexo</label>
+        </div>
+
+        <div class="col-span-1 sm:col-span-2 flex justify-end gap-3 mt-4 pt-6 border-t border-white/10">
+          <button type="button" (click)="cerrarModal()" class="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-medium transition-colors">
+            Cancelar
+          </button>
+          <button type="submit" class="group px-6 py-2.5 rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white font-bold shadow-lg shadow-indigo-500/25 transition-all flex items-center gap-2">
+            {{ personaEditando ? 'Guardar Cambios' : 'Crear Cliente' }}
+            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

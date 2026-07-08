@@ -1,117 +1,191 @@
-<!-- Imagen decorativa + encabezado + buscador glass -->
-<div class="relative w-full mb-12">
+<!-- Hero Banner -->
+<div class="relative w-full h-[400px] sm:h-[500px] overflow-hidden mb-16 rounded-b-[3rem] shadow-2xl group">
   <img 
     src="https://c4.wallpaperflare.com/wallpaper/409/391/828/animales-peces-wallpaper-preview.jpg"
-    alt="Productos perros"
-    class="w-full h-[400px] sm:h-[500px] object-cover filter brightness-75 rounded-b-3xl shadow-lg"
+    alt="Productos peces"
+    class="absolute inset-0 w-full h-full object-cover object-center transform transition-transform duration-[2s] group-hover:scale-105"
   />
-  <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
-    <h2 class="text-white text-5xl sm:text-6xl font-extrabold mb-6 drop-shadow-lg tracking-tight animate-fade-in">
-      Productos para Peces
+  <div class="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-cyan-900/40 to-transparent z-10"></div>
+  
+  <div class="absolute inset-0 z-20 flex flex-col justify-center items-center text-center px-4 animate-fade-in-up">
+    <div class="inline-block mb-4 px-4 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/90 text-sm font-medium uppercase tracking-widest">
+      Catálogo Exclusivo
+    </div>
+    <h2 class="text-white text-5xl sm:text-6xl md:text-7xl font-extrabold mb-8 drop-shadow-2xl tracking-tight">
+      Todo para <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-300">Tus Peces</span>
     </h2>
-    <input 
-      type="text"
-      [(ngModel)]="busqueda"
-      placeholder="Buscar producto por nombre..."
-      class="w-full max-w-xl glass-search px-6 py-4 text-lg text-gray-900 placeholder-gray-400 shadow-xl ring-2 ring-indigo-300 focus:ring-indigo-500 focus:outline-none transition animate-fade-in-up"
-    />
-  </div>
-</div>
-
-<!-- Lista de productos (grid premium) -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-6 mt-10 mb-24">
-  <!-- Botón nuevo producto (solo admin) -->
-  <div *ngIf="auth.esAdmin"
-       (click)="abrirModalNuevo()"
-       class="relative bg-gradient-to-br from-indigo-100 via-white to-indigo-200 rounded-3xl lux-shadow border-0 overflow-hidden cursor-pointer hover:shadow-2xl hover:scale-105 transition group animate-fade-in-up min-h-[340px] flex flex-col justify-center items-center">
-    <img src="https://c4.wallpaperflare.com/wallpaper/409/391/828/animales-peces-wallpaper-preview.jpg"
-         alt="Crear Producto"
-         class="w-full h-48 object-cover opacity-40 group-hover:opacity-30 transition duration-300 rounded-t-3xl" />
-    <div class="absolute inset-0 flex items-center justify-center">
-      <span class="text-7xl text-indigo-500 font-extrabold drop-shadow-lg animate-fade-in-up">+</span>
-    </div>
-    <div class="p-5 text-center w-full bg-white/90 rounded-b-3xl">
-      <p class="text-indigo-900 font-semibold text-lg tracking-wide">Crear nuevo producto</p>
-    </div>
-  </div>
-
-  <!-- Tarjetas de productos -->
-  <div *ngFor="let p of productosFiltrados()"
-       (click)="(!auth.esAdmin && (p.stock <= 0 || !p.disponible)) ? null : abrirModal(p)"
-       [ngClass]="{
-         'opacity-100': auth.esAdmin || (p.stock > 0 && p.disponible),
-         'opacity-60 cursor-not-allowed grayscale': !auth.esAdmin && (p.stock <= 0 || !p.disponible)
-       }"
-       class="bg-white rounded-3xl border-0 lux-shadow hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 overflow-hidden flex flex-col group relative min-h-[340px] animate-fade-in-up">
-    <img [src]="p.imagen_url" alt="{{ p.nombre }}" class="w-full h-48 object-cover rounded-t-3xl" />
-    <div class="p-6 flex flex-col flex-grow">
-      <h3 class="text-2xl font-bold text-indigo-800 mb-1 line-clamp-1">{{ p.nombre }}</h3>
-      <p class="text-sm text-gray-600 line-clamp-2 flex-grow">{{ p.descripcion }}</p>
-      <div class="mt-3 flex justify-between items-center">
-        <span class="text-xs px-2 py-1 rounded-full font-semibold"
-              [ngClass]="p.stock === 0 ? 'bg-red-200 text-red-700' : 'bg-green-100 text-green-800'">
-          {{ p.stock === 0 ? 'Sin stock' : 'Stock: ' + p.stock }}
-        </span>
-        <span class="text-xl font-extrabold text-green-600 drop-shadow-sm">
-          ${{ p.precio | number:'1.2-2' }}
-        </span>
+    <div class="relative w-full max-w-2xl group animate-fade-in-up-delay-1">
+      <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+        <svg class="h-6 w-6 text-gray-400 group-focus-within:text-cyan-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
       </div>
-      <div *ngIf="!auth.esAdmin && (p.stock === 0 || !p.disponible)" class="text-xs mt-3 text-red-500 font-bold">
-        No disponible
-      </div>
+      <input 
+        type="text"
+        [(ngModel)]="busqueda"
+        placeholder="Buscar producto por nombre..."
+        class="w-full pl-12 pr-6 py-4 text-lg bg-white/80 backdrop-blur-xl border border-white/40 text-gray-900 placeholder-gray-500 rounded-full shadow-2xl focus:bg-white focus:ring-4 focus:ring-cyan-300/50 focus:outline-none transition-all duration-300"
+      />
     </div>
   </div>
 </div>
 
-<!-- Modal de lujo para producto -->
-<div *ngIf="productoSeleccionado" class="fixed inset-0 modal-lujo-bg flex justify-center items-center z-50">
-  <div class="bg-white modal-lujo w-full max-w-xl p-10 space-y-8 relative border-t-8 border-indigo-500/80">
-    <button (click)="cerrarModal()" class="absolute top-5 right-6 text-gray-500 hover:text-red-500 text-3xl font-bold transition">&times;</button>
-
-    <!-- Modal Admin: Crear o Editar -->
-    <form *ngIf="auth.esAdmin" (ngSubmit)="productoSeleccionado.id ? actualizarProducto() : guardarNuevoProducto()" class="space-y-5">
-      <h3 class="text-3xl font-extrabold text-indigo-900 mb-3">
-        {{ productoSeleccionado.id ? 'Editar' : 'Crear' }} Producto
-      </h3>
-      <input type="text" [(ngModel)]="productoSeleccionado.nombre" name="nombre" required placeholder="Nombre" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-lg" />
-      <textarea [(ngModel)]="productoSeleccionado.descripcion" name="descripcion" required placeholder="Descripción" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-lg"></textarea>
-      <input type="number" [(ngModel)]="productoSeleccionado.precio" name="precio" required placeholder="Precio" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-lg" />
-      <input type="number" [(ngModel)]="productoSeleccionado.stock" name="stock" required placeholder="Stock" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-lg" />
-      <input type="text" [(ngModel)]="productoSeleccionado.imagen_url" name="imagen_url" placeholder="URL Imagen" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-lg" />
-      <select [(ngModel)]="productoSeleccionado.categoria" name="categoria" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-lg">
-        <option value="comida">Comida</option>
-        <option value="ropa">Ropa</option>
-        <option value="medicina">Medicina</option>
-        <option value="juguete">Juguete</option>
-        <option value="otro">Otro</option>
-      </select>
-      <label class="inline-flex items-center text-lg">
-        <input type="checkbox" [(ngModel)]="productoSeleccionado.disponible" name="disponible" class="form-checkbox h-6 w-6 text-blue-600" />
-        <span class="ml-2 text-gray-700">Disponible</span>
-      </label>
-      <div class="flex justify-between pt-4">
-        <button type="submit" class="bg-indigo-600 hover:bg-indigo-800 text-white px-6 py-3 rounded-xl font-bold shadow animate-fade-in transition-all duration-300 scale-100 hover:scale-105">
-          {{ productoSeleccionado.id ? 'Guardar Cambios' : 'Crear' }}
-        </button>
-        <button *ngIf="productoSeleccionado.id" type="button" class="bg-red-600 hover:bg-red-800 text-white px-6 py-3 rounded-xl font-bold shadow" (click)="eliminarProducto()">Eliminar</button>
+<!-- Grid de productos -->
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 mb-32">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    
+    <div *ngIf="auth.esAdmin"
+         (click)="abrirModalNuevo()"
+         class="group relative bg-gradient-to-br from-cyan-50 to-teal-50 border-2 border-dashed border-cyan-300 rounded-3xl overflow-hidden cursor-pointer hover:border-cyan-500 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 min-h-[400px] flex flex-col justify-center items-center">
+      <div class="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      <div class="relative z-10 w-24 h-24 bg-white rounded-full shadow-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+        <svg class="w-10 h-10 text-cyan-500 group-hover:rotate-90 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
       </div>
-    </form>
+      <h3 class="text-2xl font-bold text-cyan-900 mb-2">Crear Producto</h3>
+      <p class="text-sm text-cyan-600/70">Añadir nuevo ítem al catálogo</p>
+    </div>
 
-    <!-- Modal Cliente: Detalle + comprar + favoritos -->
-    <div *ngIf="!auth.esAdmin" class="space-y-6 text-center animate-fade-in-up">
-      <h3 class="text-2xl font-extrabold text-indigo-900 mb-3">{{ productoSeleccionado.nombre }}</h3>
-      <img [src]="productoSeleccionado.imagen_url" class="w-full h-64 object-cover rounded-lg shadow-lg mb-4" />
-      <p class="text-gray-700 text-lg">{{ productoSeleccionado.descripcion }}</p>
-      <p class="text-xl font-extrabold text-green-600 mt-3 mb-2">$ {{ productoSeleccionado.precio }}</p>
-      <p class="text-md text-gray-700">Stock disponible: <b>{{ productoSeleccionado.stock }}</b></p>
-      <div class="flex gap-4 pt-4">
-        <button (click)="anadirAlCarrito(productoSeleccionado)" class="flex-1 bg-indigo-600 hover:bg-indigo-800 text-white px-6 py-3 rounded-xl font-bold shadow transition-all duration-300 scale-100 hover:scale-105">
-          Añadir al Carrito
-        </button>
-        <button (click)="anadirAFavoritos(productoSeleccionado)" class="flex-1 bg-pink-600 hover:bg-pink-800 text-white px-6 py-3 rounded-xl font-bold shadow transition-all duration-300 scale-100 hover:scale-105">
-          Añadir a Favoritos
-        </button>
+    <div *ngFor="let p of productosFiltrados()"
+         (click)="(!auth.esAdmin && (p.stock <= 0 || !p.disponible)) ? null : abrirModal(p)"
+         [ngClass]="{
+           'opacity-100': auth.esAdmin || (p.stock > 0 && p.disponible),
+           'opacity-60 cursor-not-allowed grayscale hover:transform-none hover:shadow-none': !auth.esAdmin && (p.stock <= 0 || !p.disponible)
+         }"
+         class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group flex flex-col min-h-[400px] cursor-pointer border border-gray-100">
+      <div class="relative h-64 overflow-hidden">
+        <img [src]="p.imagen_url" alt="{{ p.nombre }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div class="absolute top-4 left-4 flex flex-col gap-2">
+          <span class="px-3 py-1 backdrop-blur-md rounded-full text-xs font-bold text-white shadow-sm border border-white/20"
+                [ngClass]="p.stock === 0 ? 'bg-red-500/80' : 'bg-green-500/80'">
+            {{ p.stock === 0 ? 'Agotado' : p.stock + ' en Stock' }}
+          </span>
+          <span *ngIf="!p.disponible" class="px-3 py-1 backdrop-blur-md bg-gray-900/80 rounded-full text-xs font-bold text-white shadow-sm border border-white/20">Oculto</span>
+        </div>
+      </div>
+      <div class="p-6 flex flex-col flex-grow bg-white">
+        <h3 class="text-xl font-bold text-gray-900 mb-2 line-clamp-1 group-hover:text-cyan-600 transition-colors">{{ p.nombre }}</h3>
+        <p class="text-sm text-gray-500 line-clamp-2 mb-4 flex-grow">{{ p.descripcion }}</p>
+        <div class="flex justify-between items-center mt-auto pt-4 border-t border-gray-100">
+          <span class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-teal-600">
+            ${{ p.precio | number:'1.2-2' }}
+          </span>
+          <div class="w-10 h-10 rounded-full bg-cyan-50 flex items-center justify-center text-cyan-600 group-hover:bg-cyan-600 group-hover:text-white transition-colors duration-300">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Modal Premium -->
+<div *ngIf="productoSeleccionado" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 animate-fade-in">
+  <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm" (click)="cerrarModal()"></div>
+  <div class="relative bg-white rounded-[2rem] shadow-2xl overflow-hidden w-full max-w-4xl max-h-[90vh] flex flex-col md:flex-row animate-modal-pop">
+    <button (click)="cerrarModal()" class="absolute top-4 right-4 z-50 w-10 h-10 bg-white/50 backdrop-blur-md border border-gray-200 rounded-full flex items-center justify-center text-gray-700 hover:text-red-600 hover:bg-white transition-all shadow-sm">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+
+    <ng-container *ngIf="auth.esAdmin">
+      <div class="hidden md:flex md:w-2/5 bg-gradient-to-br from-cyan-600 to-teal-700 p-10 flex-col justify-between relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+        <div class="absolute bottom-0 left-0 w-48 h-48 bg-teal-400/20 rounded-full blur-2xl translate-y-1/3 -translate-x-1/4"></div>
+        <div class="relative z-10">
+          <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+          </div>
+          <h3 class="text-4xl font-extrabold text-white mb-4">{{ productoSeleccionado.id ? 'Editar' : 'Nuevo' }}<br/>Producto</h3>
+          <p class="text-cyan-100 font-light">Gestiona tu catálogo de forma eficiente con nuestro panel avanzado.</p>
+        </div>
+        <div class="relative z-10 mt-8 rounded-2xl overflow-hidden border-2 border-white/20 aspect-video bg-cyan-900/50 flex items-center justify-center">
+          <img *ngIf="productoSeleccionado.imagen_url" [src]="productoSeleccionado.imagen_url" class="w-full h-full object-cover" />
+          <svg *ngIf="!productoSeleccionado.imagen_url" class="w-12 h-12 text-cyan-300/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        </div>
+      </div>
+      <div class="w-full md:w-3/5 p-8 md:p-10 overflow-y-auto">
+        <form (ngSubmit)="productoSeleccionado.id ? actualizarProducto() : guardarNuevoProducto()" class="space-y-6">
+          <div class="grid grid-cols-1 gap-6">
+            <div class="relative">
+              <input type="text" [(ngModel)]="productoSeleccionado.nombre" name="nombre" required id="peces_nombre" class="block w-full px-4 py-3.5 text-gray-900 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-cyan-500 peer transition-colors" placeholder=" " />
+              <label for="peces_nombre" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-50 px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2 pointer-events-none rounded-md">Nombre del Producto</label>
+            </div>
+            <div class="relative">
+              <textarea [(ngModel)]="productoSeleccionado.descripcion" name="descripcion" required id="peces_desc" rows="3" class="block w-full px-4 py-3.5 text-gray-900 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-cyan-500 peer transition-colors resize-none" placeholder=" "></textarea>
+              <label for="peces_desc" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-50 px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-6 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2 pointer-events-none rounded-md">Descripción detallada</label>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="relative">
+                <input type="number" [(ngModel)]="productoSeleccionado.precio" name="precio" required id="peces_precio" class="block w-full px-4 py-3.5 text-gray-900 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-cyan-500 peer transition-colors" placeholder=" " />
+                <label for="peces_precio" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-50 px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2 pointer-events-none rounded-md">Precio ($)</label>
+              </div>
+              <div class="relative">
+                <input type="number" [(ngModel)]="productoSeleccionado.stock" name="stock" required id="peces_stock" class="block w-full px-4 py-3.5 text-gray-900 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-cyan-500 peer transition-colors" placeholder=" " />
+                <label for="peces_stock" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-50 px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2 pointer-events-none rounded-md">Stock</label>
+              </div>
+            </div>
+            <div class="relative">
+              <input type="text" [(ngModel)]="productoSeleccionado.imagen_url" name="imagen_url" id="peces_img" class="block w-full px-4 py-3.5 text-gray-900 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-cyan-500 peer transition-colors" placeholder=" " />
+              <label for="peces_img" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-50 px-2 peer-focus:text-cyan-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2 pointer-events-none rounded-md">URL de Imagen</label>
+            </div>
+            <div class="flex items-center justify-between p-4 bg-gray-50 border border-gray-100 rounded-xl">
+              <div>
+                <p class="text-sm font-semibold text-gray-700">Estado de visibilidad</p>
+                <p class="text-xs text-gray-500">¿El producto estará visible al público?</p>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" [(ngModel)]="productoSeleccionado.disponible" name="disponible" class="sr-only peer">
+                <div class="w-11 h-6 bg-gray-200 peer-focus:ring-4 peer-focus:ring-cyan-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-600"></div>
+              </label>
+            </div>
+          </div>
+          <div class="flex gap-4 pt-6 border-t border-gray-100">
+            <button type="submit" class="flex-1 bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-700 hover:to-teal-700 text-white px-6 py-4 rounded-xl font-bold shadow-lg transform hover:-translate-y-1 transition-all duration-300 flex justify-center items-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              {{ productoSeleccionado.id ? 'Guardar Cambios' : 'Crear Producto' }}
+            </button>
+            <button *ngIf="productoSeleccionado.id" type="button" (click)="eliminarProducto()" class="px-6 py-4 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 rounded-xl font-bold transition-colors flex justify-center items-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="!auth.esAdmin">
+      <div class="w-full md:w-1/2 relative h-64 md:h-auto overflow-hidden">
+        <img [src]="productoSeleccionado.imagen_url" class="absolute inset-0 w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent md:hidden"></div>
+      </div>
+      <div class="w-full md:w-1/2 p-8 md:p-10 flex flex-col bg-white">
+        <div class="mb-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="px-3 py-1 bg-cyan-50 text-cyan-700 border border-cyan-100 text-xs font-bold rounded-full">Peces</span>
+            <span class="px-3 py-1 bg-green-50 text-green-700 border border-green-100 text-xs font-bold rounded-full">Stock: {{ productoSeleccionado.stock }}</span>
+          </div>
+          <h3 class="text-3xl font-extrabold text-gray-900 mb-4 leading-tight">{{ productoSeleccionado.nombre }}</h3>
+          <p class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-teal-600 mb-6">$ {{ productoSeleccionado.precio }}</p>
+          <div class="h-px w-full bg-gray-100 mb-6"></div>
+          <h4 class="font-bold text-gray-900 mb-2">Descripción del producto</h4>
+          <p class="text-gray-600 text-base leading-relaxed mb-8">{{ productoSeleccionado.descripcion }}</p>
+        </div>
+        <div class="mt-auto grid grid-cols-1 gap-4">
+          <button (click)="anadirAlCarrito(productoSeleccionado)" class="w-full bg-gray-900 hover:bg-black text-white px-6 py-4 rounded-xl font-bold shadow-lg transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            Añadir al Carrito
+          </button>
+          <button (click)="anadirAFavoritos(productoSeleccionado)" class="w-full bg-white hover:bg-gray-50 border-2 border-gray-200 text-gray-700 px-6 py-4 rounded-xl font-bold shadow-sm transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center">
+            <svg class="w-5 h-5 mr-2 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+            Guardar en Favoritos
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<style>
+  @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+  @keyframes modalPop { 0% { opacity: 0; transform: scale(0.95) translateY(10px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+  .animate-fade-in-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  .animate-fade-in-up-delay-1 { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; opacity: 0; }
+  .animate-modal-pop { animation: modalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+</style>
