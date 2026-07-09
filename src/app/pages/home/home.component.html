@@ -1,339 +1,246 @@
-<!-- HERO Section -->
-<section class="relative w-full min-h-[80vh] lg:min-h-screen overflow-hidden bg-black flex items-center justify-center">
+<!-- ============================================================
+     PAWLUXURY — HOME
+     Paleta: Negro #0A0714 · Morado #6D28D9 / #4C1D95 · Blanco #FFFFFF · Lavanda #F4F1FB
+     Tipografía: 'Manrope' (titulares, 800) + 'Inter' (cuerpo)
+     Nota: agregar en index.html ->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+     ============================================================ -->
 
-  <!-- Video Background -->
-  <video #heroVideo class="absolute inset-0 w-full h-full object-cover object-center transform scale-105" autoplay muted
+<!-- HERO -->
+<section class="relative w-full min-h-[92vh] lg:min-h-screen overflow-hidden bg-[#0A0714] flex items-center justify-center pl-font">
+
+  <!-- Video de fondo -->
+  <video #heroVideo class="absolute inset-0 w-full h-full object-cover object-center opacity-60" autoplay muted
     loop playsinline preload="metadata" loading="lazy" aria-hidden="true">
     <source src="assets/img/videopets.mp4" type="video/mp4" />
     <source src="assets/img/videopets.webm" type="video/webm" />
-    <img src="assets/img/videopets-fallback.jpg" alt="PawLuxury Hero" class="w-full h-full object-cover"
-      loading="lazy" />
+    <img src="assets/img/videopets-fallback.jpg" alt="PawLuxury Hero" class="w-full h-full object-cover" loading="lazy" />
   </video>
 
-  <!-- Modern Dark Overlay with subtle gradient -->
-  <div class="absolute inset-0 bg-gradient-to-tr from-gray-900/90 via-black/50 to-transparent z-10"></div>
+  <!-- Malla de gradiente animada (firma visual) -->
+  <div class="absolute inset-0 z-[5] pointer-events-none">
+    <div class="pl-orb pl-orb-a"></div>
+    <div class="pl-orb pl-orb-b"></div>
+    <div class="pl-orb pl-orb-c"></div>
+  </div>
 
-  <!-- Play/Pause Button (Glassmorphism) -->
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-b from-[#0A0714]/80 via-[#0A0714]/50 to-[#0A0714] z-10"></div>
+
+  <!-- Botón Play/Pause -->
   <button
-    class="absolute bottom-8 right-8 z-30 flex items-center justify-center w-14 h-14 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white shadow-lg transition-all duration-300 hover:bg-white/20 hover:scale-110 focus:outline-none"
+    class="absolute bottom-8 right-8 z-30 flex items-center justify-center w-12 h-12 bg-white/5 backdrop-blur-md rounded-full border border-white/15 text-white transition-all duration-300 hover:bg-[#6D28D9] hover:border-[#6D28D9] hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A78BFA]"
     (click)="toggleVideo()" [attr.aria-label]="videoPausado ? 'Reproducir video' : 'Pausar video'">
     <ng-container *ngIf="videoPausado; else pauseIcon">
-      <svg class="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 20 20">
-        <path fill-rule="evenodd"
-          d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-          clip-rule="evenodd" />
+      <svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
       </svg>
     </ng-container>
     <ng-template #pauseIcon>
-      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-        <path fill-rule="evenodd"
-          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z"
-          clip-rule="evenodd" />
+      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
       </svg>
     </ng-template>
   </button>
 
-  <!-- Hero Content -->
+  <!-- Contenido -->
   <div class="relative z-20 flex flex-col items-center justify-center text-center px-4 max-w-4xl mx-auto w-full">
-    <div
-      class="inline-block mb-4 px-4 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/90 text-sm font-medium uppercase tracking-widest animate-fade-in-up">
+    <div class="pl-anim pl-delay-0 inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/80 text-xs font-semibold uppercase tracking-[0.2em]">
+      <span class="w-1.5 h-1.5 rounded-full bg-[#A78BFA]"></span>
       Exclusividad para tu mejor amigo
     </div>
-    <h1
-      class="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white mb-6 drop-shadow-2xl animate-fade-in-up-delay-1 leading-tight">
-      Paw<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-300">Luxury</span>
+
+    <h1 class="pl-anim pl-delay-1 pl-display text-5xl sm:text-6xl lg:text-[5.5rem] font-extrabold text-white mb-6 leading-[0.95] tracking-tight">
+      Paw<span class="pl-gradient-text">Luxury</span>
     </h1>
-    <p
-      class="text-lg sm:text-xl lg:text-2xl text-gray-200 mb-10 max-w-2xl drop-shadow-md animate-fade-in-up-delay-2 font-light">
-      Descubre productos premium, alimentos gourmet y accesorios diseñados para brindar la mejor experiencia a tu
-      mascota.
+
+    <p class="pl-anim pl-delay-2 text-lg sm:text-xl text-white/60 mb-10 max-w-xl font-normal leading-relaxed">
+      Productos premium, alimento gourmet y accesorios pensados para el bienestar de tu mascota.
     </p>
 
-    <div class="animate-fade-in-up-delay-3 flex flex-col sm:flex-row gap-4">
-      <a href="#catalogo"
-        class="px-8 py-4 bg-white text-gray-900 font-bold rounded-full shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-all duration-300 transform hover:-translate-y-1">
-        Explorar Colección
+    <div class="pl-anim pl-delay-3 flex flex-col sm:flex-row gap-4">
+      <a href="#catalogo" class="pl-btn-primary">
+        Explorar colección
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
-      <a href="#nosotros"
-        class="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold rounded-full hover:bg-white/20 transition-all duration-300 transform hover:-translate-y-1">
-        Nuestra Historia
+      <a href="#nosotros" class="pl-btn-outline">
+        Nuestra historia
       </a>
     </div>
   </div>
 
-  <!-- Scroll Indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center animate-fade-in-up-delay-3">
-    <span class="w-[30px] h-[50px] border-2 border-white/50 rounded-full flex justify-center p-1">
-      <span class="w-1.5 h-3 bg-white rounded-full animate-scroll-wheel"></span>
+  <!-- Scroll indicator -->
+  <div class="pl-anim pl-delay-3 absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center z-20">
+    <span class="w-[26px] h-[42px] border border-white/25 rounded-full flex justify-center p-1">
+      <span class="w-1 h-2.5 bg-[#A78BFA] rounded-full pl-scroll-wheel"></span>
     </span>
   </div>
 </section>
 
-<!-- Custom CSS for Home Micro-animations -->
+<!-- Estilos globales del sistema (compartir también en el footer) -->
 <style>
-  @keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      transform: translateY(30px);
-    }
+  .pl-font { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+  .pl-display { font-family: 'Manrope', 'Inter', sans-serif; }
 
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .pl-gradient-text {
+    background: linear-gradient(100deg, #C4B5FD 0%, #8B5CF6 45%, #FFFFFF 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
-  @keyframes scrollWheel {
-    0% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    100% {
-      transform: translateY(20px);
-      opacity: 0;
-    }
+  /* --- Botones --- */
+  .pl-btn-primary {
+    display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+    padding: 1rem 2.1rem; border-radius: 999px; font-weight: 700; font-size: .95rem;
+    color: #0A0714; background: #FFFFFF;
+    transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, background .35s ease;
+    box-shadow: 0 0 0 rgba(167,139,250,0);
   }
-
-  @keyframes float {
-    0% {
-      transform: translateY(0px);
-    }
-
-    50% {
-      transform: translateY(-10px);
-    }
-
-    100% {
-      transform: translateY(0px);
-    }
+  .pl-btn-primary:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(100deg,#A78BFA,#6D28D9);
+    color: #fff;
+    box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.65);
   }
-
-  .animate-fade-in-up {
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  .pl-btn-outline {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 1rem 2.1rem; border-radius: 999px; font-weight: 700; font-size: .95rem;
+    color: #fff; background: transparent; border: 1px solid rgba(255,255,255,.25);
+    transition: all .35s cubic-bezier(.16,1,.3,1);
   }
+  .pl-btn-outline:hover { border-color: #A78BFA; background: rgba(167,139,250,.08); transform: translateY(-3px); }
 
-  .animate-fade-in-up-delay-1 {
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
-    opacity: 0;
+ .pl-orb { position:absolute; border-radius: 50%; filter: blur(90px); opacity:.25; }
+.pl-orb-a { width:520px; height:520px; top:-120px; left:-140px; background:#ffffff; animation: pl-float-a 14s ease-in-out infinite; }
+.pl-orb-b { width:420px; height:420px; bottom:-160px; right:-100px; background:#ffffff; animation: pl-float-b 18s ease-in-out infinite; }
+.pl-orb-c { width:300px; height:300px; top:35%; right:15%; background:#ffffff; opacity:.12; animation: pl-float-c 12s ease-in-out infinite; }
+  @keyframes pl-float-a { 0%,100%{ transform:translate(0,0) scale(1);} 50%{ transform:translate(40px,30px) scale(1.08);} }
+  @keyframes pl-float-b { 0%,100%{ transform:translate(0,0) scale(1);} 50%{ transform:translate(-30px,-25px) scale(1.1);} }
+  @keyframes pl-float-c { 0%,100%{ transform:translate(0,0);} 50%{ transform:translate(-25px,20px);} }
+
+  @keyframes pl-fade-up { 0%{ opacity:0; transform:translateY(24px);} 100%{ opacity:1; transform:translateY(0);} }
+  .pl-anim { animation: pl-fade-up .9s cubic-bezier(.16,1,.3,1) forwards; opacity:0; }
+  .pl-delay-0{animation-delay:.05s} .pl-delay-1{animation-delay:.2s} .pl-delay-2{animation-delay:.35s} .pl-delay-3{animation-delay:.5s}
+
+  @keyframes pl-scroll-wheel { 0%{ transform:translateY(0); opacity:1;} 100%{ transform:translateY(16px); opacity:0;} }
+  .pl-scroll-wheel { animation: pl-scroll-wheel 1.8s infinite ease-in-out; }
+
+  @keyframes pl-float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);} }
+  .pl-float { animation: pl-float 6s ease-in-out infinite; }
+
+  .pl-underline { position:relative; }
+  .pl-underline::after {
+    content:''; position:absolute; left:0; bottom:-4px; height:2px; width:0%;
+    background:#6D28D9; transition:width .4s cubic-bezier(.16,1,.3,1);
   }
+  .pl-underline:hover::after { width:100%; }
 
-  .animate-fade-in-up-delay-2 {
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
-    opacity: 0;
-  }
-
-  .animate-fade-in-up-delay-3 {
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
-    opacity: 0;
-  }
-
-  .animate-scroll-wheel {
-    animation: scrollWheel 2s infinite ease-in-out;
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
+  @media (prefers-reduced-motion: reduce) {
+    .pl-orb, .pl-anim, .pl-scroll-wheel, .pl-float { animation: none !important; opacity:1 !important; transform:none !important; }
   }
 </style>
 
-<!-- Categories Section (Redesigned with Premium Cards) -->
-<section class="bg-gradient-to-b from-gray-50 to-white py-24 relative overflow-hidden">
-  <!-- Decoraciones de fondo -->
-  <div
-    class="absolute top-0 left-0 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float -translate-x-1/2 -translate-y-1/2">
-  </div>
-  <div
-    class="absolute bottom-0 right-0 w-96 h-96 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float translate-x-1/3 translate-y-1/3"
-    style="animation-delay: 2s;"></div>
-
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<!-- CATEGORÍAS — sin tarjetas: círculos con foto + etiqueta, estilo "accesos" corporativo -->
+<section class="bg-white py-24 relative overflow-hidden pl-font">
+  <div class="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
     <div class="text-center mb-16">
-      <h2 class="text-xs font-bold tracking-widest text-indigo-600 uppercase mb-2">Comienza Aquí</h2>
-      <h3 class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">¿Para quién compras hoy?</h3>
-      <div class="w-24 h-1 bg-gradient-to-r from-purple-600 to-indigo-500 mx-auto mt-6 rounded-full"></div>
+      <span class="text-xs font-bold tracking-[0.25em] text-[#6D28D9] uppercase">Comienza aquí</span>
+      <h3 class="pl-display text-4xl sm:text-5xl font-extrabold text-[#0A0714] tracking-tight mt-3">¿Para quién compras hoy?</h3>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-      <!-- Tarjeta 1 -->
-      <a href="/perros"
-        class="group relative flex flex-col items-center justify-end h-64 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white">
-        <img
-          src="https://img.freepik.com/foto-gratis/primer-plano-ingles-staffordshire-bull-terrier-blanco_181624-28979.jpg?semt=ais_hybrid&w=740"
-          alt="Perros"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          loading="lazy" />
-        <div
-          class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300">
-        </div>
-        <div
-          class="relative z-10 p-6 w-full text-center transform transition-transform duration-300 translate-y-2 group-hover:translate-y-0">
-          <span class="block text-xl font-bold text-white tracking-wide">Perros</span>
-          <span
-            class="block text-xs font-medium text-white/0 group-hover:text-white/80 transition-all duration-300 mt-1">Ver
-            productos →</span>
-        </div>
+    <div class="flex flex-wrap justify-center gap-x-12 gap-y-16 sm:gap-x-16">
+      <!-- Item -->
+      <a href="/perros" class="group flex flex-col items-center w-44 sm:w-56">
+        <span class="relative flex items-center justify-center w-40 h-40 sm:w-56 sm:h-56 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-[#6D28D9] transition-all duration-500 shadow-[0_8px_24px_-8px_rgba(10,7,20,0.25)] group-hover:-translate-y-2">
+          <img src="https://img.freepik.com/foto-gratis/primer-plano-ingles-staffordshire-bull-terrier-blanco_181624-28979.jpg?semt=ais_hybrid&w=740" alt="Perros" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+        </span>
+        <span class="pl-underline mt-4 text-sm font-bold text-[#0A0714]">Perros</span>
       </a>
-      <!-- Tarjeta 2 -->
-      <a href="/gatos"
-        class="group relative flex flex-col items-center justify-end h-64 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white">
-        <img src="https://img.freepik.com/fotos-premium/sentado-pelo-largo-britanico_191971-4519.jpg" alt="Gatos"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          loading="lazy" />
-        <div
-          class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300">
-        </div>
-        <div
-          class="relative z-10 p-6 w-full text-center transform transition-transform duration-300 translate-y-2 group-hover:translate-y-0">
-          <span class="block text-xl font-bold text-white tracking-wide">Gatos</span>
-          <span
-            class="block text-xs font-medium text-white/0 group-hover:text-white/80 transition-all duration-300 mt-1">Ver
-            productos →</span>
-        </div>
+      <!-- Item -->
+      <a href="/gatos" class="group flex flex-col items-center w-44 sm:w-56">
+        <span class="relative flex items-center justify-center w-40 h-40 sm:w-56 sm:h-56 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-[#6D28D9] transition-all duration-500 shadow-[0_8px_24px_-8px_rgba(10,7,20,0.25)] group-hover:-translate-y-2">
+          <img src="https://img.freepik.com/fotos-premium/sentado-pelo-largo-britanico_191971-4519.jpg" alt="Gatos" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+        </span>
+        <span class="pl-underline mt-4 text-sm font-bold text-[#0A0714]">Gatos</span>
       </a>
-      <!-- Tarjeta 3 -->
-      <a href="/peces"
-        class="group relative flex flex-col items-center justify-end h-64 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white">
-        <img src="https://i.pinimg.com/564x/f5/07/70/f50770c7e7085e180674aea01584d390.jpg" alt="Peces"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          loading="lazy" />
-        <div
-          class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300">
-        </div>
-        <div
-          class="relative z-10 p-6 w-full text-center transform transition-transform duration-300 translate-y-2 group-hover:translate-y-0">
-          <span class="block text-xl font-bold text-white tracking-wide">Peces</span>
-          <span
-            class="block text-xs font-medium text-white/0 group-hover:text-white/80 transition-all duration-300 mt-1">Ver
-            productos →</span>
-        </div>
+      <!-- Item -->
+      <a href="/peces" class="group flex flex-col items-center w-44 sm:w-56">
+        <span class="relative flex items-center justify-center w-40 h-40 sm:w-56 sm:h-56 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-[#6D28D9] transition-all duration-500 shadow-[0_8px_24px_-8px_rgba(10,7,20,0.25)] group-hover:-translate-y-2">
+          <img src="https://i.pinimg.com/564x/f5/07/70/f50770c7e7085e180674aea01584d390.jpg" alt="Peces" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+        </span>
+        <span class="pl-underline mt-4 text-sm font-bold text-[#0A0714]">Peces</span>
       </a>
-      <!-- Tarjeta 4 -->
-      <a href="/aves"
-        class="group relative flex flex-col items-center justify-end h-64 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white">
-        <img
-          src="https://png.pngtree.com/background/20240313/original/pngtree-common-pet-parakeet-white-background-animal-budgerigar-photo-picture-image_8062617.jpg"
-          alt="Aves"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          loading="lazy" />
-        <div
-          class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300">
-        </div>
-        <div
-          class="relative z-10 p-6 w-full text-center transform transition-transform duration-300 translate-y-2 group-hover:translate-y-0">
-          <span class="block text-xl font-bold text-white tracking-wide">Aves</span>
-          <span
-            class="block text-xs font-medium text-white/0 group-hover:text-white/80 transition-all duration-300 mt-1">Ver
-            productos →</span>
-        </div>
+      <!-- Item -->
+      <a href="/aves" class="group flex flex-col items-center w-44 sm:w-56">
+        <span class="relative flex items-center justify-center w-40 h-40 sm:w-56 sm:h-56 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-[#6D28D9] transition-all duration-500 shadow-[0_8px_24px_-8px_rgba(10,7,20,0.25)] group-hover:-translate-y-2">
+          <img src="https://png.pngtree.com/background/20240313/original/pngtree-common-pet-parakeet-white-background-animal-budgerigar-photo-picture-image_8062617.jpg" alt="Aves" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+        </span>
+        <span class="pl-underline mt-4 text-sm font-bold text-[#0A0714]">Aves</span>
       </a>
-      <!-- Tarjeta 5 -->
-      <a href="/pequenos"
-        class="group relative flex flex-col items-center justify-end h-64 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white">
-        <img
-          src="https://us.123rf.com/450wm/ksena32/ksena321507/ksena32150700536/42529319-hamster-on-a-white-background.jpg"
-          alt="Pequeños"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          loading="lazy" />
-        <div
-          class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300">
-        </div>
-        <div
-          class="relative z-10 p-6 w-full text-center transform transition-transform duration-300 translate-y-2 group-hover:translate-y-0">
-          <span class="block text-xl font-bold text-white tracking-wide">Pequeños</span>
-          <span
-            class="block text-xs font-medium text-white/0 group-hover:text-white/80 transition-all duration-300 mt-1">Ver
-            productos →</span>
-        </div>
+      <!-- Item -->
+      <a href="/pequenos" class="group flex flex-col items-center w-44 sm:w-56">
+        <span class="relative flex items-center justify-center w-40 h-40 sm:w-56 sm:h-56 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-[#6D28D9] transition-all duration-500 shadow-[0_8px_24px_-8px_rgba(10,7,20,0.25)] group-hover:-translate-y-2">
+          <img src="https://us.123rf.com/450wm/ksena32/ksena321507/ksena32150700536/42529319-hamster-on-a-white-background.jpg" alt="Pequeños" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+        </span>
+        <span class="pl-underline mt-4 text-sm font-bold text-[#0A0714]">Pequeños</span>
       </a>
-      <!-- Tarjeta 6 -->
-      <a href="/granja"
-        class="group relative flex flex-col items-center justify-end h-64 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white">
-        <img
-          src="https://st2.depositphotos.com/1594920/5329/i/450/depositphotos_53297569-stock-photo-group-of-farm-animals.jpg"
-          alt="Granja"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          loading="lazy" />
-        <div
-          class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300">
-        </div>
-        <div
-          class="relative z-10 p-6 w-full text-center transform transition-transform duration-300 translate-y-2 group-hover:translate-y-0">
-          <span class="block text-xl font-bold text-white tracking-wide">Granja</span>
-          <span
-            class="block text-xs font-medium text-white/0 group-hover:text-white/80 transition-all duration-300 mt-1">Ver
-            productos →</span>
-        </div>
+      <!-- Item -->
+      <a href="/granja" class="group flex flex-col items-center w-44 sm:w-56">
+        <span class="relative flex items-center justify-center w-40 h-40 sm:w-56 sm:h-56 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-[#6D28D9] transition-all duration-500 shadow-[0_8px_24px_-8px_rgba(10,7,20,0.25)] group-hover:-translate-y-2">
+          <img src="https://st2.depositphotos.com/1594920/5329/i/450/depositphotos_53297569-stock-photo-group-of-farm-animals.jpg" alt="Granja" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+        </span>
+        <span class="pl-underline mt-4 text-sm font-bold text-[#0A0714]">Granja</span>
       </a>
     </div>
   </div>
 </section>
 
-<!-- Banner Premium - Cuida la salud -->
-<section class="py-24 bg-white relative">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="bg-indigo-900 rounded-[2.5rem] overflow-hidden shadow-2xl relative">
-      <!-- Background pattern -->
-      <div class="absolute inset-0 opacity-10"
-        style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 30px 30px;"></div>
+<!-- BANNER — Bienestar veterinario -->
+<section class="py-24 bg-[#F4F1FB] relative overflow-hidden pl-font">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="bg-[#0A0714] rounded-[2rem] overflow-hidden relative">
+      <div class="absolute inset-0 opacity-[0.07]" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 26px 26px;"></div>
+      <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-[#6D28D9] blur-[100px] opacity-30"></div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 items-center">
-        <!-- Texto -->
-        <div class="p-10 md:p-16 relative z-10">
-          <div
-            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-800/50 border border-indigo-700 text-indigo-200 text-sm font-semibold mb-6">
-            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-            Clínica Veterinaria
+      <div class="grid grid-cols-1 lg:grid-cols-2 items-stretch">
+        <div class="p-10 md:p-16 relative z-10 flex flex-col justify-center">
+          <div class="inline-flex items-center gap-2 w-fit px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs font-bold uppercase tracking-widest mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#A78BFA] animate-pulse"></span>
+            Clínica veterinaria
           </div>
-          <h3 class="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
-            Bienestar integral para tu mascota
+          <h3 class="pl-display text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
+            Bienestar integral<br class="hidden md:block"> para tu mascota
           </h3>
-          <p class="text-lg text-indigo-200 mb-8 leading-relaxed">
-            Encuentra suplementos, medicamentos y productos de cuidado veterinario de la más alta calidad para
-            garantizar una vida larga y feliz a tu mejor amigo.
+          <p class="text-white/55 mb-9 leading-relaxed max-w-md">
+            Suplementos, medicamentos y productos de cuidado veterinario de la más alta calidad, avalados por profesionales.
           </p>
 
-          <ul class="space-y-4 mb-10">
-            <li class="flex items-center text-white/90">
-              <div class="w-8 h-8 rounded-full bg-indigo-800 flex items-center justify-center mr-4">
-                <svg class="w-4 h-4 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-              </div>
-              Productos avalados por veterinarios
-            </li>
-            <li class="flex items-center text-white/90">
-              <div class="w-8 h-8 rounded-full bg-indigo-800 flex items-center justify-center mr-4">
-                <svg class="w-4 h-4 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-              </div>
-              Ingredientes 100% seguros y testeados
-            </li>
-          </ul>
-
-          <a href="/medicin"
-            class="group relative inline-flex items-center justify-center px-8 py-4 bg-white text-indigo-900 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-            <span class="relative z-10 flex items-center">
-              Ver catálogo médico
-              <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none"
-                stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
-                </path>
-              </svg>
-            </span>
-            <div
-              class="absolute inset-0 h-full w-full bg-gradient-to-r from-indigo-50 to-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out">
+          <div class="space-y-4 mb-10">
+            <div class="flex items-center gap-4">
+              <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#6D28D9]/20 border border-[#6D28D9]/40 shrink-0">
+                <svg class="w-4 h-4 text-[#A78BFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </span>
+              <span class="text-white/85 text-sm font-medium">Productos avalados por veterinarios</span>
             </div>
+            <div class="flex items-center gap-4">
+              <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#6D28D9]/20 border border-[#6D28D9]/40 shrink-0">
+                <svg class="w-4 h-4 text-[#A78BFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </span>
+              <span class="text-white/85 text-sm font-medium">Ingredientes 100% seguros y testeados</span>
+            </div>
+          </div>
+
+          <a href="/medicin" class="pl-btn-primary w-fit">
+            Ver catálogo médico
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </a>
         </div>
 
-        <!-- Imagen -->
-        <div class="h-[400px] lg:h-full relative overflow-hidden group">
-          <div class="absolute inset-0 bg-gradient-to-r from-indigo-900 to-transparent z-10 w-32"></div>
-          <img src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/4H7TOVBRAK3SO3HNBHTNQZ357Q.jpg"
-            alt="Salud de mascota"
-            class="absolute inset-0 w-full h-full object-cover object-center transform transition-transform duration-1000 group-hover:scale-110" />
+        <div class="h-[320px] lg:h-full relative overflow-hidden group">
+          <div class="absolute inset-0 bg-gradient-to-r from-[#0A0714] to-transparent z-10 w-24"></div>
+          <img src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/4H7TOVBRAK3SO3HNBHTNQZ357Q.jpg" alt="Salud de mascota" class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1.4s] group-hover:scale-110" />
         </div>
       </div>
     </div>
@@ -341,73 +248,58 @@
 </section>
 
 <!-- CATÁLOGO DE PRODUCTOS -->
-<section id="catalogo" class="py-16 bg-gray-50 relative z-20">
+<section id="catalogo" class="py-16 bg-white relative z-20 pl-font">
   <div class="container mx-auto px-4">
-
     <app-catalogo-productos></app-catalogo-productos>
   </div>
 </section>
 
-<!-- Split Sections con diseño alterno y glassmorphism -->
-<div class="flex flex-col">
+<!-- SPLIT SECTIONS — corte diagonal entre imagen y contenido -->
+<div class="flex flex-col pl-font">
 
   <!-- Gatos -->
-  <section class="group flex flex-col md:flex-row items-stretch bg-white min-h-[70vh] overflow-hidden">
-    <div class="w-full md:w-1/2 relative overflow-hidden h-[50vh] md:h-auto">
-      <img
-        src="https://cdn.royalcanin-weshare-online.io/UyEwa2QBaxEApS7LWvx8/v29/maine-coon-kitten-birth-growth-vet-vhn-emblematic?w=1440&fm=jpg&auto=format%2Ccompress"
-        alt="Gato jugando"
-        class="absolute w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-      <div class="absolute inset-0 bg-indigo-900/10 transition-colors duration-500 group-hover:bg-transparent"></div>
+  <section class="group flex flex-col md:flex-row items-stretch bg-white min-h-[65vh] overflow-hidden">
+    <div class="w-full md:w-1/2 relative overflow-hidden h-[45vh] md:h-auto" style="clip-path: polygon(0 0, 100% 0, 94% 100%, 0% 100%);">
+      <img src="https://cdn.royalcanin-weshare-online.io/UyEwa2QBaxEApS7LWvx8/v29/maine-coon-kitten-birth-growth-vet-vhn-emblematic?w=1440&fm=jpg&auto=format%2Ccompress" alt="Gato jugando" class="absolute w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105" />
+      <div class="absolute inset-0 bg-[#0A0714]/10 group-hover:bg-transparent transition-colors duration-500"></div>
     </div>
     <div class="w-full md:w-1/2 flex items-center p-10 md:p-16 lg:p-24 relative bg-white">
       <div class="max-w-xl">
-        <h3 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight relative inline-block">
+        <span class="text-xs font-bold tracking-[0.25em] text-[#6D28D9] uppercase">Juguetes &amp; enriquecimiento</span>
+        <h3 class="pl-display text-3xl md:text-5xl font-extrabold text-[#0A0714] my-4 tracking-tight relative inline-block">
           La salud comienza jugando
-          <span
-            class="absolute -bottom-2 left-0 w-1/3 h-1 bg-purple-500 rounded-full transition-all duration-500 group-hover:w-full"></span>
+          <span class="absolute -bottom-2 left-0 w-1/4 h-1 bg-[#6D28D9] rounded-full transition-all duration-500 group-hover:w-full"></span>
         </h3>
-        <p class="text-lg text-gray-600 leading-relaxed mb-8">
-          El tiempo de juego es vital para mantener a tu gato estimulado física y mentalmente. Descubre nuestra línea de
-          juguetes interactivos diseñados para despertar su instinto cazador y mantenerlos en forma.
+        <p class="text-[#4B4459] leading-relaxed mb-8 mt-6">
+          El tiempo de juego es vital para mantener a tu gato estimulado física y mentalmente. Descubre nuestra línea de juguetes interactivos diseñados para despertar su instinto cazador.
         </p>
-        <a href="https://cliente-angular-s3ov.vercel.app/gatos"
-          class="text-purple-600 font-bold uppercase tracking-wider text-sm flex items-center hover:text-purple-800 transition-colors">
+        <a href="https://cliente-angular-s3ov.vercel.app/gatos" class="inline-flex items-center gap-2 text-[#6D28D9] font-bold uppercase tracking-wider text-sm hover:gap-3 transition-all duration-300">
           Explorar juguetes
-          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-          </svg>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
       </div>
     </div>
   </section>
 
   <!-- Perros -->
-  <section class="group flex flex-col md:flex-row-reverse items-stretch bg-gray-50 min-h-[70vh] overflow-hidden">
-    <div class="w-full md:w-1/2 relative overflow-hidden h-[50vh] md:h-auto">
-      <img
-        src="https://cdn.royalcanin-weshare-online.io/0GkrHWsBG95Xk-RBifgR/v5/bd14h-hub-rottweiler-adult-black-and-white?w=960&fm=jpg&auto=format%2Ccompress"
-        alt="Perro Rottweiler"
-        class="absolute w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-      <div class="absolute inset-0 bg-blue-900/10 transition-colors duration-500 group-hover:bg-transparent"></div>
+  <section class="group flex flex-col md:flex-row-reverse items-stretch bg-[#F4F1FB] min-h-[65vh] overflow-hidden">
+    <div class="w-full md:w-1/2 relative overflow-hidden h-[45vh] md:h-auto" style="clip-path: polygon(6% 0, 100% 0, 100% 100%, 0% 100%);">
+      <img src="https://cdn.royalcanin-weshare-online.io/0GkrHWsBG95Xk-RBifgR/v5/bd14h-hub-rottweiler-adult-black-and-white?w=960&fm=jpg&auto=format%2Ccompress" alt="Perro Rottweiler" class="absolute w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105" />
+      <div class="absolute inset-0 bg-[#0A0714]/10 group-hover:bg-transparent transition-colors duration-500"></div>
     </div>
-    <div class="w-full md:w-1/2 flex items-center p-10 md:p-16 lg:p-24 relative bg-gray-50">
+    <div class="w-full md:w-1/2 flex items-center p-10 md:p-16 lg:p-24 relative bg-[#F4F1FB]">
       <div class="max-w-xl">
-        <h3 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight relative inline-block">
+        <span class="text-xs font-bold tracking-[0.25em] text-[#6D28D9] uppercase">Alimentación experta</span>
+        <h3 class="pl-display text-3xl md:text-5xl font-extrabold text-[#0A0714] my-4 tracking-tight relative inline-block">
           Nutrición especializada
-          <span
-            class="absolute -bottom-2 left-0 w-1/3 h-1 bg-blue-500 rounded-full transition-all duration-500 group-hover:w-full"></span>
+          <span class="absolute -bottom-2 left-0 w-1/4 h-1 bg-[#6D28D9] rounded-full transition-all duration-500 group-hover:w-full"></span>
         </h3>
-        <p class="text-lg text-gray-600 leading-relaxed mb-8">
-          Cuanto más sepas sobre la nutrición de tu perro, mejor podrás atender sus necesidades específicas. Nuestra
-          gama de alimentos está formulada por expertos para cada etapa de su vida.
+        <p class="text-[#4B4459] leading-relaxed mb-8 mt-6">
+          Cuanto más sepas sobre la nutrición de tu perro, mejor podrás atender sus necesidades específicas. Nuestra gama de alimentos está formulada por expertos para cada etapa de su vida.
         </p>
-        <a href="https://cliente-angular-s3ov.vercel.app/perros"
-          class="text-blue-600 font-bold uppercase tracking-wider text-sm flex items-center hover:text-blue-800 transition-colors">
+        <a href="https://cliente-angular-s3ov.vercel.app/perros" class="inline-flex items-center gap-2 text-[#6D28D9] font-bold uppercase tracking-wider text-sm hover:gap-3 transition-all duration-300">
           Ver alimentos
-          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-          </svg>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
       </div>
     </div>
@@ -415,59 +307,104 @@
 
 </div>
 
-<!-- Caballos Section con Parallax Effect -->
-<section class="relative py-32 bg-gray-900 overflow-hidden group">
-  <!-- Imagen de fondo con parallax (simulado con fixed cover, o simple transform) -->
-  <div class="absolute inset-0 opacity-40 transition-transform duration-[2s] group-hover:scale-105">
-    <img
-      src="https://plus.unsplash.com/premium_photo-1661886008804-9e5b219fc587?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2FiYWxsb3xlbnwwfHwwfHx8MA%3D%3D"
-      alt="Caballo" class="w-full h-full object-cover object-top" />
-  </div>
-  <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent"></div>
+<!-- CABALLOS — split inspirado en medicina -->
+<section class="bg-[#0A0714] relative overflow-hidden pl-font">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-10 md:py-16">
+    <div class="bg-[#0A0714] rounded-[2rem] overflow-hidden relative border border-white/10">
+      <div class="absolute inset-0 opacity-[0.06]" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 26px 26px;"></div>
+      <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-[#6D28D9] blur-[100px] opacity-25"></div>
 
-  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-    <h3 class="text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
-      Cuidado y conexión
-    </h3>
-    <p class="text-xl text-gray-300 leading-relaxed mb-10 drop-shadow-md max-w-2xl mx-auto font-light">
-      Los caballos requieren atención constante y alimentación precisa. Descubre nuestra línea premium para el cuidado
-      equino que garantiza su máximo rendimiento y bienestar.
-    </p>
-    <a href="/granja"
-      class="inline-block px-10 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white rounded-full font-semibold hover:bg-white/20 transition-all duration-300">
-      Descubrir Colección Equina
-    </a>
+      <div class="grid grid-cols-1 lg:grid-cols-2 items-stretch">
+        <div class="h-[42vh] lg:h-full relative overflow-hidden group order-1">
+          <div class="absolute inset-0 z-10 bg-gradient-to-r from-[#0A0714]/58 via-[#0A0714]/22 to-transparent"></div>
+          <div class="absolute inset-0 z-[11] bg-gradient-to-tr from-[#6D28D9]/14 via-transparent to-transparent mix-blend-screen"></div>
+          <img src="https://plus.unsplash.com/premium_photo-1661886008804-9e5b219fc587?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2FiYWxsb3xlbnwwfHwwfHx8MA%3D%3D" alt="Caballo" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[1.6s] group-hover:scale-105" />
+        </div>
+
+        <div class="p-10 md:p-16 lg:p-20 relative z-10 flex flex-col justify-center bg-[#0A0714] order-2">
+          <div class="inline-flex items-center gap-2 w-fit px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs font-bold uppercase tracking-widest mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#A78BFA] animate-pulse"></span>
+            Cuidado equino
+          </div>
+          <h3 class="pl-display text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+            Cuidado y conexión
+          </h3>
+          <p class="text-white/60 mb-9 leading-relaxed max-w-xl">
+            Los caballos requieren atención constante y alimentación precisa. Descubre nuestra línea premium para el cuidado equino que garantiza su máximo rendimiento y bienestar.
+          </p>
+
+          <div class="space-y-4 mb-10">
+            <div class="flex items-center gap-4">
+              <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#6D28D9]/20 border border-[#6D28D9]/40 shrink-0">
+                <svg class="w-4 h-4 text-[#A78BFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </span>
+              <span class="text-white/85 text-sm font-medium">Nutrición precisa para alto rendimiento</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#6D28D9]/20 border border-[#6D28D9]/40 shrink-0">
+                <svg class="w-4 h-4 text-[#A78BFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </span>
+              <span class="text-white/85 text-sm font-medium">Bienestar y cuidado diario especializado</span>
+            </div>
+          </div>
+
+          <a href="/granja" class="pl-btn-primary w-fit">
+            Descubrir colección equina
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- Adopciones - Fullscreen CTA -->
-<section class="relative w-full min-h-[80vh] flex items-center justify-center overflow-hidden group">
-  <div class="absolute inset-0">
-    <img src="https://proyecto-salvavidas.com/wp-content/uploads/2024/05/forms-Recovered2-1.png" alt="Adopciones"
-      class="w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-110" />
-    <div class="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition-colors duration-700"></div>
-  </div>
+<!-- ADOPCIONES — split invertido -->
+<section class="bg-[#F4F1FB] relative overflow-hidden pl-font">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-10 md:py-16">
+    <div class="bg-[#0A0714] rounded-[2rem] overflow-hidden relative border border-white/10">
+      <div class="absolute inset-0 opacity-[0.06]" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 26px 26px;"></div>
+      <div class="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-[#6D28D9] blur-[100px] opacity-25"></div>
 
-  <div
-    class="relative z-10 bg-white/10 backdrop-blur-xl border border-white/20 p-10 md:p-16 rounded-[2rem] text-center max-w-2xl mx-4 shadow-2xl transform transition-transform duration-500 hover:-translate-y-2">
-    <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-      <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
-        </path>
-      </svg>
+      <div class="grid grid-cols-1 lg:grid-cols-2 items-stretch">
+        <div class="p-10 md:p-16 lg:p-20 relative z-10 flex flex-col justify-center bg-[#0A0714] order-2 lg:order-1">
+          <div class="inline-flex items-center gap-2 w-fit px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs font-bold uppercase tracking-widest mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#A78BFA] animate-pulse"></span>
+            Adopciones responsables
+          </div>
+          <h3 class="pl-display text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+            Dales una segunda oportunidad
+          </h3>
+          <p class="text-white/60 mb-9 leading-relaxed max-w-xl">
+            Miles de mascotas están esperando un hogar lleno de amor. Haz la diferencia hoy mismo y encuentra a tu nuevo mejor amigo.
+          </p>
+
+          <div class="space-y-4 mb-10">
+            <div class="flex items-center gap-4">
+              <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#6D28D9]/20 border border-[#6D28D9]/40 shrink-0">
+                <svg class="w-4 h-4 text-[#A78BFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </span>
+              <span class="text-white/85 text-sm font-medium">Proceso claro y acompañado</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#6D28D9]/20 border border-[#6D28D9]/40 shrink-0">
+                <svg class="w-4 h-4 text-[#A78BFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </span>
+              <span class="text-white/85 text-sm font-medium">Hogar responsable para cada mascota</span>
+            </div>
+          </div>
+
+          <a href="https://pae.ec/" target="_blank" class="pl-btn-primary w-fit">
+            Quiero adoptar
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+
+        <div class="h-[42vh] lg:h-full relative overflow-hidden group order-1 lg:order-2">
+          <div class="absolute inset-0 z-10 bg-gradient-to-l from-[#0A0714]/62 via-[#0A0714]/22 to-transparent"></div>
+          <div class="absolute inset-0 z-[11] bg-gradient-to-bl from-[#6D28D9]/14 via-transparent to-transparent mix-blend-screen"></div>
+          <img src="https://proyecto-salvavidas.com/wp-content/uploads/2024/05/forms-Recovered2-1.png" alt="Adopciones" class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1.6s] group-hover:scale-105" />
+        </div>
+      </div>
     </div>
-    <h3 class="text-4xl font-bold text-white mb-4">Dales una segunda oportunidad</h3>
-    <p class="text-lg text-gray-200 mb-8 font-light">
-      Miles de mascotas están esperando un hogar lleno de amor. Haz la diferencia hoy mismo y encuentra a tu nuevo mejor
-      amigo.
-    </p>
-    <a href="https://pae.ec/" target="_blank"
-      class="inline-flex items-center px-8 py-4 bg-green-500 text-white font-bold rounded-full shadow-lg shadow-green-500/30 hover:bg-green-400 hover:shadow-green-500/50 transition-all duration-300 transform hover:-translate-y-1">
-      Quiero Adoptar
-      <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-      </svg>
-    </a>
   </div>
 </section>
