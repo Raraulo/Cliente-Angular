@@ -1,67 +1,71 @@
-/* Imagen: entrada con escala suave y rebote */
+.pl-font { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+.pl-display { font-family: 'Manrope', 'Inter', sans-serif; }
+.pl-gradient-text {
+  background: linear-gradient(100deg, #C4B5FD 0%, #8B5CF6 45%, #FFFFFF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Huellitas */
+.paw-container { position: absolute; inset: 0; pointer-events: none; }
+.paw {
+  position: absolute;
+  bottom: -20px;
+  width: 18px;
+  height: 18px;
+  background: #6D28D9;
+  opacity: 0;
+  border-radius: 50% 50% 50% 60%;
+  animation: pawWalk 5s linear infinite;
+}
+@keyframes pawWalk {
+  0% { bottom: -20px; opacity: 0; transform: scale(0.8) rotate(-8deg); }
+  10% { opacity: 0.35; }
+  50% { opacity: 0.2; }
+  90% { opacity: 0; }
+  100% { bottom: 110%; opacity: 0; transform: scale(1) rotate(8deg); }
+}
+
 @keyframes scaleBounce {
-  0% {
-    transform: scale(0.6);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-  }
+  0% { transform: scale(0.6); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); }
 }
 .animate-scalebounce {
   animation: scaleBounce 1.5s cubic-bezier(0.42, 0, 0.58, 1) forwards;
 }
 
-/* Texto: subida con opacidad y retraso sincronizado */
 @keyframes riseFade {
-  0% {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
 }
 .animate-risefade {
   animation: riseFade 1.5s ease-out 0.5s forwards;
   opacity: 0;
 }
 
-/* Spinner: fade-in rotatorio elegante */
 @keyframes fadeSpin {
-  0% {
-    opacity: 0;
-    transform: rotate(0deg) scale(0.5);
-  }
-  100% {
-    opacity: 1;
-    transform: rotate(360deg) scale(1);
-  }
+  0% { opacity: 0; transform: rotate(0deg) scale(0.5); }
+  100% { opacity: 1; transform: rotate(360deg) scale(1); }
 }
 .animate-fadespin {
   animation: fadeSpin 1s ease-out 1s forwards;
   opacity: 0;
 }
 
-/* Pantalla de carga: salida profesional (deslizamiento + blur + fade) */
 @keyframes exitUpBlur {
-  0% {
-    transform: translateY(0);
-    opacity: 1;
-    filter: blur(0);
-  }
-  100% {
-    transform: translateY(-100%);
-    opacity: 0;
-    filter: blur(8px);
-    visibility: hidden;
-  }
+  0% { transform: translateY(0); opacity: 1; filter: blur(0); }
+  100% { transform: translateY(-100%); opacity: 0; filter: blur(8px); visibility: hidden; }
 }
 .slide-up {
   animation: exitUpBlur 1.2s ease-in-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paw, .animate-scalebounce, .animate-risefade, .animate-fadespin, .slide-up {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

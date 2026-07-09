@@ -1,6 +1,11 @@
 <!-- Pantalla de carga -->
-<div *ngIf="loading" [ngClass]="{'slide-up': !loading}" 
-     class="fixed inset-0 z-[9999] bg-[#443CD6] flex flex-col items-center justify-center gap-6 transition-all duration-1000 overflow-hidden">
+<div *ngIf="loading" [ngClass]="{'slide-up': !loading}"
+     class="fixed inset-0 z-[9999] bg-[#0A0714] flex flex-col items-center justify-center gap-6 transition-all duration-1000 overflow-hidden pl-font">
+
+  <!-- Resplandores ambientales de marca -->
+  <div class="absolute -top-32 -left-20 w-[420px] h-[420px] rounded-full bg-[#6D28D9] blur-[120px] opacity-30 pointer-events-none"></div>
+  <div class="absolute -bottom-32 -right-20 w-[380px] h-[380px] rounded-full bg-[#4C1D95] blur-[120px] opacity-25 pointer-events-none"></div>
+  <div class="absolute inset-0 opacity-[0.05] pointer-events-none" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 26px 26px;"></div>
 
   <!-- Fondo de huellitas -->
   <div class="paw-container">
@@ -12,24 +17,31 @@
   </div>
 
   <!-- Logo circular con animación de rebote -->
-  <div class="w-40 h-40 rounded-full bg-white p-2 animate-scalebounce shadow-xl z-10">
-    <img src="https://static.vecteezy.com/system/resources/previews/006/627/041/non_2x/horse-dog-cat-animal-logo-design-template-vector.jpg"
-         alt="logo"
-         class="w-full h-full object-cover rounded-full">
+  <div class="relative z-10">
+    <div class="absolute inset-0 rounded-full bg-[#6D28D9] blur-2xl opacity-40 scale-110"></div>
+    <div class="relative w-40 h-40 rounded-full bg-white p-2 animate-scalebounce shadow-xl ring-1 ring-white/10">
+      <img src="https://static.vecteezy.com/system/resources/previews/006/627/041/non_2x/horse-dog-cat-animal-logo-design-template-vector.jpg"
+           alt="logo"
+           class="w-full h-full object-cover rounded-full">
+    </div>
   </div>
 
   <!-- Texto de branding -->
-  <a routerLink="/" class="text-3xl font-bold text-white animate-risefade z-10"
-     style="font-family:'Chewy', cursive;">
-    PawLuxury
+  <a routerLink="/" class="pl-display text-4xl font-extrabold text-white animate-risefade z-10 tracking-tight">
+    Paw<span class="pl-gradient-text">Luxury</span>
   </a>
 
+  <!-- Tagline sutil -->
+  <span class="animate-risefade z-10 text-xs font-semibold uppercase tracking-[0.25em] text-white/40" style="animation-delay: 0.7s;">
+    Preparando la experiencia
+  </span>
+
   <!-- Spinner -->
-  <svg class="animate-fadespin h-8 w-8 text-white mt-6 z-10" xmlns="http://www.w3.org/2000/svg" fill="none"
+  <svg class="animate-fadespin h-8 w-8 text-[#A78BFA] mt-6 z-10" xmlns="http://www.w3.org/2000/svg" fill="none"
        viewBox="0 0 24 24">
     <circle class="opacity-25" cx="12" cy="12" r="10"
             stroke="currentColor" stroke-width="4"></circle>
-    <path class="opacity-75" fill="currentColor"
+    <path class="opacity-90" fill="currentColor"
           d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
   </svg>
 </div>
