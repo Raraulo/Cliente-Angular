@@ -1,3 +1,15 @@
+<p align="center">
+  <img src="https://angular.io/assets/images/logos/angular/angular.svg" width="140" alt="Angular Logo">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Angular-19-DD0031?logo=angular" alt="Angular">
+  <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript" alt="TypeScript">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?logo=tailwindcss" alt="Tailwind">
+  <img src="https://img.shields.io/badge/JWT-Authentication-black" alt="JWT">
+  <img src="https://img.shields.io/badge/Chart.js-4-FF6384?logo=chartdotjs" alt="Chart.js">
+</p>
+
 # Cliente Angular
 
 Frontend desarrollado con **Angular** para una tienda en línea de productos para mascotas. La aplicación consume una API REST para ofrecer autenticación, navegación por categorías, carrito de compras, facturación y un módulo administrativo con reportes.
