@@ -21,6 +21,8 @@ export class HeaderComponent {
   cartItems$!: Observable<CartItem[]>;
   subtotal$!: Observable<number>;
   cartOpen = false;
+  favNoticeOpen = false;
+  private favNoticeTimer: ReturnType<typeof setTimeout> | null = null;
   
   // Hamburger menu state and animation control
   menuOpen = false;
@@ -52,6 +54,28 @@ export class HeaderComponent {
 
   logout() {
     this.auth.logout();
+  }
+
+  openFavoritesNotice() {
+    this.favNoticeOpen = true;
+
+    if (this.favNoticeTimer) {
+      clearTimeout(this.favNoticeTimer);
+    }
+
+    this.favNoticeTimer = setTimeout(() => {
+      this.favNoticeOpen = false;
+      this.favNoticeTimer = null;
+    }, 3000);
+  }
+
+  closeFavoritesNotice() {
+    this.favNoticeOpen = false;
+
+    if (this.favNoticeTimer) {
+      clearTimeout(this.favNoticeTimer);
+      this.favNoticeTimer = null;
+    }
   }
 
   toggleCart() {

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductosService } from '../../app/services/productos.service';
 import { CartService } from '../../app/services/cart.service';
+import { Producto } from '../../app/models/producto.model';
 
 @Component({
   selector: 'app-catalogo-productos',
@@ -15,9 +16,10 @@ export class CatalogoProductosComponent implements OnInit, OnDestroy {
   loading = true;
   isLogged = false;
   isAdmin = false;
+  productoSeleccionado: Producto | null = null;
 
   paginaActual = 0;
-  productosPorPagina = 2;
+  productosPorPagina = 4;
   intervalId: any = null;
 
   constructor(
@@ -51,8 +53,10 @@ export class CatalogoProductosComponent implements OnInit, OnDestroy {
   setProductosPorPagina = () => {
     if (window.innerWidth < 640) {
       this.productosPorPagina = 1;
-    } else {
+    } else if (window.innerWidth < 1024) {
       this.productosPorPagina = 2;
+    } else {
+      this.productosPorPagina = 4;
     }
     // Reiniciar la página y auto scroll si cambia
     this.paginaActual = 0;
@@ -102,6 +106,22 @@ export class CatalogoProductosComponent implements OnInit, OnDestroy {
 
   agregarAlCarrito(producto: any) {
     this.cartService.addToCart(producto);
+  }
+
+  abrirModal(producto: Producto) {
+    if (producto.stock === 0) return;
+    this.productoSeleccionado = producto;
+    this.stopAutoScroll();
+  }
+
+  cerrarModal() {
+    this.productoSeleccionado = null;
+    this.startAutoScroll();
+  }
+
+  agregarAlCarritoDesdeTarjeta(event: Event, producto: any) {
+    event.stopPropagation();
+    this.agregarAlCarrito(producto);
   }
 
   onImgError(event: any) {

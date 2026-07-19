@@ -1,7 +1,7 @@
-<!-- ============================================================
-     PAWLUXURY — HOME
-     Paleta: Negro #0A0714 · Morado #6D28D9 / #4C1D95 · Blanco #FFFFFF · Lavanda #F4F1FB
-     Tipografía: 'Manrope' (titulares, 800) + 'Inter' (cuerpo)
+﻿<!-- ============================================================
+    PAWLUXURY — HOME
+    Paleta: Negro #0A0714 · Morado #6D28D9 / #4C1D95 · Blanco #FFFFFF · Lavanda #F4F1FB
+    Tipografía: 'Manrope' (titulares, 800) + 'Inter' (cuerpo)
      Nota: agregar en index.html ->
      <link rel="preconnect" href="https://fonts.googleapis.com">
      <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -11,22 +11,16 @@
 <section class="relative w-full min-h-[92vh] lg:min-h-screen overflow-hidden bg-[#0A0714] flex items-center justify-center pl-font">
 
   <!-- Video de fondo -->
-  <video #heroVideo class="absolute inset-0 w-full h-full object-cover object-center opacity-60" autoplay muted
+  <video #heroVideo class="pl-hero-video absolute inset-0 w-full h-full object-cover object-center opacity-95 saturate-125 contrast-110" autoplay muted
     loop playsinline preload="metadata" loading="lazy" aria-hidden="true">
     <source src="assets/img/videopets.mp4" type="video/mp4" />
     <source src="assets/img/videopets.webm" type="video/webm" />
     <img src="assets/img/videopets-fallback.jpg" alt="PawLuxury Hero" class="w-full h-full object-cover" loading="lazy" />
   </video>
 
-  <!-- Malla de gradiente animada (firma visual) -->
-  <div class="absolute inset-0 z-[5] pointer-events-none">
-    <div class="pl-orb pl-orb-a"></div>
-    <div class="pl-orb pl-orb-b"></div>
-    <div class="pl-orb pl-orb-c"></div>
-  </div>
-
   <!-- Overlay -->
-  <div class="absolute inset-0 bg-gradient-to-b from-[#0A0714]/80 via-[#0A0714]/50 to-[#0A0714] z-10"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-[#1F1237]/18 via-[#0A0714]/14 to-[#0A0714]/72 z-10"></div>
+  <div class="absolute inset-0 bg-[#BFA4FF]/8 mix-blend-screen z-[11]"></div>
 
   <!-- Botón Play/Pause -->
   <button
@@ -46,16 +40,11 @@
 
   <!-- Contenido -->
   <div class="relative z-20 flex flex-col items-center justify-center text-center px-4 max-w-4xl mx-auto w-full">
-    <div class="pl-anim pl-delay-0 inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/80 text-xs font-semibold uppercase tracking-[0.2em]">
-      <span class="w-1.5 h-1.5 rounded-full bg-[#A78BFA]"></span>
-      Exclusividad para tu mejor amigo
-    </div>
-
     <h1 class="pl-anim pl-delay-1 pl-display text-5xl sm:text-6xl lg:text-[5.5rem] font-extrabold text-white mb-6 leading-[0.95] tracking-tight">
       Paw<span class="pl-gradient-text">Luxury</span>
     </h1>
 
-    <p class="pl-anim pl-delay-2 text-lg sm:text-xl text-white/60 mb-10 max-w-xl font-normal leading-relaxed">
+    <p class="pl-anim pl-delay-2 text-lg sm:text-xl text-white/80 mb-10 max-w-xl font-normal leading-relaxed">
       Productos premium, alimento gourmet y accesorios pensados para el bienestar de tu mascota.
     </p>
 
@@ -82,6 +71,10 @@
 <style>
   .pl-font { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
   .pl-display { font-family: 'Manrope', 'Inter', sans-serif; }
+
+  .pl-hero-video {
+    filter: none;
+  }
 
   .pl-gradient-text {
     background: linear-gradient(100deg, #C4B5FD 0%, #8B5CF6 45%, #FFFFFF 100%);
@@ -130,6 +123,40 @@
   @keyframes pl-float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);} }
   .pl-float { animation: pl-float 6s ease-in-out infinite; }
 
+  .wellness-premium {
+    background: #0A0714;
+    isolation: isolate;
+  }
+  .wellness-premium-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1.04);
+    animation: wellness-zoom 16s ease-in-out infinite alternate;
+  }
+  .wellness-premium-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(90deg, rgba(10,7,20,.92) 0%, rgba(10,7,20,.68) 42%, rgba(10,7,20,.18) 100%),
+      linear-gradient(0deg, rgba(10,7,20,.52), rgba(10,7,20,.08));
+  }
+  .wellness-copy-premium {
+    animation: wellness-copy-in .9s cubic-bezier(.16,1,.3,1) both;
+  }
+  @keyframes wellness-zoom {
+    0% { transform: scale(1.04) translate3d(0,0,0); }
+    100% { transform: scale(1.11) translate3d(-1.5%, -1%, 0); }
+  }
+  @keyframes wellness-copy-in {
+    0% { opacity: 0; transform: translateY(28px); filter: blur(6px); }
+    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+
   .pl-underline { position:relative; }
   .pl-underline::after {
     content:''; position:absolute; left:0; bottom:-4px; height:2px; width:0%;
@@ -138,7 +165,7 @@
   .pl-underline:hover::after { width:100%; }
 
   @media (prefers-reduced-motion: reduce) {
-    .pl-orb, .pl-anim, .pl-scroll-wheel, .pl-float { animation: none !important; opacity:1 !important; transform:none !important; }
+    .pl-orb, .pl-anim, .pl-scroll-wheel, .pl-float, .wellness-premium-img, .wellness-copy-premium { animation: none !important; opacity:1 !important; transform:none !important; filter:none !important; }
   }
 </style>
 
@@ -197,56 +224,34 @@
   </div>
 </section>
 
-<!-- BANNER — Bienestar veterinario -->
-<section class="py-24 bg-[#F4F1FB] relative overflow-hidden pl-font">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8">
-    <div class="bg-[#0A0714] rounded-[2rem] overflow-hidden relative">
-      <div class="absolute inset-0 opacity-[0.07]" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 26px 26px;"></div>
-      <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-[#6D28D9] blur-[100px] opacity-30"></div>
+<!-- BANNER — Bienestar integral -->
+<section class="wellness-premium relative min-h-[78vh] flex items-center overflow-hidden pl-font">
+  <img src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/4H7TOVBRAK3SO3HNBHTNQZ357Q.jpg" alt="Bienestar para mascota" class="wellness-premium-img" />
+  <div class="wellness-premium-overlay"></div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 items-stretch">
-        <div class="p-10 md:p-16 relative z-10 flex flex-col justify-center">
-          <div class="inline-flex items-center gap-2 w-fit px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs font-bold uppercase tracking-widest mb-6">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#A78BFA] animate-pulse"></span>
-            Clínica veterinaria
-          </div>
-          <h3 class="pl-display text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
-            Bienestar integral<br class="hidden md:block"> para tu mascota
-          </h3>
-          <p class="text-white/55 mb-9 leading-relaxed max-w-md">
-            Suplementos, medicamentos y productos de cuidado veterinario de la más alta calidad, avalados por profesionales.
-          </p>
+  <div class="relative z-10 w-full px-6 lg:px-12 py-24">
+    <div class="max-w-7xl mx-auto">
+      <div class="max-w-3xl wellness-copy-premium">
+        <h3 class="pl-display text-5xl md:text-7xl font-extrabold text-white mb-7 leading-[0.95] tracking-tight">
+          Bienestar integral<br class="hidden sm:block"> para tu mascota
+        </h3>
+        <p class="text-white text-lg md:text-xl mb-10 leading-relaxed max-w-2xl">
+          Cuidado diario, nutrición premium y accesorios elegidos para que cada momento con tu mascota se sienta más sano, cómodo y especial.
+        </p>
 
-          <div class="space-y-4 mb-10">
-            <div class="flex items-center gap-4">
-              <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#6D28D9]/20 border border-[#6D28D9]/40 shrink-0">
-                <svg class="w-4 h-4 text-[#A78BFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              </span>
-              <span class="text-white/85 text-sm font-medium">Productos avalados por veterinarios</span>
-            </div>
-            <div class="flex items-center gap-4">
-              <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#6D28D9]/20 border border-[#6D28D9]/40 shrink-0">
-                <svg class="w-4 h-4 text-[#A78BFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              </span>
-              <span class="text-white/85 text-sm font-medium">Ingredientes 100% seguros y testeados</span>
-            </div>
-          </div>
-
+        <div class="flex flex-col sm:flex-row gap-4">
           <a href="/medicin" class="pl-btn-primary w-fit">
-            Ver catálogo médico
+            Explorar cuidado
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </a>
-        </div>
-
-        <div class="h-[320px] lg:h-full relative overflow-hidden group">
-          <div class="absolute inset-0 bg-gradient-to-r from-[#0A0714] to-transparent z-10 w-24"></div>
-          <img src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/4H7TOVBRAK3SO3HNBHTNQZ357Q.jpg" alt="Salud de mascota" class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1.4s] group-hover:scale-110" />
+          <a href="#catalogo" class="pl-btn-outline w-fit">
+            Ver destacados
+          </a>
         </div>
       </div>
     </div>
   </div>
 </section>
-
 <!-- CATÁLOGO DE PRODUCTOS -->
 <section id="catalogo" class="py-16 bg-white relative z-20 pl-font">
   <div class="container mx-auto px-4">
@@ -254,13 +259,40 @@
   </div>
 </section>
 
-<!-- SPLIT SECTIONS — corte diagonal entre imagen y contenido -->
+<!-- NUESTRA HISTORIA -->
+<section id="nosotros" class="bg-[#F4F1FB] relative overflow-hidden pl-font">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-10 md:py-16">
+    <div class="bg-white rounded-[2rem] overflow-hidden relative border border-[#E9DDFB] shadow-[0_24px_80px_-36px_rgba(10,7,20,0.28)]">
+      <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-[#C084FC] blur-[110px] opacity-20"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 items-stretch">
+        <div class="h-[42vh] lg:h-full relative overflow-hidden group order-1">
+          <div class="absolute inset-0 z-10 bg-gradient-to-r from-white/10 via-white/0 to-transparent"></div>
+          <img src="https://petsbnb.co/wp-content/uploads/2024/11/pestbnb-pets-1080.jpg" alt="Nuestra historia" class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1.6s] group-hover:scale-105" />
+        </div>
+
+        <div class="p-10 md:p-16 lg:p-20 relative z-10 flex flex-col justify-center bg-white order-2">
+          <span class="text-xs font-bold tracking-[0.25em] text-[#6D28D9] uppercase">Nuestra historia</span>
+          <h3 class="pl-display text-4xl md:text-6xl font-extrabold text-[#0A0714] mb-6 leading-tight">
+            Un lugar para cuidar mejor a quienes más quieres
+          </h3>
+          <p class="text-[#4B4459] mb-9 leading-relaxed max-w-xl">
+            Nacimos para reunir productos confiables, asesoría clara y una selección pensada para simplificar la rutina diaria de cada familia con mascotas.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPLIT SECTIONS â€” corte diagonal entre imagen y contenido -->
 <div class="flex flex-col pl-font">
 
   <!-- Gatos -->
   <section class="group flex flex-col md:flex-row items-stretch bg-white min-h-[65vh] overflow-hidden">
     <div class="w-full md:w-1/2 relative overflow-hidden h-[45vh] md:h-auto" style="clip-path: polygon(0 0, 100% 0, 94% 100%, 0% 100%);">
-      <img src="https://cdn.royalcanin-weshare-online.io/UyEwa2QBaxEApS7LWvx8/v29/maine-coon-kitten-birth-growth-vet-vhn-emblematic?w=1440&fm=jpg&auto=format%2Ccompress" alt="Gato jugando" class="absolute w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105" />
+          <img src="https://cdn.royalcanin-weshare-online.io/UyEwa2QBaxEApS7LWvx8/v29/maine-coon-kitten-birth-growth-vet-vhn-emblematic?w=1440&fm=jpg&auto=format%2Ccompress" alt="Gato jugando" class="absolute w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105" />
       <div class="absolute inset-0 bg-[#0A0714]/10 group-hover:bg-transparent transition-colors duration-500"></div>
     </div>
     <div class="w-full md:w-1/2 flex items-center p-10 md:p-16 lg:p-24 relative bg-white">
@@ -311,42 +343,22 @@
 <section class="bg-[#0A0714] relative overflow-hidden pl-font">
   <div class="max-w-7xl mx-auto px-6 lg:px-8 py-10 md:py-16">
     <div class="bg-[#0A0714] rounded-[2rem] overflow-hidden relative border border-white/10">
-      <div class="absolute inset-0 opacity-[0.06]" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 26px 26px;"></div>
       <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-[#6D28D9] blur-[100px] opacity-25"></div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 items-stretch">
         <div class="h-[42vh] lg:h-full relative overflow-hidden group order-1">
           <div class="absolute inset-0 z-10 bg-gradient-to-r from-[#0A0714]/58 via-[#0A0714]/22 to-transparent"></div>
           <div class="absolute inset-0 z-[11] bg-gradient-to-tr from-[#6D28D9]/14 via-transparent to-transparent mix-blend-screen"></div>
-          <img src="https://plus.unsplash.com/premium_photo-1661886008804-9e5b219fc587?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2FiYWxsb3xlbnwwfHwwfHx8MA%3D%3D" alt="Caballo" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[1.6s] group-hover:scale-105" />
+          <img src="https://images.unsplash.com/photo-1553284965-fa61e9ad4795?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNhYmFsbG98ZW58MHx8MHx8fDA%3D" alt="Caballo" class="absolute inset-0 w-full h-full object-cover object-[72%_center] transition-transform duration-[1.6s] group-hover:scale-105" />
         </div>
 
         <div class="p-10 md:p-16 lg:p-20 relative z-10 flex flex-col justify-center bg-[#0A0714] order-2">
-          <div class="inline-flex items-center gap-2 w-fit px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs font-bold uppercase tracking-widest mb-6">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#A78BFA] animate-pulse"></span>
-            Cuidado equino
-          </div>
           <h3 class="pl-display text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
             Cuidado y conexión
           </h3>
           <p class="text-white/60 mb-9 leading-relaxed max-w-xl">
             Los caballos requieren atención constante y alimentación precisa. Descubre nuestra línea premium para el cuidado equino que garantiza su máximo rendimiento y bienestar.
           </p>
-
-          <div class="space-y-4 mb-10">
-            <div class="flex items-center gap-4">
-              <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#6D28D9]/20 border border-[#6D28D9]/40 shrink-0">
-                <svg class="w-4 h-4 text-[#A78BFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              </span>
-              <span class="text-white/85 text-sm font-medium">Nutrición precisa para alto rendimiento</span>
-            </div>
-            <div class="flex items-center gap-4">
-              <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#6D28D9]/20 border border-[#6D28D9]/40 shrink-0">
-                <svg class="w-4 h-4 text-[#A78BFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              </span>
-              <span class="text-white/85 text-sm font-medium">Bienestar y cuidado diario especializado</span>
-            </div>
-          </div>
 
           <a href="/granja" class="pl-btn-primary w-fit">
             Descubrir colección equina
@@ -362,36 +374,16 @@
 <section class="bg-[#F4F1FB] relative overflow-hidden pl-font">
   <div class="max-w-7xl mx-auto px-6 lg:px-8 py-10 md:py-16">
     <div class="bg-[#0A0714] rounded-[2rem] overflow-hidden relative border border-white/10">
-      <div class="absolute inset-0 opacity-[0.06]" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 26px 26px;"></div>
       <div class="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-[#6D28D9] blur-[100px] opacity-25"></div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 items-stretch">
         <div class="p-10 md:p-16 lg:p-20 relative z-10 flex flex-col justify-center bg-[#0A0714] order-2 lg:order-1">
-          <div class="inline-flex items-center gap-2 w-fit px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs font-bold uppercase tracking-widest mb-6">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#A78BFA] animate-pulse"></span>
-            Adopciones responsables
-          </div>
           <h3 class="pl-display text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
             Dales una segunda oportunidad
           </h3>
           <p class="text-white/60 mb-9 leading-relaxed max-w-xl">
             Miles de mascotas están esperando un hogar lleno de amor. Haz la diferencia hoy mismo y encuentra a tu nuevo mejor amigo.
           </p>
-
-          <div class="space-y-4 mb-10">
-            <div class="flex items-center gap-4">
-              <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#6D28D9]/20 border border-[#6D28D9]/40 shrink-0">
-                <svg class="w-4 h-4 text-[#A78BFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              </span>
-              <span class="text-white/85 text-sm font-medium">Proceso claro y acompañado</span>
-            </div>
-            <div class="flex items-center gap-4">
-              <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#6D28D9]/20 border border-[#6D28D9]/40 shrink-0">
-                <svg class="w-4 h-4 text-[#A78BFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              </span>
-              <span class="text-white/85 text-sm font-medium">Hogar responsable para cada mascota</span>
-            </div>
-          </div>
 
           <a href="https://pae.ec/" target="_blank" class="pl-btn-primary w-fit">
             Quiero adoptar
@@ -402,9 +394,12 @@
         <div class="h-[42vh] lg:h-full relative overflow-hidden group order-1 lg:order-2">
           <div class="absolute inset-0 z-10 bg-gradient-to-l from-[#0A0714]/62 via-[#0A0714]/22 to-transparent"></div>
           <div class="absolute inset-0 z-[11] bg-gradient-to-bl from-[#6D28D9]/14 via-transparent to-transparent mix-blend-screen"></div>
-          <img src="https://proyecto-salvavidas.com/wp-content/uploads/2024/05/forms-Recovered2-1.png" alt="Adopciones" class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1.6s] group-hover:scale-105" />
+          <img src="https://s10.s3c.es/imag/_v0/2121x1157/2/d/7/perros-gatos-istock.jpg" alt="Adopciones" class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1.6s] group-hover:scale-105" />
         </div>
       </div>
     </div>
   </div>
 </section>
+
+
+
