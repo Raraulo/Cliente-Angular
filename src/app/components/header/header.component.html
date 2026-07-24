@@ -4,40 +4,41 @@
      Si el <style> del home/footer ya está cargado globalmente,
      puedes quitar el bloque <style> de aquí para no duplicarlo.
      ============================================================ -->
-<header class="sticky top-0 z-50 bg-[#0A0714] pl-font relative overflow-visible">
+<header class="sticky top-0 z-50 bg-[#0A0714]/80 backdrop-blur-xl border-b border-white/10 pl-font relative overflow-visible transition-all duration-300">
 
-  <!-- Línea de brillo superior (igual que footer) -->
-  <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#6D28D9] to-transparent"></div>
-  <!-- Resplandor ambiental -->
-  <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-[200px] rounded-full bg-[#6D28D9] blur-[110px] opacity-[0.18] pointer-events-none"></div>
-  <!-- Borde inferior sutil -->
-  <div class="absolute bottom-0 left-0 w-full h-px bg-white/10"></div>
+  <!-- Línea de brillo superior con animación de gradiente fluida -->
+  <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#8B5CF6] to-transparent opacity-80"></div>
+  <!-- Resplandor ambiental suave -->
+  <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] h-[200px] rounded-full bg-[#6D28D9] blur-[120px] opacity-[0.22] pointer-events-none"></div>
 
-  <div class="max-w-7xl mx-auto flex items-center justify-between px-4 h-16 relative z-10">
+  <div class="max-w-7xl mx-auto flex items-center justify-between px-6 h-20 relative z-10">
 
-    <!-- Hamburger Button -->
-    <button (click)="openMenu()"
-      class="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A78BFA]">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
-    </button>
+    <!-- Hamburger button -->
+    <div class="flex items-center gap-4">
+      <button (click)="toggleMenu()" type="button"
+        class="group p-2.5 text-white/70 hover:text-white hover:bg-white/10 rounded-2xl transition-all duration-300 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A78BFA] border border-transparent hover:border-white/10 flex items-center gap-2">
+        <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <span class="hidden sm:inline text-xs font-bold uppercase tracking-wider text-white/60 group-hover:text-white transition-colors">Menú</span>
+      </button>
+    </div>
 
-    <!-- Logo centrado -->
+    <!-- Logo centrado y refinado (Tipografía estilo globos con Chewy) -->
     <div class="absolute left-1/2 -translate-x-1/2 pointer-events-none select-none">
       <a routerLink="/"
-        class="pl-display text-2xl font-extrabold text-white pointer-events-auto tracking-tight hover:opacity-90 transition-opacity">
+        class="font-chewy text-3xl sm:text-4xl text-white pointer-events-auto tracking-wide hover:scale-110 active:scale-95 transition-transform duration-300 inline-block drop-shadow-[0_4px_12px_rgba(109,40,217,0.5)]">
         Paw<span class="pl-gradient-text">Luxury</span>
       </a>
     </div>
 
     <!-- Acciones derecha -->
-    <div class="flex items-center gap-1 ml-auto">
+    <div class="flex items-center gap-2">
 
       <!-- Favoritos -->
       <div class="relative">
         <button type="button" (click)="openFavoritesNotice()"
-          class="relative p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A78BFA]"
+          class="group relative p-2.5 text-white/70 hover:text-white hover:bg-white/10 rounded-2xl transition-all duration-300 active:scale-95 border border-transparent hover:border-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A78BFA]"
           [attr.aria-expanded]="favNoticeOpen"
           aria-label="Favoritos">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
@@ -226,21 +227,17 @@
       </ng-template>
     </div>
   </div>
+</header>
 
-  <!-- Overlay -->
-  <div *ngIf="menuAnimating"
-    class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
-    [ngClass]="{'opacity-100 pointer-events-auto': menuOpen, 'opacity-0 pointer-events-none': !menuOpen}"
-    (click)="closeMenu()">
-  </div>
+<!-- Overlay Backdrop -->
+<div *ngIf="menuOpen"
+  class="fixed inset-0 z-[9998] bg-black/75 backdrop-blur-md transition-opacity duration-300 ease-out"
+  (click)="closeMenu()">
+</div>
 
-  <!-- Sidebar -->
-  <div *ngIf="menuAnimating"
-    class="fixed top-0 left-0 h-full z-50 transition-transform duration-300 ease-in-out"
-    [ngClass]="menuOpen ? 'translate-x-0' : '-translate-x-full'"
-    (transitionend)="onMenuTransitionEnd()"
-    (click)="$event.stopPropagation()"
-    style="width: 260px; background: #0A0714; box-shadow: 4px 0 40px rgba(0,0,0,0.6); border-right: 1px solid rgba(255,255,255,0.08);">
+<!-- Sidebar Drawer -->
+<div *ngIf="menuOpen"
+  class="fixed top-0 left-0 h-full z-[9999] w-72 sm:w-80 bg-[#0A0714] text-white border-r border-white/10 shadow-[20px_0_50px_rgba(0,0,0,0.9)] flex flex-col overflow-hidden animate-slideRight">
 
     <div class="flex flex-col h-full relative overflow-hidden">
 
@@ -248,12 +245,12 @@
       <div class="absolute -top-20 -left-16 w-64 h-64 rounded-full bg-[#6D28D9] blur-[100px] opacity-20 pointer-events-none"></div>
 
       <!-- Header sidebar -->
-      <div class="flex items-center justify-between px-5 py-4 border-b border-white/10 relative z-10">
-        <span class="pl-display text-xl font-extrabold text-white tracking-tight">
+      <div class="flex items-center justify-between px-5 py-5 border-b border-white/10 relative z-10">
+        <span class="font-chewy text-2xl text-white tracking-wide">
           Paw<span class="pl-gradient-text">Luxury</span>
         </span>
         <button (click)="closeMenu()"
-          class="p-1.5 text-white/60 hover:text-white hover:bg-white/10 rounded-lg transition-colors focus:outline-none">
+          class="p-2 text-white/60 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300 active:scale-95 focus:outline-none">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -261,42 +258,49 @@
       </div>
 
       <!-- Label -->
-      <div class="px-6 pt-5 pb-2 relative z-10">
-        <span class="text-xs font-bold uppercase tracking-widest text-white/35">Departamentos</span>
+      <div class="px-6 pt-6 pb-2 relative z-10">
+        <span class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#A78BFA]">Categorías Principales</span>
       </div>
 
-      <!-- Nav links -->
-      <nav class="flex-1 overflow-y-auto px-3 pb-4 space-y-0.5 relative z-10">
+      <!-- Nav links con microanimaciones e íconos -->
+      <nav class="flex-1 overflow-y-auto px-4 pb-6 space-y-1.5 relative z-10">
         <a routerLink="/perros" (click)="goToSection('/perros')"
-          class="block px-5 py-3 rounded-xl text-white/75 hover:text-white hover:bg-white/5 font-semibold text-base transition-colors">
-          Perros
+          class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/80 hover:text-white hover:bg-white/10 active:scale-[0.98] font-semibold text-base transition-all duration-200 group">
+          <span class="w-8 h-8 rounded-xl bg-[#6D28D9]/20 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors text-sm">🐶</span>
+          <span>Perros</span>
         </a>
         <a routerLink="/gatos" (click)="goToSection('/gatos')"
-          class="block px-5 py-3 rounded-xl text-white/75 hover:text-white hover:bg-white/5 font-semibold text-base transition-colors">
-          Gatos
+          class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/80 hover:text-white hover:bg-white/10 active:scale-[0.98] font-semibold text-base transition-all duration-200 group">
+          <span class="w-8 h-8 rounded-xl bg-[#6D28D9]/20 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors text-sm">🐱</span>
+          <span>Gatos</span>
         </a>
         <a routerLink="/peces" (click)="goToSection('/peces')"
-          class="block px-5 py-3 rounded-xl text-white/75 hover:text-white hover:bg-white/5 font-semibold text-base transition-colors">
-          Peces
+          class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/80 hover:text-white hover:bg-white/10 active:scale-[0.98] font-semibold text-base transition-all duration-200 group">
+          <span class="w-8 h-8 rounded-xl bg-[#6D28D9]/20 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors text-sm">🐠</span>
+          <span>Peces</span>
         </a>
         <a routerLink="/aves" (click)="goToSection('/aves')"
-          class="block px-5 py-3 rounded-xl text-white/75 hover:text-white hover:bg-white/5 font-semibold text-base transition-colors">
-          Aves
+          class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/80 hover:text-white hover:bg-white/10 active:scale-[0.98] font-semibold text-base transition-all duration-200 group">
+          <span class="w-8 h-8 rounded-xl bg-[#6D28D9]/20 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors text-sm">🦜</span>
+          <span>Aves</span>
         </a>
         <a routerLink="/pequenos" (click)="goToSection('/pequenos')"
-          class="block px-5 py-3 rounded-xl text-white/75 hover:text-white hover:bg-white/5 font-semibold text-base transition-colors">
-          Animales Pequeños
+          class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/80 hover:text-white hover:bg-white/10 active:scale-[0.98] font-semibold text-base transition-all duration-200 group">
+          <span class="w-8 h-8 rounded-xl bg-[#6D28D9]/20 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors text-sm">🐹</span>
+          <span>Animales Pequeños</span>
         </a>
         <a routerLink="/granja" (click)="goToSection('/granja')"
-          class="block px-5 py-3 rounded-xl text-white/75 hover:text-white hover:bg-white/5 font-semibold text-base transition-colors">
-          Granja
+          class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/80 hover:text-white hover:bg-white/10 active:scale-[0.98] font-semibold text-base transition-all duration-200 group">
+          <span class="w-8 h-8 rounded-xl bg-[#6D28D9]/20 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors text-sm">🐴</span>
+          <span>Granja</span>
         </a>
 
-        <div class="mx-2 my-3 border-t border-white/10"></div>
+        <div class="mx-2 my-4 border-t border-white/10"></div>
 
         <a routerLink="/medicin" (click)="goToSection('/medicin')"
-          class="block px-5 py-3 rounded-xl text-white/75 hover:text-white hover:bg-white/5 font-semibold text-base transition-colors">
-          Farmacia
+          class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-[#A78BFA] hover:text-white hover:bg-[#6D28D9]/30 active:scale-[0.98] font-semibold text-base transition-all duration-200 group">
+          <span class="w-8 h-8 rounded-xl bg-[#6D28D9]/30 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors text-sm">💊</span>
+          <span>Farmacia & Cuidado</span>
         </a>
       </nav>
 
@@ -306,7 +310,6 @@
       </div>
     </div>
   </div>
-</header>
 
 <!-- Solo incluir si el <style> del home/footer NO está cargado globalmente en la página -->
 <style>
@@ -327,5 +330,12 @@
     background: linear-gradient(100deg,#A78BFA,#6D28D9);
     color: #fff;
     box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.65);
+  }
+  @keyframes slideRight {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+  }
+  .animate-slideRight {
+    animation: slideRight 0.25s cubic-bezier(0.23, 1, 0.32, 1) forwards;
   }
 </style>

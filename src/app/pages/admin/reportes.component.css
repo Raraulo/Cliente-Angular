@@ -1,19 +1,33 @@
+/* Estilos aislados para Reportes & Dashboard Admin */
 .container {
   max-width: 900px;
 }
+
 table {
   border-collapse: collapse;
   width: 100%;
 }
+
 th, td {
-  font-size: 1rem;
+  font-size: 0.875rem;
 }
+
 th {
   font-weight: 600;
 }
-tbody tr:nth-child(even) {
-  background-color: #f9f9ff;
+
+/* Forzar que las filas impares y pares tengan el mismo color oscuro en modo profesional */
+tbody tr,
+tbody tr:nth-child(even),
+tbody tr:nth-child(odd) {
+  background-color: transparent !important;
+  color: #f8fafc !important;
 }
+
+tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
 canvas {
   display: block;
   max-width: 100% !important;

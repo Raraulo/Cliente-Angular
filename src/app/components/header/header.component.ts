@@ -85,28 +85,25 @@ export class HeaderComponent {
     }
   }
 
-  // ------- Menú hamburguesa animado --------
+  // ------- Menú hamburguesa -------
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+    if (this.menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }
 
   openMenu() {
-    this.menuAnimating = true;
-    setTimeout(() => this.menuOpen = true, 10);
-    document.body.style.overflow = 'hidden'; // Bloquea scroll al abrir menú
+    this.menuOpen = true;
+    document.body.style.overflow = 'hidden';
   }
 
   closeMenu() {
     this.menuOpen = false;
-    setTimeout(() => {
-      this.menuAnimating = false;
-      document.body.style.overflow = ''; // Restaura scroll
-    }, 300); // Debe coincidir con la duración de la transición
-  }
-
-  // Manejar fin de transición por seguridad (opcional)
-  onMenuTransitionEnd() {
-    if (!this.menuOpen) {
-      this.menuAnimating = false;
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = '';
   }
 
   // Para links del menú

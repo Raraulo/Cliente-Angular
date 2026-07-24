@@ -1,107 +1,206 @@
-<!-- src/app/pages/usuario/mis-compras/mis-compras.component.html -->
-<main class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
-  <header class="bg-emerald-500 py-20 text-center shadow-md">
-    <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight drop-shadow-md">🛍️ Mis Compras</h1>
-    <p class="mt-4 text-lg md:text-xl opacity-90 font-light">
-      Revisa el historial completo de tus compras y facturación.
-    </p>
-  </header>
+<!-- ============================================================
+     MIS COMPRAS — Emil Kowalski Design Engineering
+     Diseño: Blanco limpio y profesional
+     ============================================================ -->
 
-  <section class="max-w-7xl mx-auto px-6 md:px-12 py-12">
-    <div class="flex justify-end mb-10">
-      <button
-        class="px-6 md:px-8 py-3 md:py-4 bg-emerald-600 hover:bg-emerald-700 text-white text-lg rounded-full shadow-lg transition-all duration-300 ease-in-out hover:scale-105 active:scale-95"
-      >
-        <span class="inline-flex items-center gap-2">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
-            viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
-              d="M12 4v16m8-8H4" /></svg>
-          Exportar PDF
-        </span>
-      </button>
+<main class="mc-page min-h-screen bg-white text-[#0f172a] font-sans">
+
+  <!-- Hero Header -->
+  <div class="mc-hero relative overflow-hidden bg-white border-b border-gray-100 py-14">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
+      <span class="text-[11px] font-extrabold tracking-[0.25em] text-gray-400 uppercase">HISTORIAL DE COMPRAS</span>
+      <h1 class="mc-display text-4xl md:text-5xl font-extrabold text-[#0f172a] tracking-tight mt-2">
+        Mis Órdenes
+      </h1>
+      <p class="text-gray-500 text-sm mt-3 max-w-lg">
+        Consulta el detalle y descarga el comprobante de cada una de tus transacciones.
+      </p>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="max-w-6xl mx-auto px-6 lg:px-8 py-12">
+
+    <!-- Loading State -->
+    <div *ngIf="cargando" class="flex flex-col items-center justify-center py-24 gap-5">
+      <div class="mc-spinner w-8 h-8 rounded-full border-2 border-gray-200 border-t-gray-800"></div>
+      <span class="text-gray-400 text-sm font-medium tracking-wide">Cargando historial...</span>
     </div>
 
-    <div
-      class="grid gap-10"
-      [ngStyle]="{ 'grid-template-columns': 'repeat(auto-fit, minmax(350px, 1fr))' }"
-    >
+    <!-- Empty State -->
+    <div *ngIf="!cargando && facturas.length === 0" class="flex flex-col items-center justify-center py-24 gap-4 text-center">
+      <div class="w-14 h-14 rounded-2xl bg-gray-100 border border-gray-200 flex items-center justify-center">
+        <svg class="w-7 h-7 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+        </svg>
+      </div>
+      <h3 class="mc-display text-xl font-bold text-[#0f172a]">Sin compras registradas</h3>
+      <p class="text-gray-500 text-sm max-w-xs">Todavía no has realizado ninguna compra. Explora el catálogo para comenzar.</p>
+    </div>
+
+    <!-- Lista de Facturas -->
+    <div *ngIf="!cargando && facturas.length > 0" class="space-y-4">
+
       <article
-        *ngFor="let f of facturas"
+        *ngFor="let f of facturas; let i = index"
         [id]="'factura-' + f.id"
-        class="bg-white text-gray-900 rounded-3xl shadow-2xl overflow-hidden transition-all duration-500 ease-in-out flex flex-col"
-        [ngClass]="{ 'col-span-full': f.showDetalle }"
+        class="mc-card bg-white border border-gray-200 rounded-2xl overflow-hidden"
+        [style.animation-delay]="(i * 60) + 'ms'"
       >
-        <div class="flex flex-col md:flex-row">
-          <!-- parte principal -->
-          <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between w-full md:w-1/2">
-            <h2 class="text-2xl font-bold mb-1">Factura #{{ f.id }}</h2>
-            <p class="text-sm text-gray-500">{{ f.fecha | date:'fullDate' }}</p>
-            <span
-              class="inline-block mt-4 text-xs font-semibold uppercase bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full tracking-wide"
-            >
+        <!-- Header del recibo -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 border-b border-gray-100">
+          
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center shrink-0">
+              <span class="mc-display text-xs font-extrabold text-gray-500">#{{ f.id }}</span>
+            </div>
+            <div>
+              <h2 class="mc-display font-extrabold text-[#0f172a] text-base tracking-tight">Orden #{{ f.id }}</h2>
+              <p class="text-gray-400 text-xs mt-0.5">{{ f.fecha | date:'dd MMM yyyy, HH:mm' }}</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <!-- Método de pago -->
+            <span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-gray-100 text-gray-500 border border-gray-200">
               {{ f.metodo_pago }}
             </span>
 
-            <div class="mt-8 space-y-3 text-base">
-              <div class="flex justify-between">
-                <span class="text-gray-600">Subtotal:</span>
-                <span class="font-semibold">{{ f.subtotal | currency:'USD' }}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">IVA (15%):</span>
-                <span class="font-semibold">{{ f.iva | currency:'USD' }}</span>
-              </div>
-            </div>
+            <!-- Total -->
+            <span class="mc-display text-lg font-extrabold text-[#0f172a]">
+              {{ f.total | currency:'USD' }}
+            </span>
 
-            <div class="mt-6 flex items-center justify-between">
-              <p class="text-3xl font-bold text-emerald-600">
-                {{ f.total | currency:'USD' }}
-              </p>
-              <button
-                (click)="toggleDetalle(f)"
-                class="text-emerald-600 hover:underline font-medium transition text-sm"
-              >
-                {{ f.showDetalle ? 'Ocultar' : 'Ver' }} detalles
-              </button>
-            </div>
-          </div>
+            <!-- Botón Descargar Factura -->
+            <button
+              (click)="descargarFactura(f)"
+              class="mc-btn-download flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0f172a] text-white text-xs font-bold uppercase tracking-wider"
+              title="Descargar comprobante">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+              </svg>
+              Descargar
+            </button>
 
-          <!-- detalles -->
-          <div
-            *ngIf="f.showDetalle"
-            class="bg-gray-50 text-gray-900 w-full md:w-1/2 transition-all duration-300 ease-in-out"
-          >
-            <div class="p-6 sm:p-8 space-y-6">
-              <h3 class="text-xl font-semibold border-b pb-2">🧾 Detalle de productos</h3>
-              <ul class="space-y-5 max-h-96 overflow-auto pr-2">
-                <li *ngFor="let d of f.detalle" class="flex items-start">
-                  <img
-                    [src]="d.imagen"
-                    alt="{{ d.producto_nombre }}"
-                    class="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg shadow-md mr-4"
-                  />
-                  <div class="flex-1">
-                    <p class="text-base sm:text-lg font-medium">{{ d.producto_nombre }}</p>
-                    <p class="text-sm text-gray-600 mt-1">
-                      {{ d.cantidad }} × {{ d.precio_unitario | currency:'USD' }}
-                    </p>
-                  </div>
-                  <p class="text-lg font-semibold text-right text-gray-800 ml-4">
-                    {{ (d.cantidad * d.precio_unitario) | currency:'USD' }}
-                  </p>
-                </li>
-              </ul>
-            </div>
+            <!-- Toggle Detalles -->
+            <button
+              (click)="toggleDetalle(f)"
+              class="mc-btn-toggle flex items-center gap-2 px-4 py-2 rounded-xl border text-xs font-bold uppercase tracking-wider transition-all"
+              [ngClass]="f.showDetalle ? 'bg-gray-900 border-gray-900 text-white' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-400'">
+              <svg class="w-4 h-4 transition-transform duration-200" [ngClass]="{'rotate-180': f.showDetalle}" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+              {{ f.showDetalle ? 'Ocultar' : 'Ver detalle' }}
+            </button>
           </div>
         </div>
+
+        <!-- Resumen financiero siempre visible -->
+        <div class="grid grid-cols-3 divide-x divide-gray-100 bg-gray-50">
+          <div class="p-4 text-center">
+            <p class="text-[10px] font-extrabold tracking-widest text-gray-400 uppercase mb-1">Subtotal</p>
+            <p class="mc-display text-sm font-bold text-[#0f172a]">{{ f.subtotal | currency:'USD' }}</p>
+          </div>
+          <div class="p-4 text-center">
+            <p class="text-[10px] font-extrabold tracking-widest text-gray-400 uppercase mb-1">IVA 15%</p>
+            <p class="mc-display text-sm font-bold text-[#0f172a]">{{ f.iva | currency:'USD' }}</p>
+          </div>
+          <div class="p-4 text-center">
+            <p class="text-[10px] font-extrabold tracking-widest text-gray-400 uppercase mb-1">Total</p>
+            <p class="mc-display text-sm font-extrabold text-[#0f172a]">{{ f.total | currency:'USD' }}</p>
+          </div>
+        </div>
+
+        <!-- Detalle de Productos (Expandible) -->
+        <div *ngIf="f.showDetalle" class="mc-detalle border-t border-gray-100">
+          <div class="p-6">
+            <h3 class="text-[10px] font-extrabold tracking-widest text-gray-400 uppercase mb-5">Productos en esta orden</h3>
+            <ul class="space-y-4">
+              <li *ngFor="let d of f.detalle" class="mc-item flex items-center gap-4 py-3 border-b border-gray-100 last:border-0">
+                <img
+                  [src]="d.imagen"
+                  [alt]="d.producto_nombre"
+                  class="mc-img w-14 h-14 rounded-xl object-cover bg-gray-100 border border-gray-200 shrink-0"
+                />
+                <div class="flex-1 min-w-0">
+                  <p class="font-semibold text-[#0f172a] text-sm truncate">{{ d.producto_nombre }}</p>
+                  <p class="text-xs text-gray-400 mt-0.5">
+                    {{ d.cantidad }} unidad{{ d.cantidad > 1 ? 'es' : '' }} &times; {{ d.precio_unitario | currency:'USD' }}
+                  </p>
+                </div>
+                <span class="mc-display font-bold text-sm text-[#0f172a] shrink-0">
+                  {{ (d.cantidad * d.precio_unitario) | currency:'USD' }}
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
       </article>
 
-      <p
-        *ngIf="!cargando && facturas.length === 0"
-        class="col-span-full text-center text-gray-300 text-xl mt-20 font-light"
-      >
-        No tienes compras registradas aún. 🕊️
-      </p>
     </div>
-  </section>
+  </div>
 </main>
+
+<!-- ===================== ESTILOS EMIL KOWALSKI ===================== -->
+<style>
+  .mc-display { font-family: 'Manrope', 'Inter', sans-serif; }
+  .mc-page    { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+
+  /* Spinner */
+  .mc-spinner { animation: mc-spin 0.8s linear infinite; }
+  @keyframes mc-spin { to { transform: rotate(360deg); } }
+
+  /* Card stagger entrance */
+  .mc-card {
+    opacity: 0;
+    transform: translateY(6px);
+    animation: mc-in 380ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    transition: box-shadow 200ms ease;
+  }
+  .mc-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.06);
+  }
+  @keyframes mc-in {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Detalle expand */
+  .mc-detalle {
+    animation: mc-expand 250ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  @keyframes mc-expand {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Buttons */
+  .mc-btn-download {
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1),
+                background-color 200ms ease;
+  }
+  .mc-btn-download:hover { transform: translateY(-1px); background: #1e293b; }
+  .mc-btn-download:active { transform: scale(0.97); }
+
+  .mc-btn-toggle {
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1),
+                background-color 200ms ease,
+                border-color 200ms ease;
+  }
+  .mc-btn-toggle:active { transform: scale(0.97); }
+
+  /* Image zoom */
+  .mc-img { transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .mc-item:hover .mc-img { transform: scale(1.06); }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .mc-card, .mc-detalle, .mc-spinner, .mc-img {
+      animation: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>

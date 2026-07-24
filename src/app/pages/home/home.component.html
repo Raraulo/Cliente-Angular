@@ -1,4 +1,4 @@
-﻿<!-- ============================================================
+<!-- ============================================================
     PAWLUXURY — HOME
     Paleta: Negro #0A0714 · Morado #6D28D9 / #4C1D95 · Blanco #FFFFFF · Lavanda #F4F1FB
     Tipografía: 'Manrope' (titulares, 800) + 'Inter' (cuerpo)
@@ -40,7 +40,7 @@
 
   <!-- Contenido -->
   <div class="relative z-20 flex flex-col items-center justify-center text-center px-4 max-w-4xl mx-auto w-full">
-    <h1 class="pl-anim pl-delay-1 pl-display text-5xl sm:text-6xl lg:text-[5.5rem] font-extrabold text-white mb-6 leading-[0.95] tracking-tight">
+    <h1 class="pl-anim pl-delay-1 font-chewy text-6xl sm:text-7xl lg:text-[7rem] text-white mb-6 leading-none tracking-wide drop-shadow-[0_8px_30px_rgba(109,40,217,0.6)] hover:scale-105 transition-transform duration-500 cursor-default">
       Paw<span class="pl-gradient-text">Luxury</span>
     </h1>
 
@@ -88,22 +88,26 @@
     display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
     padding: 1rem 2.1rem; border-radius: 999px; font-weight: 700; font-size: .95rem;
     color: #0A0714; background: #FFFFFF;
-    transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, background .35s ease;
-    box-shadow: 0 0 0 rgba(167,139,250,0);
+    transition: transform 160ms cubic-bezier(.23,1,.32,1), box-shadow 200ms ease, background 200ms ease, color 200ms ease;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
   }
   .pl-btn-primary:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     background: linear-gradient(100deg,#A78BFA,#6D28D9);
     color: #fff;
-    box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.65);
+    box-shadow: 0 12px 32px -8px rgba(109,40,217, 0.5);
+  }
+  .pl-btn-primary:active {
+    transform: scale(0.97) translateY(0);
   }
   .pl-btn-outline {
     display: inline-flex; align-items: center; justify-content: center;
     padding: 1rem 2.1rem; border-radius: 999px; font-weight: 700; font-size: .95rem;
     color: #fff; background: transparent; border: 1px solid rgba(255,255,255,.25);
-    transition: all .35s cubic-bezier(.16,1,.3,1);
+    transition: transform 160ms cubic-bezier(.23,1,.32,1), border-color 200ms ease, background 200ms ease;
   }
-  .pl-btn-outline:hover { border-color: #A78BFA; background: rgba(167,139,250,.08); transform: translateY(-3px); }
+  .pl-btn-outline:hover { border-color: #A78BFA; background: rgba(167,139,250,.12); transform: translateY(-2px); }
+  .pl-btn-outline:active { transform: scale(0.97) translateY(0); }
 
  .pl-orb { position:absolute; border-radius: 50%; filter: blur(90px); opacity:.25; }
 .pl-orb-a { width:520px; height:520px; top:-120px; left:-140px; background:#ffffff; animation: pl-float-a 14s ease-in-out infinite; }
@@ -169,56 +173,75 @@
   }
 </style>
 
-<!-- CATEGORÍAS — sin tarjetas: círculos con foto + etiqueta, estilo "accesos" corporativo -->
+<!-- CATEGORÍAS — sin tarjetas: avatars/chips orgánicos con imagen + etiqueta hover moderna -->
 <section class="bg-white py-24 relative overflow-hidden pl-font">
-  <div class="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
-    <div class="text-center mb-16">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+    <div class="text-center max-w-2xl mx-auto mb-16">
       <span class="text-xs font-bold tracking-[0.25em] text-[#6D28D9] uppercase">Comienza aquí</span>
-      <h3 class="pl-display text-4xl sm:text-5xl font-extrabold text-[#0A0714] tracking-tight mt-3">¿Para quién compras hoy?</h3>
+      <h3 class="pl-display text-4xl sm:text-5xl font-extrabold text-[#0A0714] tracking-tight mt-3">
+        ¿Para quién buscas hoy?
+      </h3>
     </div>
 
-    <div class="flex flex-wrap justify-center gap-x-12 gap-y-16 sm:gap-x-16">
-      <!-- Item -->
-      <a href="/perros" class="group flex flex-col items-center w-44 sm:w-56">
-        <span class="relative flex items-center justify-center w-40 h-40 sm:w-56 sm:h-56 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-[#6D28D9] transition-all duration-500 shadow-[0_8px_24px_-8px_rgba(10,7,20,0.25)] group-hover:-translate-y-2">
-          <img src="https://img.freepik.com/foto-gratis/primer-plano-ingles-staffordshire-bull-terrier-blanco_181624-28979.jpg?semt=ais_hybrid&w=740" alt="Perros" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-        </span>
-        <span class="pl-underline mt-4 text-sm font-bold text-[#0A0714]">Perros</span>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-10">
+      <!-- Item Perros -->
+      <a routerLink="/perros" class="group flex flex-col items-center">
+        <div class="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full p-1 bg-gradient-to-b from-[#E9DDFB] to-transparent group-hover:from-[#6D28D9] group-hover:to-[#A78BFA] transition-all duration-500 shadow-lg group-hover:shadow-[0_12px_30px_rgba(109,40,217,0.3)] group-hover:-translate-y-2">
+          <div class="w-full h-full rounded-full overflow-hidden bg-white">
+            <img src="https://img.freepik.com/foto-gratis/primer-plano-ingles-staffordshire-bull-terrier-blanco_181624-28979.jpg?semt=ais_hybrid&w=740" alt="Perros" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+          </div>
+        </div>
+        <span class="mt-4 text-base font-bold text-[#0A0714] group-hover:text-[#6D28D9] transition-colors duration-300">Perros</span>
       </a>
-      <!-- Item -->
-      <a href="/gatos" class="group flex flex-col items-center w-44 sm:w-56">
-        <span class="relative flex items-center justify-center w-40 h-40 sm:w-56 sm:h-56 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-[#6D28D9] transition-all duration-500 shadow-[0_8px_24px_-8px_rgba(10,7,20,0.25)] group-hover:-translate-y-2">
-          <img src="https://img.freepik.com/fotos-premium/sentado-pelo-largo-britanico_191971-4519.jpg" alt="Gatos" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-        </span>
-        <span class="pl-underline mt-4 text-sm font-bold text-[#0A0714]">Gatos</span>
+
+      <!-- Item Gatos -->
+      <a routerLink="/gatos" class="group flex flex-col items-center">
+        <div class="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full p-1 bg-gradient-to-b from-[#E9DDFB] to-transparent group-hover:from-[#6D28D9] group-hover:to-[#A78BFA] transition-all duration-500 shadow-lg group-hover:shadow-[0_12px_30px_rgba(109,40,217,0.3)] group-hover:-translate-y-2">
+          <div class="w-full h-full rounded-full overflow-hidden bg-white">
+            <img src="https://img.freepik.com/fotos-premium/sentado-pelo-largo-britanico_191971-4519.jpg" alt="Gatos" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+          </div>
+        </div>
+        <span class="mt-4 text-base font-bold text-[#0A0714] group-hover:text-[#6D28D9] transition-colors duration-300">Gatos</span>
       </a>
-      <!-- Item -->
-      <a href="/peces" class="group flex flex-col items-center w-44 sm:w-56">
-        <span class="relative flex items-center justify-center w-40 h-40 sm:w-56 sm:h-56 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-[#6D28D9] transition-all duration-500 shadow-[0_8px_24px_-8px_rgba(10,7,20,0.25)] group-hover:-translate-y-2">
-          <img src="https://i.pinimg.com/564x/f5/07/70/f50770c7e7085e180674aea01584d390.jpg" alt="Peces" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-        </span>
-        <span class="pl-underline mt-4 text-sm font-bold text-[#0A0714]">Peces</span>
+
+      <!-- Item Peces -->
+      <a routerLink="/peces" class="group flex flex-col items-center">
+        <div class="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full p-1 bg-gradient-to-b from-[#E9DDFB] to-transparent group-hover:from-[#6D28D9] group-hover:to-[#A78BFA] transition-all duration-500 shadow-lg group-hover:shadow-[0_12px_30px_rgba(109,40,217,0.3)] group-hover:-translate-y-2">
+          <div class="w-full h-full rounded-full overflow-hidden bg-white">
+            <img src="https://i.pinimg.com/564x/f5/07/70/f50770c7e7085e180674aea01584d390.jpg" alt="Peces" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+          </div>
+        </div>
+        <span class="mt-4 text-base font-bold text-[#0A0714] group-hover:text-[#6D28D9] transition-colors duration-300">Peces</span>
       </a>
-      <!-- Item -->
-      <a href="/aves" class="group flex flex-col items-center w-44 sm:w-56">
-        <span class="relative flex items-center justify-center w-40 h-40 sm:w-56 sm:h-56 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-[#6D28D9] transition-all duration-500 shadow-[0_8px_24px_-8px_rgba(10,7,20,0.25)] group-hover:-translate-y-2">
-          <img src="https://png.pngtree.com/background/20240313/original/pngtree-common-pet-parakeet-white-background-animal-budgerigar-photo-picture-image_8062617.jpg" alt="Aves" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-        </span>
-        <span class="pl-underline mt-4 text-sm font-bold text-[#0A0714]">Aves</span>
+
+      <!-- Item Aves -->
+      <a routerLink="/aves" class="group flex flex-col items-center">
+        <div class="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full p-1 bg-gradient-to-b from-[#E9DDFB] to-transparent group-hover:from-[#6D28D9] group-hover:to-[#A78BFA] transition-all duration-500 shadow-lg group-hover:shadow-[0_12px_30px_rgba(109,40,217,0.3)] group-hover:-translate-y-2">
+          <div class="w-full h-full rounded-full overflow-hidden bg-white">
+            <img src="https://png.pngtree.com/background/20240313/original/pngtree-common-pet-parakeet-white-background-animal-budgerigar-photo-picture-image_8062617.jpg" alt="Aves" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+          </div>
+        </div>
+        <span class="mt-4 text-base font-bold text-[#0A0714] group-hover:text-[#6D28D9] transition-colors duration-300">Aves</span>
       </a>
-      <!-- Item -->
-      <a href="/pequenos" class="group flex flex-col items-center w-44 sm:w-56">
-        <span class="relative flex items-center justify-center w-40 h-40 sm:w-56 sm:h-56 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-[#6D28D9] transition-all duration-500 shadow-[0_8px_24px_-8px_rgba(10,7,20,0.25)] group-hover:-translate-y-2">
-          <img src="https://us.123rf.com/450wm/ksena32/ksena321507/ksena32150700536/42529319-hamster-on-a-white-background.jpg" alt="Pequeños" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-        </span>
-        <span class="pl-underline mt-4 text-sm font-bold text-[#0A0714]">Pequeños</span>
+
+      <!-- Item Pequeños -->
+      <a routerLink="/pequenos" class="group flex flex-col items-center">
+        <div class="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full p-1 bg-gradient-to-b from-[#E9DDFB] to-transparent group-hover:from-[#6D28D9] group-hover:to-[#A78BFA] transition-all duration-500 shadow-lg group-hover:shadow-[0_12px_30px_rgba(109,40,217,0.3)] group-hover:-translate-y-2">
+          <div class="w-full h-full rounded-full overflow-hidden bg-white">
+            <img src="https://us.123rf.com/450wm/ksena32/ksena321507/ksena32150700536/42529319-hamster-on-a-white-background.jpg" alt="Pequeños" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+          </div>
+        </div>
+        <span class="mt-4 text-base font-bold text-[#0A0714] group-hover:text-[#6D28D9] transition-colors duration-300">Pequeños</span>
       </a>
-      <!-- Item -->
-      <a href="/granja" class="group flex flex-col items-center w-44 sm:w-56">
-        <span class="relative flex items-center justify-center w-40 h-40 sm:w-56 sm:h-56 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-[#6D28D9] transition-all duration-500 shadow-[0_8px_24px_-8px_rgba(10,7,20,0.25)] group-hover:-translate-y-2">
-          <img src="https://st2.depositphotos.com/1594920/5329/i/450/depositphotos_53297569-stock-photo-group-of-farm-animals.jpg" alt="Granja" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-        </span>
-        <span class="pl-underline mt-4 text-sm font-bold text-[#0A0714]">Granja</span>
+
+      <!-- Item Granja -->
+      <a routerLink="/granja" class="group flex flex-col items-center">
+        <div class="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full p-1 bg-gradient-to-b from-[#E9DDFB] to-transparent group-hover:from-[#6D28D9] group-hover:to-[#A78BFA] transition-all duration-500 shadow-lg group-hover:shadow-[0_12px_30px_rgba(109,40,217,0.3)] group-hover:-translate-y-2">
+          <div class="w-full h-full rounded-full overflow-hidden bg-white">
+            <img src="https://st2.depositphotos.com/1594920/5329/i/450/depositphotos_53297569-stock-photo-group-of-farm-animals.jpg" alt="Granja" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+          </div>
+        </div>
+        <span class="mt-4 text-base font-bold text-[#0A0714] group-hover:text-[#6D28D9] transition-colors duration-300">Granja</span>
       </a>
     </div>
   </div>
@@ -252,6 +275,7 @@
     </div>
   </div>
 </section>
+
 <!-- CATÁLOGO DE PRODUCTOS -->
 <section id="catalogo" class="py-16 bg-white relative z-20 pl-font">
   <div class="container mx-auto px-4">
@@ -259,34 +283,49 @@
   </div>
 </section>
 
-<!-- NUESTRA HISTORIA -->
-<section id="nosotros" class="bg-[#F4F1FB] relative overflow-hidden pl-font">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-10 md:py-16">
-    <div class="bg-white rounded-[2rem] overflow-hidden relative border border-[#E9DDFB] shadow-[0_24px_80px_-36px_rgba(10,7,20,0.28)]">
-      <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-[#C084FC] blur-[110px] opacity-20"></div>
+<!-- NUESTRA HISTORIA — Limpio, sin tarjetas encajonadas, estilo editorial moderno -->
+<section id="nosotros" class="bg-[#F4F1FB] relative overflow-hidden py-20 md:py-28 pl-font">
+  <!-- Resplandor ambiental de fondo -->
+  <div class="absolute -top-32 right-0 w-[500px] h-[500px] rounded-full bg-[#C084FC]/15 blur-[120px] pointer-events-none"></div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 items-stretch">
-        <div class="h-[42vh] lg:h-full relative overflow-hidden group order-1">
-          <div class="absolute inset-0 z-10 bg-gradient-to-r from-white/10 via-white/0 to-transparent"></div>
-          <img src="https://petsbnb.co/wp-content/uploads/2024/11/pestbnb-pets-1080.jpg" alt="Nuestra historia" class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1.6s] group-hover:scale-105" />
-        </div>
-
-        <div class="p-10 md:p-16 lg:p-20 relative z-10 flex flex-col justify-center bg-white order-2">
-          <span class="text-xs font-bold tracking-[0.25em] text-[#6D28D9] uppercase">Nuestra historia</span>
-          <h3 class="pl-display text-4xl md:text-6xl font-extrabold text-[#0A0714] mb-6 leading-tight">
-            Un lugar para cuidar mejor a quienes más quieres
-          </h3>
-          <p class="text-[#4B4459] mb-9 leading-relaxed max-w-xl">
-            Nacimos para reunir productos confiables, asesoría clara y una selección pensada para simplificar la rutina diaria de cada familia con mascotas.
-          </p>
-
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      
+      <!-- Lado Imagen con marco fluido sin tarjeta flotante -->
+      <div class="lg:col-span-6 relative group">
+        <div class="relative w-full h-[400px] sm:h-[500px] rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_-15px_rgba(10,7,20,0.15)] transition-all duration-700 group-hover:shadow-[0_30px_60px_-12px_rgba(109,40,217,0.25)]">
+          <img src="https://petsbnb.co/wp-content/uploads/2024/11/pestbnb-pets-1080.jpg" alt="Nuestra historia" class="w-full h-full object-cover object-center transition-transform duration-1000 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0A0714]/40 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-500"></div>
         </div>
       </div>
+
+      <!-- Lado Texto -->
+      <div class="lg:col-span-6 flex flex-col justify-center">
+        <span class="text-xs font-bold tracking-[0.25em] text-[#6D28D9] uppercase mb-3">Nuestra historia</span>
+        <h3 class="pl-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#0A0714] mb-6 leading-[1.05] tracking-tight">
+          Un lugar creado para cuidar mejor a quienes más quieres
+        </h3>
+        <p class="text-[#4B4459] text-base sm:text-lg mb-8 leading-relaxed font-normal">
+          Nacimos con el firme propósito de reunir los mejores productos, asesoría experta transparente y una cuidada selección gourmet que eleve la salud y rutina diaria de tu mascota.
+        </p>
+
+        <div class="grid grid-cols-2 gap-6 pt-6 border-t border-[#E9DDFB]">
+          <div>
+            <span class="pl-display block text-3xl font-extrabold text-[#6D28D9]">100%</span>
+            <span class="text-xs font-semibold text-[#4B4459] uppercase tracking-wider mt-1 block">Calidad Certificada</span>
+          </div>
+          <div>
+            <span class="pl-display block text-3xl font-extrabold text-[#0A0714]">+10k</span>
+            <span class="text-xs font-semibold text-[#4B4459] uppercase tracking-wider mt-1 block">Mascotas Felices</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- SPLIT SECTIONS â€” corte diagonal entre imagen y contenido -->
+<!-- SPLIT SECTIONS — corte diagonal entre imagen y contenido -->
 <div class="flex flex-col pl-font">
 
   <!-- Gatos -->
@@ -339,64 +378,84 @@
 
 </div>
 
-<!-- CABALLOS — split inspirado en medicina -->
-<section class="bg-[#0A0714] relative overflow-hidden pl-font">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-10 md:py-16">
-    <div class="bg-[#0A0714] rounded-[2rem] overflow-hidden relative border border-white/10">
-      <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-[#6D28D9] blur-[100px] opacity-25"></div>
+<!-- SECCIÓN ANIMALES DE GRANJA — Cuidado y Conexión (Caballos, Vacas, etc.) -->
+<section class="bg-[#0A0714] relative overflow-hidden py-24 md:py-32 pl-font border-t border-white/10">
+  <!-- Resplandor ambiental de marca detrás -->
+  <div class="absolute top-1/2 left-0 -translate-y-1/2 w-[550px] h-[550px] rounded-full bg-[#6D28D9]/20 blur-[130px] pointer-events-none"></div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 items-stretch">
-        <div class="h-[42vh] lg:h-full relative overflow-hidden group order-1">
-          <div class="absolute inset-0 z-10 bg-gradient-to-r from-[#0A0714]/58 via-[#0A0714]/22 to-transparent"></div>
-          <div class="absolute inset-0 z-[11] bg-gradient-to-tr from-[#6D28D9]/14 via-transparent to-transparent mix-blend-screen"></div>
-          <img src="https://images.unsplash.com/photo-1553284965-fa61e9ad4795?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNhYmFsbG98ZW58MHx8MHx8fDA%3D" alt="Caballo" class="absolute inset-0 w-full h-full object-cover object-[72%_center] transition-transform duration-[1.6s] group-hover:scale-105" />
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      
+      <!-- Lado Imagen con marco fluido limpio sin tarjetas flotantes -->
+      <div class="lg:col-span-6 relative group order-1">
+        <div class="relative w-full h-[420px] sm:h-[520px] rounded-[2.5rem] overflow-hidden border border-white/15 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] transition-all duration-700 group-hover:border-[#A78BFA]/50 group-hover:shadow-[0_30px_70px_-10px_rgba(109,40,217,0.35)]">
+          <img src="https://images.unsplash.com/photo-1553284965-fa61e9ad4795?fm=jpg&q=60&w=3000&auto=format&fit=crop" alt="Animales de Granja" class="w-full h-full object-cover object-[72%_center] transition-transform duration-1000 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0A0714]/80 via-transparent to-transparent"></div>
         </div>
+      </div>
 
-        <div class="p-10 md:p-16 lg:p-20 relative z-10 flex flex-col justify-center bg-[#0A0714] order-2">
-          <h3 class="pl-display text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
-            Cuidado y conexión
-          </h3>
-          <p class="text-white/60 mb-9 leading-relaxed max-w-xl">
-            Los caballos requieren atención constante y alimentación precisa. Descubre nuestra línea premium para el cuidado equino que garantiza su máximo rendimiento y bienestar.
-          </p>
+      <!-- Lado Texto -->
+      <div class="lg:col-span-6 flex flex-col justify-center order-2">
+        <span class="text-xs font-bold tracking-[0.25em] text-[#A78BFA] uppercase mb-3">Línea de Granja Especializada</span>
+        <h2 class="pl-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-[1.05] tracking-tight">
+          Cuidado y conexión
+        </h2>
+        <p class="text-white/70 text-base sm:text-lg mb-8 leading-relaxed font-normal max-w-xl">
+          Los animales de granja como caballos, vacas y más requieren atención constante y alimentación precisa. Descubre nuestra gama exclusiva formulada para mantener la vitalidad, salud y máximo rendimiento de toda tu granja.
+        </p>
 
-          <a href="/granja" class="pl-btn-primary w-fit">
-            Descubrir colección equina
+        <div class="flex flex-wrap gap-4 items-center">
+          <a routerLink="/granja" class="pl-btn-primary">
+            <span>Explorar productos de granja</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </a>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
-<!-- ADOPCIONES — split invertido -->
-<section class="bg-[#F4F1FB] relative overflow-hidden pl-font">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-10 md:py-16">
-    <div class="bg-[#0A0714] rounded-[2rem] overflow-hidden relative border border-white/10">
-      <div class="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-[#6D28D9] blur-[100px] opacity-25"></div>
+<!-- SECCIÓN ADOPCIONES — Dales una Segunda Oportunidad -->
+<section class="bg-gradient-to-b from-[#F4F1FB] to-white relative overflow-hidden py-24 md:py-32 pl-font border-t border-[#E9DDFB]">
+  <!-- Resplandor suave -->
+  <div class="absolute -bottom-32 right-0 w-[500px] h-[500px] rounded-full bg-[#C084FC]/15 blur-[120px] pointer-events-none"></div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 items-stretch">
-        <div class="p-10 md:p-16 lg:p-20 relative z-10 flex flex-col justify-center bg-[#0A0714] order-2 lg:order-1">
-          <h3 class="pl-display text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
-            Dales una segunda oportunidad
-          </h3>
-          <p class="text-white/60 mb-9 leading-relaxed max-w-xl">
-            Miles de mascotas están esperando un hogar lleno de amor. Haz la diferencia hoy mismo y encuentra a tu nuevo mejor amigo.
-          </p>
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      
+      <!-- Lado Texto -->
+      <div class="lg:col-span-6 flex flex-col justify-center order-2 lg:order-1">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#6D28D9]/10 text-[#6D28D9] border border-[#6D28D9]/20 w-fit mb-4">
+          <span class="text-xs font-extrabold uppercase tracking-widest">Adopción Responsable</span>
+        </div>
 
-          <a href="https://pae.ec/" target="_blank" class="pl-btn-primary w-fit">
-            Quiero adoptar
+        <h2 class="pl-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#0A0714] mb-6 leading-[1.05] tracking-tight">
+          Dales una segunda oportunidad
+        </h2>
+        <p class="text-[#4B4459] text-base sm:text-lg mb-8 leading-relaxed font-normal max-w-xl">
+          Cientos de huellitas están buscando un hogar donde recibir amor incondicional. Apoyamos el rescate animal y te facilitamos dar el paso para encontrar a tu nuevo mejor amigo.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="https://pae.ec/" target="_blank" rel="noopener" class="pl-btn-primary">
+            <span>Quiero adoptar</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </a>
-        </div>
-
-        <div class="h-[42vh] lg:h-full relative overflow-hidden group order-1 lg:order-2">
-          <div class="absolute inset-0 z-10 bg-gradient-to-l from-[#0A0714]/62 via-[#0A0714]/22 to-transparent"></div>
-          <div class="absolute inset-0 z-[11] bg-gradient-to-bl from-[#6D28D9]/14 via-transparent to-transparent mix-blend-screen"></div>
-          <img src="https://s10.s3c.es/imag/_v0/2121x1157/2/d/7/perros-gatos-istock.jpg" alt="Adopciones" class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1.6s] group-hover:scale-105" />
+          <a href="https://pae.ec/" target="_blank" rel="noopener" class="text-sm font-bold text-[#6D28D9] hover:underline underline-offset-4 transition-all">
+            Conoce los refugios →
+          </a>
         </div>
       </div>
+
+      <!-- Lado Imagen con marco orgánico fluido -->
+      <div class="lg:col-span-6 relative group order-1 lg:order-2">
+        <div class="relative w-full h-[420px] sm:h-[520px] rounded-[2.5rem] overflow-hidden shadow-[0_25px_60px_-15px_rgba(10,7,20,0.15)] transition-all duration-700 group-hover:shadow-[0_30px_70px_-10px_rgba(109,40,217,0.25)]">
+          <img src="https://s10.s3c.es/imag/_v0/2121x1157/2/d/7/perros-gatos-istock.jpg" alt="Mascotas esperando adopcion PAE" class="w-full h-full object-cover object-center transition-transform duration-1000 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0A0714]/40 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity"></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>

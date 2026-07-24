@@ -1,206 +1,413 @@
-<section class="w-full px-0 py-20 bg-white relative overflow-hidden pl-font">
-  <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-[#6D28D9] blur-[140px] opacity-[0.06] pointer-events-none"></div>
+<!-- ============================================================
+     CATÁLOGO — Productos Destacados
+     Diseño: Emil Kowalski design-eng principles
+     - Stagger fade-up on product items
+     - Custom easing: cubic-bezier(0.23, 1, 0.32, 1)
+     - :active scale(0.97) on pressable elements
+     - Transitions on specific properties only
+     - Modal enters from scale(0.95) + opacity:0
+     ============================================================ -->
 
-  <div class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
-    <div class="text-center mb-12">
-      <span class="text-xs font-bold tracking-[0.25em] text-[#6D28D9] uppercase">Selección premium</span>
-      <h3 class="pl-display text-4xl md:text-5xl font-extrabold text-[#0A0714] mt-3 tracking-tight">
-        Los Más <span class="pl-gradient-text-dark">Vendidos</span>
+<section class="cat-section w-full py-24 md:py-32 bg-white relative overflow-hidden pl-font">
+  <!-- Ambient glow -->
+  <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[350px] rounded-full bg-[#6D28D9] blur-[160px] opacity-[0.04] pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
+
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <span class="cat-label inline-block text-[11px] font-extrabold tracking-[0.3em] text-[#6D28D9] uppercase mb-3">Selección premium</span>
+      <h3 class="pl-display text-4xl md:text-5xl font-extrabold text-[#0A0714] tracking-tight leading-tight">
+        Los Más <span class="cat-gradient-text">Vendidos</span>
       </h3>
+      <p class="mt-4 text-[#6B6480] text-base max-w-lg mx-auto leading-relaxed">
+        Productos elegidos por miles de dueños que buscan lo mejor para sus mascotas.
+      </p>
     </div>
 
-    <div *ngIf="loading" class="flex flex-col items-center py-20">
-      <div class="animate-spin rounded-full h-14 w-14 border-t-4 border-[#6D28D9] border-opacity-60 mx-auto"></div>
-      <p class="mt-8 text-lg text-[#4B4459] font-medium">Cargando productos...</p>
+    <!-- Loading state -->
+    <div *ngIf="loading" class="flex flex-col items-center py-24">
+      <div class="cat-spinner w-12 h-12 rounded-full border-[3px] border-[#E9DDFB] border-t-[#6D28D9] mx-auto"></div>
+      <p class="mt-6 text-sm text-[#6B6480] font-medium tracking-wide">Cargando productos…</p>
     </div>
 
-    <div *ngIf="!loading && topProductos.length === 0" class="text-center py-16">
-      <svg class="mx-auto h-20 w-20 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18M3 3v18M3 3l18 18" />
-      </svg>
-      <p class="mt-6 text-lg text-gray-400 font-semibold">No hay productos destacados.</p>
+    <!-- Empty state -->
+    <div *ngIf="!loading && topProductos.length === 0" class="text-center py-20">
+      <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-[#F4F1FB] flex items-center justify-center">
+        <svg class="w-7 h-7 text-[#A78BFA]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+        </svg>
+      </div>
+      <p class="text-sm text-[#6B6480] font-semibold">No hay productos destacados por el momento.</p>
     </div>
 
+    <!-- Product grid -->
     <div *ngIf="topProductos.length > 0" class="relative flex flex-col items-center">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 xl:gap-6 w-full transition-all duration-500 ease-in-out">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8 w-full">
+
         <div
-          *ngFor="let producto of productosCarrusel"
+          *ngFor="let producto of productosCarrusel; let i = index"
           (click)="abrirModal(producto)"
-          [ngClass]="producto.stock === 0 ? 'opacity-60 cursor-not-allowed grayscale hover:translate-y-0' : 'cursor-pointer hover:-translate-y-2'"
-          class="lux-card animate-fade-in-up w-full bg-white rounded-2xl overflow-hidden flex flex-col border border-gray-100 group transition-all duration-500"
+          [ngClass]="producto.stock === 0 ? 'opacity-50 grayscale pointer-events-none' : 'cat-item-interactive'"
+          class="cat-item group relative flex flex-col bg-white rounded-2xl overflow-hidden"
+          [style.animation-delay]="(i * 60) + 'ms'"
         >
-          <div class="relative h-44 overflow-hidden bg-[#F7F4FC]">
+          <!-- Image -->
+          <div class="relative h-56 overflow-hidden bg-[#F7F4FC]">
             <img
               [src]="producto.imagen_url ? producto.imagen_url : 'assets/img/no-image.png'"
               [alt]="producto.nombre"
-              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              class="w-full h-full object-cover cat-img"
               (error)="onImgError($event)"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0A0714]/55 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <!-- Hover gradient overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0A0714]/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 cat-overlay-transition"></div>
+
+            <!-- Stock badge -->
             <div class="absolute top-3 left-3">
               <span
-                class="px-3 py-1 backdrop-blur-md rounded-full text-[11px] font-extrabold text-white shadow-sm border border-white/25"
-                [ngClass]="producto.stock === 0 ? 'bg-red-500/85' : 'bg-emerald-500/85'"
+                class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold tracking-wide text-white backdrop-blur-md border border-white/20"
+                [ngClass]="producto.stock === 0 ? 'bg-red-500/80' : 'bg-emerald-500/80'"
               >
-                {{ producto.stock === 0 ? 'Agotado' : producto.stock + ' stock' }}
+                <span class="w-1.5 h-1.5 rounded-full bg-white/80"></span>
+                {{ producto.stock === 0 ? 'Agotado' : producto.stock + ' en stock' }}
               </span>
             </div>
-            <div *ngIf="producto.stock === 0" class="absolute inset-0 bg-[#0A0714]/70 backdrop-blur-sm flex items-center justify-center">
-              <span class="text-white font-extrabold text-sm tracking-widest uppercase">Agotado</span>
+
+            <!-- Sold out overlay -->
+            <div *ngIf="producto.stock === 0" class="absolute inset-0 bg-[#0A0714]/60 backdrop-blur-[2px] flex items-center justify-center">
+              <span class="text-white/90 font-extrabold text-xs tracking-[0.2em] uppercase">Agotado</span>
             </div>
           </div>
 
-          <div class="p-5 flex flex-col flex-grow min-h-[190px]">
-            <h4 class="pl-display text-lg font-extrabold text-[#0A0714] mb-2 line-clamp-1 group-hover:text-[#6D28D9] transition-colors">
+          <!-- Content -->
+          <div class="p-5 flex flex-col flex-grow">
+            <h4 class="pl-display text-[15px] font-extrabold text-[#0A0714] mb-1.5 line-clamp-1 group-hover:text-[#6D28D9] cat-color-transition">
               {{ producto.nombre }}
             </h4>
-            <p class="text-[#5F5870] text-sm mb-4 line-clamp-2 flex-grow leading-relaxed">
+            <p class="text-[#6B6480] text-[13px] mb-4 line-clamp-2 flex-grow leading-relaxed">
               {{ producto.descripcion && producto.descripcion !== 'Sin descripción' ? producto.descripcion : 'Sin descripción disponible' }}
             </p>
-            <div class="flex justify-between items-center gap-3 mt-auto pt-4 border-t border-gray-100">
-              <span class="pl-display text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#6D28D9] to-[#A78BFA]">
+
+            <!-- Price + CTA -->
+            <div class="flex items-center justify-between pt-4 border-t border-[#F0ECF8]">
+              <span class="pl-display text-lg font-extrabold cat-gradient-text">
                 {{ producto.precio === 0 ? 'Consultar' : ('$' + (producto.precio | number:'1.2-2')) }}
               </span>
+              <button
+                class="cat-btn-add inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-[11px] font-extrabold tracking-wider uppercase disabled:opacity-40 disabled:cursor-not-allowed"
+                [ngClass]="(producto.stock === 0 || isAdmin) ? 'bg-[#F0ECF8] text-[#6B6480]' : 'bg-[#0A0714] text-white'"
+                (click)="agregarAlCarritoDesdeTarjeta($event, producto)"
+                [disabled]="producto.stock === 0 || isAdmin"
+              >
+                <svg *ngIf="producto.stock > 0 && !isAdmin" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+                {{ producto.stock === 0 ? 'Agotado' : (isAdmin ? 'Solo clientes' : 'Añadir') }}
+              </button>
             </div>
-            <button
-              class="w-full mt-4 py-3 rounded-xl font-bold text-sm tracking-wide transition-all duration-300 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
-              [ngClass]="(producto.stock === 0 || isAdmin) ? '' : 'text-white'"
-              [ngStyle]="(producto.stock === 0 || isAdmin) ? {} : {'background': 'linear-gradient(100deg,#6D28D9,#4C1D95)'}"
-              (click)="agregarAlCarritoDesdeTarjeta($event, producto)"
-              [disabled]="producto.stock === 0 || isAdmin"
-              onmouseover="if(!this.disabled) this.style.background='linear-gradient(100deg,#A78BFA,#6D28D9)'"
-              onmouseout="if(!this.disabled) this.style.background='linear-gradient(100deg,#6D28D9,#4C1D95)'"
-            >
-              {{ producto.stock === 0 ? 'No disponible' : (isAdmin ? 'Solo clientes' : 'Añadir al Carrito') }}
-            </button>
           </div>
         </div>
+
       </div>
 
-      <div class="flex items-center justify-center gap-4 mt-10">
+      <!-- Pagination -->
+      <div class="flex items-center gap-6 mt-14">
         <button
-          class="rounded-full p-3 bg-[#F4F1FB] border border-[#6D28D9]/15 hover:bg-[#6D28D9] hover:border-[#6D28D9] text-[#6D28D9] hover:text-white transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-[#F4F1FB] disabled:hover:text-[#6D28D9]"
+          class="cat-btn-nav w-11 h-11 rounded-full flex items-center justify-center disabled:opacity-25 disabled:cursor-not-allowed"
           (click)="anteriorPagina()"
           [disabled]="paginaActual === 0"
           aria-label="Anterior"
         >
-          <i class="fas fa-chevron-left"></i>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
         </button>
-        <span class="text-sm font-bold text-[#4B4459] tracking-widest uppercase">
+
+        <span class="text-xs font-bold text-[#6B6480] tracking-[0.2em] uppercase tabular-nums">
           {{ paginaActual + 1 }} / {{ totalPaginas }}
         </span>
+
         <button
-          class="rounded-full p-3 bg-[#F4F1FB] border border-[#6D28D9]/15 hover:bg-[#6D28D9] hover:border-[#6D28D9] text-[#6D28D9] hover:text-white transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-[#F4F1FB] disabled:hover:text-[#6D28D9]"
+          class="cat-btn-nav w-11 h-11 rounded-full flex items-center justify-center disabled:opacity-25 disabled:cursor-not-allowed"
           (click)="siguientePagina()"
           [disabled]="paginaActual >= totalPaginas - 1"
           aria-label="Siguiente"
         >
-          <i class="fas fa-chevron-right"></i>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
         </button>
       </div>
     </div>
   </div>
 </section>
 
-<div *ngIf="productoSeleccionado as productoDetalle" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 animate-fade-in">
-  <div class="absolute inset-0 bg-[#0A0714]/65 backdrop-blur-sm" (click)="cerrarModal()"></div>
+<!-- ===== MODAL DE PRODUCTO ===== -->
+<div *ngIf="productoSeleccionado as productoDetalle" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 cat-modal-backdrop">
+  <!-- Backdrop -->
+  <div class="absolute inset-0 bg-[#0A0714]/60 backdrop-blur-sm" (click)="cerrarModal()"></div>
 
-  <div class="relative bg-white rounded-[2rem] shadow-2xl overflow-hidden w-full max-w-4xl max-h-[90vh] flex flex-col md:flex-row animate-modal-pop">
+  <!-- Modal container -->
+  <div class="cat-modal relative bg-white rounded-3xl shadow-[0_32px_80px_-20px_rgba(10,7,20,0.35)] overflow-hidden w-full max-w-3xl max-h-[88vh] flex flex-col md:flex-row">
+
+    <!-- Close button -->
     <button
       (click)="cerrarModal()"
-      class="absolute top-4 right-4 z-50 w-10 h-10 bg-white/70 backdrop-blur-md border border-gray-200 rounded-full flex items-center justify-center text-gray-700 hover:text-red-600 hover:bg-white transition-all shadow-sm"
+      class="cat-btn-close absolute top-4 right-4 z-50 w-9 h-9 rounded-full bg-white/80 backdrop-blur-md border border-[#E9DDFB] flex items-center justify-center text-[#4B4459] hover:text-[#6D28D9]"
       aria-label="Cerrar"
     >
-      <i class="fas fa-times"></i>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
     </button>
 
-    <div class="w-full md:w-1/2 relative h-64 md:h-auto overflow-hidden bg-[#F7F4FC]">
+    <!-- Image side -->
+    <div class="w-full md:w-[45%] relative h-64 md:h-auto overflow-hidden bg-[#F7F4FC]">
       <img
         [src]="productoDetalle.imagen_url ? productoDetalle.imagen_url : 'assets/img/no-image.png'"
         [alt]="productoDetalle.nombre"
         class="absolute inset-0 w-full h-full object-cover"
         (error)="onImgError($event)"
       />
-      <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent md:hidden"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#0A0714]/40 to-transparent md:bg-gradient-to-r md:from-transparent md:to-transparent"></div>
     </div>
 
-    <div class="w-full md:w-1/2 p-7 md:p-10 flex flex-col bg-white overflow-y-auto">
+    <!-- Info side -->
+    <div class="w-full md:w-[55%] p-7 md:p-10 flex flex-col bg-white overflow-y-auto">
       <div class="mb-6">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="px-3 py-1 bg-[#6D28D9]/10 text-[#6D28D9] border border-[#6D28D9]/15 text-xs font-bold rounded-full">Premium</span>
-          <span class="px-3 py-1 bg-emerald-50 text-emerald-700 border border-emerald-100 text-xs font-bold rounded-full">Stock: {{ productoDetalle.stock }}</span>
+        <!-- Badges -->
+        <div class="flex items-center gap-2 mb-4">
+          <span class="px-3 py-1 bg-[#6D28D9]/8 text-[#6D28D9] border border-[#6D28D9]/12 text-[10px] font-extrabold tracking-widest uppercase rounded-full">Premium</span>
+          <span class="px-3 py-1 bg-emerald-50 text-emerald-700 border border-emerald-100 text-[10px] font-extrabold tracking-widest uppercase rounded-full">Stock: {{ productoDetalle.stock }}</span>
         </div>
 
-        <h3 class="pl-display text-3xl font-extrabold text-[#0A0714] mb-4 leading-tight">{{ productoDetalle.nombre }}</h3>
-        <p class="pl-display text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#6D28D9] to-[#A78BFA] mb-6">
+        <h3 class="pl-display text-2xl md:text-3xl font-extrabold text-[#0A0714] mb-5 leading-tight">{{ productoDetalle.nombre }}</h3>
+
+        <p class="pl-display text-4xl md:text-5xl font-extrabold cat-gradient-text mb-6">
           {{ productoDetalle.precio === 0 ? 'Consultar' : ('$ ' + (productoDetalle.precio | number:'1.2-2')) }}
         </p>
 
-        <div class="h-px w-full bg-gray-100 mb-6"></div>
-        <h4 class="font-bold text-[#0A0714] mb-2">Descripción del producto</h4>
-        <p class="text-[#5F5870] text-base leading-relaxed mb-8">
+        <div class="h-px w-full bg-[#F0ECF8] mb-6"></div>
+
+        <h4 class="text-xs font-extrabold text-[#0A0714] uppercase tracking-widest mb-2">Descripción</h4>
+        <p class="text-[#6B6480] text-sm leading-relaxed mb-8">
           {{ productoDetalle.descripcion && productoDetalle.descripcion !== 'Sin descripción' ? productoDetalle.descripcion : 'Sin descripción disponible' }}
         </p>
       </div>
 
-      <div class="mt-auto grid grid-cols-1 gap-4">
+      <!-- CTA -->
+      <div class="mt-auto">
         <button
           (click)="agregarAlCarrito(productoDetalle); cerrarModal()"
           [disabled]="productoDetalle.stock === 0 || isAdmin"
-          class="w-full bg-[#0A0714] hover:bg-black text-white px-6 py-4 rounded-xl font-bold shadow-lg transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed disabled:transform-none"
+          class="cat-btn-cart w-full px-6 py-4 rounded-2xl font-bold text-sm tracking-wide flex items-center justify-center gap-2 disabled:bg-[#F0ECF8] disabled:text-[#6B6480] disabled:cursor-not-allowed"
+          [ngClass]="(productoDetalle.stock === 0 || isAdmin) ? '' : 'bg-[#0A0714] text-white hover:bg-[#1a1330]'"
         >
-          <i class="fas fa-shopping-cart mr-2"></i>
-          {{ isAdmin ? 'Solo clientes' : 'Añadir al Carrito' }}
+          <svg *ngIf="productoDetalle.stock > 0 && !isAdmin" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+          </svg>
+          {{ isAdmin ? 'Solo clientes pueden comprar' : (productoDetalle.stock === 0 ? 'Producto agotado' : 'Añadir al Carrito') }}
         </button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- ===== STYLES — Emil Kowalski Design Engineering ===== -->
 <style>
   .pl-font { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
   .pl-display { font-family: 'Manrope', 'Inter', sans-serif; }
 
-  .pl-gradient-text-dark {
+  .cat-gradient-text {
     background: linear-gradient(100deg, #6D28D9 0%, #A78BFA 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  .lux-card {
-    box-shadow: 0 10px 30px rgba(10, 7, 20, 0.07), 0 1px 8px rgba(109, 40, 217, 0.06);
+  /* ── Spinner ── */
+  .cat-spinner {
+    animation: cat-spin .7s linear infinite;
+  }
+  @keyframes cat-spin {
+    to { transform: rotate(360deg); }
   }
 
-  .lux-card:hover {
-    box-shadow: 0 22px 44px rgba(10, 7, 20, 0.12), 0 10px 28px rgba(109, 40, 217, 0.13);
+  /* ── Product cards — stagger fade-up ── */
+  .cat-item {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: cat-fade-up .5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    box-shadow: 0 1px 3px rgba(10, 7, 20, 0.04);
+    border: 1px solid #F0ECF8;
   }
 
-  .animate-fade-in-up {
-    animation: fadeInUp .8s cubic-bezier(.15,.7,.47,1.24);
+  .cat-item-interactive {
+    cursor: pointer;
   }
 
-  .animate-fade-in { animation: fadeIn .28s ease-out both; }
-  .animate-modal-pop { animation: modalPop .38s cubic-bezier(.16,1,.3,1) both; }
-
-  @keyframes fadeInUp {
-    0% { opacity: 0; transform: translateY(24px); }
-    100% { opacity: 1; transform: translateY(0); }
+  /* Card hover — specific properties only, never "all" */
+  .cat-item-interactive:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px -12px rgba(109, 40, 217, 0.12), 0 4px 16px rgba(10, 7, 20, 0.06);
+    border-color: #E9DDFB;
+  }
+  .cat-item-interactive:active {
+    transform: scale(0.98) translateY(0);
   }
 
-  @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+  /* Only transition transform + shadow — never "all" */
+  .cat-item {
+    transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1),
+                box-shadow 220ms cubic-bezier(0.23, 1, 0.32, 1),
+                border-color 220ms ease;
   }
 
-  @keyframes modalPop {
-    0% { opacity: 0; transform: scale(.95) translateY(10px); }
-    100% { opacity: 1; transform: scale(1) translateY(0); }
+  /* Image zoom on hover */
+  .cat-img {
+    transition: transform 600ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .cat-item-interactive:hover .cat-img {
+    transform: scale(1.06);
   }
 
+  /* Overlay transition */
+  .cat-overlay-transition {
+    transition: opacity 250ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  /* Color transition for title */
+  .cat-color-transition {
+    transition: color 200ms ease;
+  }
+
+  /* ── Stagger fade-up keyframe ── */
+  @keyframes cat-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ── Add-to-cart button ── */
+  .cat-btn-add {
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1),
+                background-color 200ms ease,
+                box-shadow 200ms ease;
+  }
+  .cat-btn-add:not(:disabled):hover {
+    background: linear-gradient(100deg, #6D28D9, #4C1D95) !important;
+    box-shadow: 0 6px 20px -4px rgba(109, 40, 217, 0.4);
+  }
+  .cat-btn-add:not(:disabled):active {
+    transform: scale(0.95);
+  }
+
+  /* ── Navigation buttons ── */
+  .cat-btn-nav {
+    background: #F4F1FB;
+    border: 1px solid rgba(109, 40, 217, 0.1);
+    color: #6D28D9;
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1),
+                background-color 200ms ease,
+                color 200ms ease,
+                border-color 200ms ease;
+  }
+  .cat-btn-nav:not(:disabled):hover {
+    background: #6D28D9;
+    border-color: #6D28D9;
+    color: #fff;
+    transform: translateY(-1px);
+  }
+  .cat-btn-nav:not(:disabled):active {
+    transform: scale(0.93);
+  }
+
+  /* ── Modal — enters from scale(0.95) never scale(0) ── */
+  .cat-modal-backdrop {
+    animation: cat-backdrop-in 200ms ease-out both;
+  }
+  .cat-modal {
+    animation: cat-modal-in 280ms cubic-bezier(0.23, 1, 0.32, 1) both;
+  }
+
+  @keyframes cat-backdrop-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes cat-modal-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  /* Close button */
+  .cat-btn-close {
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1),
+                color 200ms ease,
+                background-color 200ms ease;
+  }
+  .cat-btn-close:hover {
+    background: #F4F1FB;
+    transform: rotate(90deg);
+  }
+  .cat-btn-close:active {
+    transform: scale(0.9) rotate(90deg);
+  }
+
+  /* Cart button in modal */
+  .cat-btn-cart {
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1),
+                background-color 200ms ease,
+                box-shadow 200ms ease;
+  }
+  .cat-btn-cart:not(:disabled):hover {
+    box-shadow: 0 10px 30px -8px rgba(10, 7, 20, 0.3);
+    transform: translateY(-1px);
+  }
+  .cat-btn-cart:not(:disabled):active {
+    transform: scale(0.97);
+  }
+
+  /* ── Accessibility ── */
   @media (prefers-reduced-motion: reduce) {
-    .animate-fade-in-up,
-    .animate-fade-in,
-    .animate-modal-pop { animation: none; opacity: 1; transform: none; }
+    .cat-item,
+    .cat-modal-backdrop,
+    .cat-modal,
+    .cat-spinner {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    .cat-img,
+    .cat-overlay-transition,
+    .cat-color-transition,
+    .cat-btn-add,
+    .cat-btn-nav,
+    .cat-btn-close,
+    .cat-btn-cart {
+      transition: none !important;
+    }
+  }
+
+  /* Gate hover animations to pointer devices */
+  @media (hover: none) {
+    .cat-item-interactive:hover {
+      transform: none;
+      box-shadow: 0 1px 3px rgba(10, 7, 20, 0.04);
+    }
+    .cat-item-interactive:hover .cat-img {
+      transform: none;
+    }
   }
 </style>

@@ -1,160 +1,355 @@
-<main class="bg-gray-100 min-h-screen py-8">
-  <!-- Barra superior -->
-  <div class="w-full max-w-7xl mx-auto px-4">
-    <h1 class="text-3xl font-extrabold text-purple-700 tracking-tight">Dashboard Administrador</h1>
-  </div>
+<!-- ============================================================
+     DASHBOARD ADMINISTRADOR — Diseño Profesional Slate & Cyan
+     - Paleta corporativa oscura (Slate #0f172a, Azul/Cyan #0284c7)
+     - Reestructurado: Métricas -> Gráficos -> Facturas & Usuarios al final
+     - Filas intercaladas oscuras uniformes sin franjas blancas
+     ============================================================ -->
 
-  <!-- Barra meta productos vendidos -->
-  <div class="w-full max-w-7xl mx-auto px-4 mt-8 mb-6">
-    <div class="flex flex-col md:flex-row md:items-center gap-4">
-      <div class="font-semibold text-gray-800 text-lg flex items-center gap-2">
-        <i class="fa-solid fa-bullseye text-emerald-600"></i> Meta de productos vendidos
+<main class="min-h-screen bg-[#0f172a] text-slate-100 py-12 relative overflow-hidden font-sans pl-font">
+  
+  <!-- Subtle ambient glow -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[350px] rounded-full bg-[#0284c7] blur-[180px] opacity-[0.06] pointer-events-none"></div>
+
+  <div class="w-full max-w-7xl mx-auto px-6 lg:px-8 relative z-10 space-y-12">
+
+    <!-- Header & Navigation -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-800 pb-8">
+      <div>
+        <span class="text-[11px] font-extrabold tracking-[0.25em] text-cyan-400 uppercase pl-display">PANEL ADMINISTRATIVO</span>
+        <h1 class="pl-display text-4xl md:text-5xl font-extrabold text-white tracking-tight mt-1">
+          Dashboard <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Empresarial</span>
+        </h1>
       </div>
-      <div class="w-full flex flex-col gap-2">
-        <div class="w-full h-5 bg-gray-200 rounded-full overflow-hidden shadow-inner">
-          <div class="h-full bg-emerald-500 transition-all duration-700" [ngStyle]="{ width: metaAvancePorc + '%' }">
-          </div>
+
+      <div class="flex items-center gap-3">
+        <a routerLink="/perfil" class="btn-action px-5 py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-bold uppercase tracking-wider transition-all">
+          ← Volver al Perfil
+        </a>
+      </div>
+    </div>
+
+    <!-- 1. MÉTRICAS CLAVE FINANCIERAS -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="stat-card bg-slate-900/90 border border-slate-800 rounded-2xl p-6 backdrop-blur-md">
+        <span class="text-[10px] font-extrabold tracking-widest text-cyan-400 uppercase block mb-2">Valor del Inventario</span>
+        <div class="pl-display text-3xl font-extrabold text-white">$ {{ valorTotalStock | number:'1.2-2' }}</div>
+      </div>
+
+      <div class="stat-card bg-slate-900/90 border border-slate-800 rounded-2xl p-6 backdrop-blur-md">
+        <span class="text-[10px] font-extrabold tracking-widest text-emerald-400 uppercase block mb-2">Total Recaudado</span>
+        <div class="pl-display text-3xl font-extrabold text-emerald-400">$ {{ totalRecaudado | number:'1.2-2' }}</div>
+      </div>
+
+      <div class="stat-card bg-slate-900/90 border border-slate-800 rounded-2xl p-6 backdrop-blur-md sm:col-span-2 lg:col-span-1">
+        <span class="text-[10px] font-extrabold tracking-widest text-blue-400 uppercase block mb-2">Meta de Ventas</span>
+        <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+          <span>{{ totalProductosVendidos }} unidades vendidas</span>
+          <span>Meta: {{ metaProductos }}</span>
         </div>
-        <div class="flex justify-between text-sm text-gray-600">
-          <span>{{ totalProductosVendidos }} vendidos</span>
-          <span>Meta: {{ metaProductos }} productos</span>
+        <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden p-0.5">
+          <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full transition-all duration-700" [ngStyle]="{ width: metaAvancePorc + '%' }"></div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- GRID DE REPORTES -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-7xl mx-auto px-4">
+    <!-- 2. ANALÍTICA Y GRÁFICOS (REESTRUCTURADO ARRIBA) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-    <!-- 1. DIAGRAMA DE LÍNEA: Ventas por Día 2026 (ocupa 2 columnas) -->
-    <section
-      class="bg-white rounded-2xl p-6 shadow-lg flex flex-col transition-transform hover:scale-105 col-span-1 md:col-span-2">
-      <h2 class="text-xl font-semibold text-indigo-600 mb-4 flex items-center">
-        <i class="fa-solid fa-chart-line mr-2"></i> Ventas por Día (2026)
-      </h2>
-      <div style="height: 420px; max-height: 420px; width: 100%;">
-        <canvas baseChart [type]="'line'" [data]="ventasPorDiaLineData" [options]="ventasPorDiaLineOptions"
-          aria-label="Gráfico de líneas de ventas por día 2026" role="img"
-          style="max-height: 420px; height: 100%; width: 100%;">
-        </canvas>
-      </div>
-    </section>
+      <!-- Ventas por Día 2026 -->
+      <section class="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 backdrop-blur-md md:col-span-2">
+        <h2 class="pl-display text-xl font-extrabold text-white mb-6">Ventas Diarias</h2>
+        <div style="height: 360px; width: 100%;">
+          <canvas baseChart [type]="'line'" [data]="ventasPorDiaLineData" [options]="ventasPorDiaLineOptions" style="max-height: 360px; height: 100%; width: 100%;"></canvas>
+        </div>
+      </section>
 
-    <!-- 2. STOCK DISPONIBLE: Línea (ocupa 2 columnas) -->
-    <section
-      class="bg-white rounded-2xl p-6 shadow-lg flex flex-col transition-transform hover:scale-105 col-span-1 md:col-span-2">
-      <h2 class="text-xl font-semibold text-emerald-600 mb-4 flex items-center">
-        <i class="fa-solid fa-warehouse mr-2"></i> Stock Disponible
-      </h2>
-      <div style="height: 320px; max-height: 320px; width: 100%;">
-        <canvas baseChart [type]="'line'" [data]="stockDisponibleLineaData" [options]="stockDisponibleLineaOptions"
-          aria-label="Gráfico de líneas de stock disponible" role="img"
-          style="max-height:320px; height:100%; width:100%;">
-        </canvas>
-      </div>
-      <!-- Paginador -->
-      <div *ngIf="stockDisponible.length > productosPorPaginaStock" class="flex justify-center items-center gap-3 mt-4">
-        <button (click)="paginaAnteriorStockDisponible()" [disabled]="paginaStockDisponible === 0"
-          class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 disabled:opacity-50 transition-colors">
-          ← Anterior
-        </button>
-        <span class="text-sm font-medium">Página {{ paginaStockDisponible + 1 }} de {{ totalPaginasStockDisponible
-          }}</span>
-        <button (click)="paginaSiguienteStockDisponible()"
-          [disabled]="paginaStockDisponible >= totalPaginasStockDisponible - 1"
-          class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 disabled:opacity-50 transition-colors">
-          Siguiente →
-        </button>
-      </div>
-    </section>
+      <!-- Stock Disponible -->
+      <section class="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 backdrop-blur-md md:col-span-2">
+        <h2 class="pl-display text-xl font-extrabold text-white mb-6">Inventario Disponible</h2>
+        <div style="height: 300px; width: 100%;">
+          <canvas baseChart [type]="'line'" [data]="stockDisponibleLineaData" [options]="stockDisponibleLineaOptions" style="max-height: 300px; height: 100%; width: 100%;"></canvas>
+        </div>
+        <div *ngIf="stockDisponible.length > productosPorPaginaStock" class="flex justify-center items-center gap-4 mt-6">
+          <button (click)="paginaAnteriorStockDisponible()" [disabled]="paginaStockDisponible === 0" class="btn-action px-4 py-2 rounded-xl bg-slate-800 border border-slate-700 text-xs font-bold text-slate-200 disabled:opacity-30">
+            ← Anterior
+          </button>
+          <span class="text-xs font-bold tracking-widest uppercase text-slate-400">Página {{ paginaStockDisponible + 1 }} de {{ totalPaginasStockDisponible }}</span>
+          <button (click)="paginaSiguienteStockDisponible()" [disabled]="paginaStockDisponible >= totalPaginasStockDisponible - 1" class="btn-action px-4 py-2 rounded-xl bg-slate-800 border border-slate-700 text-xs font-bold text-slate-200 disabled:opacity-30">
+            Siguiente →
+          </button>
+        </div>
+      </section>
 
+      <!-- Top Clientes -->
+      <section class="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 backdrop-blur-md">
+        <h2 class="pl-display text-xl font-extrabold text-white mb-6">Top Clientes</h2>
+        <div style="height: 300px; width: 100%;">
+          <canvas baseChart [type]="'bar'" [data]="clientesBarData" [options]="clientesBarOptions" style="max-height: 300px; height: 100%; width: 100%;"></canvas>
+        </div>
+      </section>
 
-    <!-- 3. Top Clientes y Productos Más Vendidos: 2 columnas, misma fila -->
-    <section class="bg-white rounded-2xl p-6 shadow-lg flex flex-col transition-transform hover:scale-105 h-full">
-      <h2 class="text-xl font-semibold text-purple-600 mb-4 flex items-center">
-        <i class="fa-solid fa-user-tie mr-2"></i> Top Clientes
-      </h2>
-      <div style="height: 320px; max-height: 320px; width: 100%;">
-        <canvas baseChart [type]="'bar'" [data]="clientesBarData" [options]="clientesBarOptions"
-          aria-label="Gráfico de barras de top clientes" role="img" style="max-height:320px; height:100%; width:100%;">
-        </canvas>
-      </div>
-    </section>
-    <section class="bg-white rounded-2xl p-6 shadow-lg flex flex-col transition-transform hover:scale-105 h-full">
-      <h2 class="text-xl font-semibold text-yellow-600 mb-4 flex items-center">
-        <i class="fa-solid fa-donut mr-2"></i> Productos Más Vendidos
-      </h2>
-      <div style="height: 320px; max-height: 320px; width: 100%;">
-        <canvas baseChart [type]="'doughnut'" [data]="vendidosDoughnutData" [options]="vendidosDoughnutOptions"
-          aria-label="Gráfico de dona de productos más vendidos" role="img"
-          style="max-height:320px; height:100%; width:100%;">
-        </canvas>
-      </div>
-    </section>
+      <!-- Productos Más Vendidos -->
+      <section class="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 backdrop-blur-md">
+        <h2 class="pl-display text-xl font-extrabold text-white mb-6">Productos Más Vendidos</h2>
+        <div style="height: 300px; width: 100%;">
+          <canvas baseChart [type]="'doughnut'" [data]="vendidosDoughnutData" [options]="vendidosDoughnutOptions" style="max-height: 300px; height: 100%; width: 100%;"></canvas>
+        </div>
+      </section>
 
-    <!-- 4. Valor del Stock y Total Recaudado (ocupa 2 columnas) -->
-    <section
-      class="bg-white rounded-2xl p-6 shadow-lg flex flex-col transition-transform hover:scale-105 col-span-1 md:col-span-2">
-      <h2 class="text-xl font-semibold text-indigo-600 mb-6 flex items-center">
-        <i class="fa-solid fa-wallet mr-2"></i> Resumen Financiero
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div
-          class="w-full bg-purple-100 border border-purple-400 text-purple-700 rounded-xl px-6 py-5 shadow-lg flex items-center gap-4">
-          <i class="fa-solid fa-cubes-stacked text-3xl"></i>
-          <div>
-            <div class="text-sm text-gray-600 font-bold">Valor del Stock</div>
-            <div class="text-2xl font-extrabold">$ {{ valorTotalStock | number:'1.2-2' }}</div>
+      <!-- Productos con Bajo Stock -->
+      <section class="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 backdrop-blur-md md:col-span-2">
+        <h2 class="pl-display text-xl font-extrabold text-rose-400 mb-6">Alertas de Bajo Stock (&lt; 10)</h2>
+        <ng-container *ngIf="productosBajoStock.length > 0; else sinBajoStock">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+              <thead class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest bg-slate-950/60 border-b border-slate-800">
+                <tr>
+                  <th class="py-3.5 px-6">#</th>
+                  <th class="py-3.5 px-6">Producto</th>
+                  <th class="py-3.5 px-6 text-center">Stock</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60">
+                <tr *ngFor="let prod of productosBajoStock; let i = index" class="hover:bg-slate-800/40 transition-colors">
+                  <td class="py-3.5 px-6 text-slate-500 font-mono">{{ i + 1 }}</td>
+                  <td class="py-3.5 px-6 font-medium text-slate-200">{{ prod.nombre }}</td>
+                  <td class="py-3.5 px-6 text-center">
+                    <span class="px-3 py-1 text-xs font-bold rounded-full" [ngClass]="{
+                      'bg-rose-500/20 text-rose-300 border border-rose-500/30': prod.stock === 0,
+                      'bg-amber-500/20 text-amber-300 border border-amber-500/30': prod.stock > 0 && prod.stock <= 6,
+                      'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30': prod.stock > 6
+                    }">
+                      {{ prod.stock }} unidades
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+        </ng-container>
+        <ng-template #sinBajoStock>
+          <div class="text-emerald-400 text-xs font-bold tracking-wider uppercase p-4">No hay productos con bajo stock actualmente</div>
+        </ng-template>
+      </section>
+
+    </div>
+
+    <!-- 3. GESTIÓN DE FACTURAS Y USUARIOS (MOVIDO ABAJO AL ÚLTIMO) -->
+    
+    <!-- SECCIÓN FACTURAS -->
+    <section class="bg-slate-900/90 border border-slate-800 rounded-3xl p-8 backdrop-blur-xl">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6 pb-6 border-b border-slate-800">
+        <div>
+          <h2 class="pl-display text-2xl font-extrabold text-white tracking-tight">Facturación & Transacciones</h2>
+          <p class="text-slate-400 text-xs mt-1">Historial completo de ventas generadas</p>
         </div>
-        <div
-          class="w-full bg-emerald-100 border border-emerald-400 text-emerald-700 rounded-xl px-6 py-5 shadow-lg flex items-center gap-4">
-          <i class="fa-solid fa-sack-dollar text-3xl"></i>
-          <div>
-            <div class="text-sm text-gray-600 font-bold">Total Recaudado</div>
-            <div class="text-2xl font-extrabold">$ {{ totalRecaudado | number:'1.2-2' }}</div>
-          </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <input [(ngModel)]="filtroNombreFactura" placeholder="Nombre cliente..." class="filter-input" />
+          <input [(ngModel)]="filtroApellidoFactura" placeholder="Apellido cliente..." class="filter-input" />
+          <button (click)="filtroNombreFactura=''; filtroApellidoFactura='';" class="text-xs text-slate-400 hover:text-white px-2 py-1">
+            Limpiar
+          </button>
         </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left">
+          <thead class="text-[10px] font-extrabold text-cyan-400 uppercase tracking-widest bg-slate-950/80 border-b border-slate-800">
+            <tr>
+              <th class="px-6 py-4">ID</th>
+              <th class="px-6 py-4">Cliente</th>
+              <th class="px-6 py-4">Fecha</th>
+              <th class="px-6 py-4">Total</th>
+              <th class="px-6 py-4">Método</th>
+              <th class="px-6 py-4 text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 text-slate-200">
+            <tr *ngFor="let f of facturasFiltradas" class="hover:bg-slate-800/50 transition-colors">
+              <td class="px-6 py-4 font-mono text-slate-400">#{{ f.id }}</td>
+              <td class="px-6 py-4 font-medium text-white">{{ f.clienteNombre }} {{ f.clienteApellido }}</td>
+              <td class="px-6 py-4 text-slate-400">{{ f.fecha | date:'short' }}</td>
+              <td class="px-6 py-4 font-bold text-emerald-400">{{ f.total | currency:'USD' }}</td>
+              <td class="px-6 py-4">
+                <span class="px-3 py-1 text-[10px] font-extrabold rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 uppercase tracking-wider">{{ f.metodo_pago }}</span>
+              </td>
+              <td class="px-6 py-4 text-right">
+                <a [routerLink]="['/admin/facturas', f.id]" class="text-xs font-bold text-cyan-400 hover:underline uppercase tracking-wider">
+                  Ver Detalles →
+                </a>
+              </td>
+            </tr>
+            <tr *ngIf="facturasFiltradas.length === 0">
+              <td colspan="6" class="px-6 py-8 text-center text-slate-500">No se encontraron facturas registradas.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
-
-    <!-- TABLA DE PRODUCTOS CON BAJO STOCK -->
-    <section
-      class="bg-white rounded-2xl p-6 shadow-lg flex flex-col transition-transform hover:scale-105 col-span-1 md:col-span-2">
-      <h2 class="text-xl font-semibold text-red-600 mb-4 flex items-center">
-        <i class="fa-solid fa-triangle-exclamation mr-2"></i> Productos con Stock Bajo (&lt; 10)
-      </h2>
-      <ng-container *ngIf="productosBajoStock.length > 0; else sinBajoStock">
-        <div class="overflow-x-auto">
-          <table class="min-w-full table-auto border border-gray-300">
-            <thead class="bg-gray-100">
-              <tr>
-                <th class="py-2 px-4 border-b text-left">#</th>
-                <th class="py-2 px-4 border-b text-left">Producto</th>
-                <th class="py-2 px-4 border-b text-left">Stock</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let prod of productosBajoStock; let i = index">
-                <td class="py-2 px-4 border-b">{{ i + 1 }}</td>
-                <td class="py-2 px-4 border-b">{{ prod.nombre }}</td>
-                <td class="py-2 px-4 border-b font-semibold text-center rounded-lg" [ngClass]="{
-                'bg-red-200 text-red-800': prod.stock === 0,
-                'bg-yellow-200 text-yellow-900': prod.stock > 0 && prod.stock <= 6,
-                'bg-green-200 text-green-800': prod.stock > 6
-              }">
-                  {{ prod.stock }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+    <!-- SECCIÓN DIRECTORIO DE USUARIOS -->
+    <section class="bg-slate-900/90 border border-slate-800 rounded-3xl p-8 backdrop-blur-xl">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6 pb-6 border-b border-slate-800">
+        <div>
+          <h2 class="pl-display text-2xl font-extrabold text-white tracking-tight">Directorio de Usuarios</h2>
+          <p class="text-slate-400 text-xs mt-1">Administración de clientes y cuentas</p>
         </div>
-      </ng-container>
-      <ng-template #sinBajoStock>
-        <div class="text-green-700 font-semibold p-4">No hay productos con bajo stock 🎉</div>
-      </ng-template>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <input [(ngModel)]="filtroCedula" placeholder="Buscar cédula..." class="filter-input" />
+          <input [(ngModel)]="filtroApellido" placeholder="Buscar apellido..." class="filter-input" />
+          <button (click)="abrirModalCrear()" class="btn-primary px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2">
+            + Nuevo Cliente
+          </button>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left">
+          <thead class="text-[10px] font-extrabold text-cyan-400 uppercase tracking-widest bg-slate-950/80 border-b border-slate-800">
+            <tr>
+              <th class="px-6 py-4">ID</th>
+              <th class="px-6 py-4">Cédula</th>
+              <th class="px-6 py-4">Nombre</th>
+              <th class="px-6 py-4">Apellido</th>
+              <th class="px-6 py-4">Correo</th>
+              <th class="px-6 py-4 text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 text-slate-200">
+            <tr *ngFor="let p of personasFiltradas" class="hover:bg-slate-800/50 transition-colors">
+              <td class="px-6 py-4 font-mono text-slate-400">#{{ p.id }}</td>
+              <td class="px-6 py-4 text-slate-400">{{ p.cedula || '—' }}</td>
+              <td class="px-6 py-4 font-medium text-white">{{ p.nombre }}</td>
+              <td class="px-6 py-4 font-medium text-white">{{ p.apellido }}</td>
+              <td class="px-6 py-4 text-slate-300">{{ p.mail }}</td>
+              <td class="px-6 py-4 text-right">
+                <div class="flex items-center justify-end gap-3">
+                  <ng-container *ngIf="p.login !== 'admin'">
+                    <button (click)="abrirModalEditar(p)" class="text-xs font-bold text-cyan-400 hover:underline uppercase tracking-wider">
+                      Editar
+                    </button>
+                    <button (click)="eliminarPersona(p.id)" class="text-xs font-bold text-rose-400 hover:underline uppercase tracking-wider">
+                      Eliminar
+                    </button>
+                  </ng-container>
+                  <span *ngIf="p.login === 'admin'" class="px-2.5 py-0.5 text-[10px] font-extrabold rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20 uppercase tracking-widest">
+                    Admin
+                  </span>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="personasFiltradas.length === 0">
+              <td colspan="6" class="px-6 py-8 text-center text-slate-500">No se encontraron clientes registrados.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
   </div>
 </main>
+
+<!-- MODAL EDITAR / CREAR CLIENTE -->
+<div id="modal-persona" (click)="cerrarModal()" class="fixed inset-0 z-[100] bg-slate-950/70 backdrop-blur-sm flex items-center justify-center hidden modal-overlay p-4">
+  <div id="modal-contenido" (click)="$event.stopPropagation()" class="modal-card relative bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl w-full max-w-xl overflow-hidden text-slate-100 p-8">
+    <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
+      <h3 class="pl-display text-xl font-extrabold text-white tracking-tight">
+        {{ personaEditando ? 'Editar Cliente' : 'Nuevo Cliente' }}
+      </h3>
+      <button type="button" (click)="cerrarModal()" class="text-slate-400 hover:text-white text-sm font-bold">✕</button>
+    </div>
+
+    <form (ngSubmit)="guardarPersona()" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class="form-label">Nombre *</label>
+        <input [(ngModel)]="formPersona.nombre" name="nombre" required class="form-input" />
+      </div>
+      <div>
+        <label class="form-label">Apellido *</label>
+        <input [(ngModel)]="formPersona.apellido" name="apellido" required class="form-input" />
+      </div>
+      <div>
+        <label class="form-label">Login *</label>
+        <input [(ngModel)]="formPersona.login" name="login" required [readonly]="personaEditando && formPersona.login === 'admin'" class="form-input disabled:opacity-50" />
+      </div>
+      <div>
+        <label class="form-label">Correo *</label>
+        <input [(ngModel)]="formPersona.mail" name="mail" type="email" required class="form-input" />
+      </div>
+      <div *ngIf="!personaEditando">
+        <label class="form-label">Contraseña *</label>
+        <input [(ngModel)]="formPersona.password" name="password" required [type]="mostrarPassword ? 'text' : 'password'" class="form-input" />
+      </div>
+      <div>
+        <label class="form-label">Teléfono</label>
+        <input [(ngModel)]="formPersona.telefono" name="telefono" class="form-input" />
+      </div>
+      <div class="sm:col-span-2">
+        <label class="form-label">Dirección</label>
+        <input [(ngModel)]="formPersona.direccion" name="direccion" class="form-input" />
+      </div>
+      <div class="sm:col-span-2">
+        <label class="form-label">Sexo</label>
+        <input [(ngModel)]="formPersona.sexo" name="sexo" class="form-input" />
+      </div>
+
+      <div class="sm:col-span-2 flex justify-end gap-3 mt-4 pt-4 border-t border-slate-800">
+        <button type="button" (click)="cerrarModal()" class="btn-action px-5 py-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 text-xs font-bold uppercase tracking-wider">Cancelar</button>
+        <button type="submit" class="btn-primary px-6 py-2 rounded-xl bg-cyan-600 text-white text-xs font-bold uppercase tracking-wider">{{ personaEditando ? 'Guardar' : 'Crear' }}</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  .pl-font { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+  .pl-display { font-family: 'Manrope', 'Inter', sans-serif; }
+
+  .form-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #38bdf8;
+    margin-bottom: 6px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(15, 23, 42, 0.6);
+    color: #ffffff;
+    font-size: 13px;
+    outline: none;
+  }
+
+  .filter-input {
+    padding: 8px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(15, 23, 42, 0.6);
+    color: #ffffff;
+    font-size: 12px;
+    outline: none;
+  }
+
+  .filter-input:focus, .form-input:focus {
+    border-color: #38bdf8;
+  }
+
+  .btn-primary {
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background-color 200ms ease;
+  }
+  .btn-primary:hover { background: #0284c7; }
+  .btn-primary:active { transform: scale(0.97); }
+
+  .btn-action {
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .btn-action:active { transform: scale(0.97); }
+</style>
