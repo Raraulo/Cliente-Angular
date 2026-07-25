@@ -1,71 +1,88 @@
 <!-- ============================================================
-     PAWLUXURY — HEADER
-     Misma paleta y tipografía que el footer/home (Manrope + Inter).
+     PAWLUXURY — HEADER (Pro)
+     Misma paleta y tipografía (Manrope + Inter + Chewy).
      Si el <style> del home/footer ya está cargado globalmente,
-     puedes quitar el bloque <style> de aquí para no duplicarlo.
+     elimina el bloque <style> de aquí para evitar duplicados.
      ============================================================ -->
-<header class="sticky top-0 z-50 bg-[#0A0714]/80 backdrop-blur-xl border-b border-white/10 pl-font relative overflow-visible transition-all duration-300">
+<header
+  class="sticky top-0 z-50 bg-[#0A0714]/85 backdrop-blur-2xl border-b border-white/10 pl-font relative overflow-visible transition-all duration-300">
 
-  <!-- Línea de brillo superior con animación de gradiente fluida -->
-  <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#8B5CF6] to-transparent opacity-80"></div>
-  <!-- Resplandor ambiental suave -->
-  <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] h-[200px] rounded-full bg-[#6D28D9] blur-[120px] opacity-[0.22] pointer-events-none"></div>
+  <!-- Línea de brillo superior -->
+  <div
+    class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#8B5CF6] to-transparent opacity-70">
+  </div>
 
-  <div class="max-w-7xl mx-auto flex items-center justify-between px-6 h-20 relative z-10">
+  <!-- Resplandor ambiental -->
+  <div
+    class="absolute -top-28 left-1/2 -translate-x-1/2 w-[640px] h-[220px] rounded-full bg-[#6D28D9] blur-[140px] opacity-[0.18] pointer-events-none">
+  </div>
 
-    <!-- Hamburger button -->
-    <div class="flex items-center gap-4">
+  <div class="max-w-7xl mx-auto flex items-center justify-between px-5 sm:px-6 h-[72px] sm:h-20 relative z-10">
+
+    <!-- Menú -->
+    <div class="flex items-center gap-3">
       <button (click)="toggleMenu()" type="button"
-        class="group p-2.5 text-white/70 hover:text-white hover:bg-white/10 rounded-2xl transition-all duration-300 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A78BFA] border border-transparent hover:border-white/10 flex items-center gap-2">
-        <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        class="group flex items-center gap-2.5 p-2.5 text-white/65 hover:text-white hover:bg-white/8 rounded-2xl transition-all duration-300 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A78BFA]/60 border border-transparent hover:border-white/10"
+        aria-label="Abrir menú">
+        <svg class="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-105 transition-transform duration-300" fill="none"
+          stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
-        <span class="hidden sm:inline text-xs font-bold uppercase tracking-wider text-white/60 group-hover:text-white transition-colors">Menú</span>
+        <span
+          class="hidden sm:inline text-[11px] font-bold uppercase tracking-[0.18em] text-white/50 group-hover:text-white/90 transition-colors">
+          Menú
+        </span>
       </button>
     </div>
 
-    <!-- Logo centrado y refinado (Tipografía estilo globos con Chewy) -->
+    <!-- Logo centrado -->
     <div class="absolute left-1/2 -translate-x-1/2 pointer-events-none select-none">
       <a routerLink="/"
-        class="font-chewy text-3xl sm:text-4xl text-white pointer-events-auto tracking-wide hover:scale-110 active:scale-95 transition-transform duration-300 inline-block drop-shadow-[0_4px_12px_rgba(109,40,217,0.5)]">
+        class="font-chewy text-[1.75rem] sm:text-4xl text-white pointer-events-auto tracking-wide hover:scale-[1.06] active:scale-95 transition-transform duration-300 inline-block drop-shadow-[0_4px_14px_rgba(109,40,217,0.45)]">
         Paw<span class="pl-gradient-text">Luxury</span>
       </a>
     </div>
 
     <!-- Acciones derecha -->
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-1.5 sm:gap-2">
 
       <!-- Favoritos -->
       <div class="relative">
         <button type="button" (click)="openFavoritesNotice()"
-          class="group relative p-2.5 text-white/70 hover:text-white hover:bg-white/10 rounded-2xl transition-all duration-300 active:scale-95 border border-transparent hover:border-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A78BFA]"
-          [attr.aria-expanded]="favNoticeOpen"
-          aria-label="Favoritos">
+          class="group relative p-2.5 text-white/65 hover:text-white hover:bg-white/8 rounded-2xl transition-all duration-300 active:scale-95 border border-transparent hover:border-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A78BFA]/60"
+          [attr.aria-expanded]="favNoticeOpen" aria-label="Favoritos">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
           </svg>
           <span *ngIf="favCount$ | async as fc"
-            class="absolute -top-0.5 -right-0.5 bg-[#A78BFA] text-[#0A0714] text-[9px] font-bold w-4 h-4 flex items-center justify-center rounded-full ring-2 ring-[#0A0714]">
+            class="absolute -top-0.5 -right-0.5 bg-[#A78BFA] text-[#0A0714] text-[9px] font-bold min-w-[16px] h-4 px-1 flex items-center justify-center rounded-full ring-2 ring-[#0A0714]">
             {{ fc }}
           </span>
         </button>
 
+        <!-- Aviso Favoritos -->
         <div *ngIf="favNoticeOpen"
-          class="absolute right-0 top-full mt-3 w-80 sm:w-96 rounded-2xl border border-white/10 bg-[#0A0714] z-50 overflow-hidden"
-          style="box-shadow: 0 20px 60px rgba(0,0,0,0.55);">
-          <div class="px-5 py-4 border-b border-white/10 bg-white/[0.03] flex items-start gap-3">
-            <div class="w-11 h-11 rounded-2xl bg-[#6D28D9]/15 border border-[#6D28D9]/30 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-[#FCA5A5]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+          class="absolute right-0 top-full mt-3 w-[min(20rem,calc(100vw-2rem))] sm:w-96 rounded-2xl border border-white/10 bg-[#0A0714]/95 backdrop-blur-xl z-50 overflow-hidden shadow-[0_24px_64px_rgba(0,0,0,0.6)]">
+          <div class="px-5 py-4 border-b border-white/10 bg-white/[0.03] flex items-start gap-3.5">
+            <div
+              class="w-11 h-11 rounded-2xl bg-[#6D28D9]/15 border border-[#6D28D9]/25 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-[#FCA5A5]" fill="none" stroke="currentColor" stroke-width="1.8"
+                viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round"
                   d="M12 21s-7.5-4.35-9.6-8.55C.72 9.18 2.25 5.85 5.94 5.1c1.87-.38 3.76.28 5.06 1.66.18.19.39.42.6.7.21-.28.42-.51.6-.7 1.3-1.38 3.19-2.04 5.06-1.66 3.69.75 5.22 4.08 3.54 7.35C19.5 16.65 12 21 12 21z" />
               </svg>
             </div>
             <div class="min-w-0 flex-1">
-              <p class="pl-display font-bold text-white text-base leading-tight">Aún estamos trabajando en Favoritos</p>
-              <p class="text-sm text-white/55 mt-1 leading-relaxed">Muy pronto podrás guardar aquí lo que más te gusta. Gracias por tu paciencia.</p>
+              <p class="pl-display font-bold text-white text-[15px] leading-snug">
+                Aún estamos trabajando en Favoritos
+              </p>
+              <p class="text-sm text-white/50 mt-1.5 leading-relaxed">
+                Muy pronto podrás guardar aquí lo que más te gusta. Gracias por tu paciencia.
+              </p>
             </div>
-            <button type="button" (click)="closeFavoritesNotice()" class="text-white/30 hover:text-white/70 transition-colors" aria-label="Cerrar aviso">
+            <button type="button" (click)="closeFavoritesNotice()"
+              class="text-white/30 hover:text-white/70 transition-colors p-1 -mr-1 -mt-1" aria-label="Cerrar aviso">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -76,80 +93,102 @@
 
       <!-- Carrito -->
       <div class="relative">
-        <button (click)="toggleCart()"
-          class="relative p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A78BFA]">
+        <button (click)="toggleCart()" type="button"
+          class="relative p-2.5 text-white/65 hover:text-white hover:bg-white/8 rounded-2xl transition-all duration-300 active:scale-95 border border-transparent hover:border-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A78BFA]/60"
+          aria-label="Carrito">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
           </svg>
           <span *ngIf="cartCount$ | async as cc"
-            class="absolute -top-0.5 -right-0.5 bg-[#6D28D9] text-white text-[9px] font-bold w-4 h-4 flex items-center justify-center rounded-full ring-2 ring-[#0A0714]">
+            class="absolute -top-0.5 -right-0.5 bg-[#6D28D9] text-white text-[9px] font-bold min-w-[16px] h-4 px-1 flex items-center justify-center rounded-full ring-2 ring-[#0A0714]">
             {{ cc }}
           </span>
         </button>
 
         <!-- Dropdown Carrito -->
         <div *ngIf="cartOpen"
-          class="absolute right-0 top-full mt-3 w-80 sm:w-96 bg-[#0A0714] rounded-2xl overflow-hidden z-50 border border-white/10"
-          style="box-shadow: 0 20px 60px rgba(0,0,0,0.55);">
+          class="absolute right-0 top-full mt-3 w-[min(20rem,calc(100vw-2rem))] sm:w-96 bg-[#0A0714]/95 backdrop-blur-xl rounded-2xl overflow-hidden z-50 border border-white/10 shadow-[0_24px_64px_rgba(0,0,0,0.6)]">
           <ng-container *ngIf="cartItems$ | async as items">
             <div *ngIf="items.length > 0; else emptyCart" class="flex flex-col">
 
+              <!-- Header carrito -->
               <div class="px-5 py-4 border-b border-white/10 flex items-center justify-between bg-white/[0.03]">
-                <h3 class="pl-display font-bold text-white text-base">Tu Carrito</h3>
+                <h3 class="pl-display font-bold text-white text-[15px]">Tu Carrito</h3>
                 <span *ngIf="cartCount$ | async as cc"
-                  class="text-xs font-semibold text-[#A78BFA] bg-[#6D28D9]/15 border border-[#6D28D9]/30 px-2 py-0.5 rounded-full">
-                  {{ cc }} item(s)
+                  class="text-[11px] font-semibold text-[#A78BFA] bg-[#6D28D9]/15 border border-[#6D28D9]/25 px-2.5 py-0.5 rounded-full">
+                  {{ cc }} {{ cc === 1 ? 'item' : 'items' }}
                 </span>
               </div>
 
-              <div class="max-h-64 overflow-y-auto divide-y divide-white/5">
+              <!-- Items -->
+              <div class="max-h-64 overflow-y-auto divide-y divide-white/5 custom-scrollbar">
                 <div *ngFor="let it of items"
-                  class="flex items-center gap-3 px-4 py-3 hover:bg-white/[0.04] transition-colors group/item">
-                  <div class="w-14 h-14 rounded-xl overflow-hidden border border-white/10 shrink-0">
-                    <img [src]="it.producto.imagen_url" alt="" class="w-full h-full object-cover" />
+                  class="flex items-center gap-3 px-4 py-3.5 hover:bg-white/[0.04] transition-colors group/item">
+                  <div class="w-14 h-14 rounded-xl overflow-hidden border border-white/10 shrink-0 bg-white/5">
+                    <img [src]="it.producto.imagen_url" [alt]="it.producto.nombre" class="w-full h-full object-cover" />
                   </div>
                   <div class="flex-1 min-w-0">
-                    <p class="font-semibold text-white truncate text-sm">{{ it.producto.nombre }}</p>
-                    <p class="text-[#A78BFA] font-bold text-sm mt-0.5">$ {{ it.producto.precio | number:'1.2-2' }}</p>
-                    <div class="flex items-center mt-1.5">
+                    <p class="font-semibold text-white truncate text-sm leading-tight">{{ it.producto.nombre }}</p>
+                    <p class="text-[#A78BFA] font-bold text-sm mt-0.5">
+                      $ {{ it.producto.precio | number:'1.2-2' }}
+                    </p>
+                    <div class="flex items-center mt-2">
                       <div class="flex items-center bg-white/5 rounded-lg overflow-hidden border border-white/10">
-                        <button (click)="dec(it)"
-                          class="w-7 h-7 flex items-center justify-center text-white/60 hover:bg-[#6D28D9]/25 hover:text-white transition-colors font-bold text-base">−</button>
-                        <span class="w-7 text-center text-sm font-semibold text-white/90">{{ it.cantidad }}</span>
-                        <button (click)="inc(it)"
-                          class="w-7 h-7 flex items-center justify-center text-white/60 hover:bg-[#6D28D9]/25 hover:text-white transition-colors font-bold text-base">+</button>
+                        <button (click)="dec(it)" type="button"
+                          class="w-7 h-7 flex items-center justify-center text-white/55 hover:bg-[#6D28D9]/25 hover:text-white transition-colors font-bold text-base"
+                          aria-label="Disminuir cantidad">
+                          −
+                        </button>
+                        <span class="w-8 text-center text-sm font-semibold text-white/90 tabular-nums">
+                          {{ it.cantidad }}
+                        </span>
+                        <button (click)="inc(it)" type="button"
+                          class="w-7 h-7 flex items-center justify-center text-white/55 hover:bg-[#6D28D9]/25 hover:text-white transition-colors font-bold text-base"
+                          aria-label="Aumentar cantidad">
+                          +
+                        </button>
                       </div>
                     </div>
                   </div>
                   <div class="flex flex-col items-end gap-2 shrink-0">
-                    <button (click)="remove(it)"
-                      class="text-white/25 hover:text-red-400 opacity-0 group-hover/item:opacity-100 transition-all rounded-full hover:bg-red-500/10 p-1">
+                    <button (click)="remove(it)" type="button"
+                      class="text-white/20 hover:text-red-400 opacity-0 group-hover/item:opacity-100 transition-all rounded-full hover:bg-red-500/10 p-1"
+                      aria-label="Eliminar producto">
                       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     </button>
-                    <p class="font-bold text-white text-sm">$ {{ (it.producto.precio * it.cantidad) | number:'1.2-2' }}</p>
+                    <p class="font-bold text-white text-sm tabular-nums">
+                      $ {{ (it.producto.precio * it.cantidad) | number:'1.2-2' }}
+                    </p>
                   </div>
                 </div>
               </div>
 
+              <!-- Totales -->
               <ng-container *ngIf="subtotal$ | async as subtotal">
-                <div class="px-5 py-4 bg-white/[0.03] border-t border-white/10 space-y-2">
+                <div class="px-5 py-4 bg-white/[0.03] border-t border-white/10 space-y-2.5">
                   <div class="flex justify-between text-sm text-white/45">
                     <span>Subtotal</span>
-                    <span class="text-white/80 font-medium">$ {{ subtotal | number:'1.2-2' }}</span>
+                    <span class="text-white/80 font-medium tabular-nums">
+                      $ {{ subtotal | number:'1.2-2' }}
+                    </span>
                   </div>
                   <div class="flex justify-between text-sm text-white/45">
                     <span>IVA (15%)</span>
-                    <span class="text-white/80 font-medium">$ {{ (subtotal * 0.15) | number:'1.2-2' }}</span>
+                    <span class="text-white/80 font-medium tabular-nums">
+                      $ {{ (subtotal * 0.15) | number:'1.2-2' }}
+                    </span>
                   </div>
-                  <div class="flex justify-between font-bold text-white text-base pt-2 border-t border-white/10">
+                  <div class="flex justify-between font-bold text-white text-[15px] pt-2.5 border-t border-white/10">
                     <span>Total</span>
-                    <span class="text-[#A78BFA]">$ {{ (subtotal * 1.15) | number:'1.2-2' }}</span>
+                    <span class="text-[#A78BFA] tabular-nums">
+                      $ {{ (subtotal * 1.15) | number:'1.2-2' }}
+                    </span>
                   </div>
-                  <button (click)="finalizarCompra()"
-                    class="pl-btn-primary w-full mt-3 justify-center">
+                  <button (click)="finalizarCompra()" type="button" class="pl-btn-primary w-full mt-3 justify-center">
                     Finalizar compra
                   </button>
                 </div>
@@ -157,10 +196,13 @@
             </div>
           </ng-container>
 
+          <!-- Carrito vacío -->
           <ng-template #emptyCart>
-            <div class="py-12 px-6 flex flex-col items-center text-center">
-              <div class="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mb-4">
-                <svg class="w-8 h-8 text-white/25" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <div class="py-14 px-6 flex flex-col items-center text-center">
+              <div
+                class="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mb-4">
+                <svg class="w-8 h-8 text-white/25" fill="none" stroke="currentColor" stroke-width="1.5"
+                  viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
                 </svg>
@@ -174,36 +216,39 @@
 
       <!-- Usuario logueado -->
       <ng-container *ngIf="user$ | async as user; else guest">
-        <div class="relative group ml-1">
-          <button
-            class="flex items-center gap-2 px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/15 rounded-full transition-colors text-sm font-medium text-white">
-            <div class="w-6 h-6 rounded-full bg-[#6D28D9] flex items-center justify-center text-xs font-bold text-white uppercase">
+        <div class="relative group ml-0.5 sm:ml-1">
+          <button type="button"
+            class="flex items-center gap-2 px-2.5 sm:px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/12 rounded-full transition-colors text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A78BFA]/60">
+            <div
+              class="w-6 h-6 rounded-full bg-[#6D28D9] flex items-center justify-center text-[11px] font-bold text-white uppercase shrink-0">
               {{ user.charAt(0) }}
             </div>
-            <span class="hidden sm:block max-w-[80px] truncate">{{ user }}</span>
-            <svg class="w-3.5 h-3.5 text-white/50" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <span class="hidden sm:block max-w-[88px] truncate">{{ user }}</span>
+            <svg class="w-3.5 h-3.5 text-white/45 hidden sm:block" fill="none" stroke="currentColor" stroke-width="2.5"
+              viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
             </svg>
           </button>
+
+          <!-- Dropdown usuario -->
           <div
-            class="absolute right-0 top-full mt-2 w-52 bg-[#0A0714] rounded-2xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 scale-95 group-hover:scale-100 origin-top-right z-50 border border-white/10"
-            style="box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+            class="absolute right-0 top-full mt-2 w-52 bg-[#0A0714]/95 backdrop-blur-xl rounded-2xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 scale-95 group-hover:scale-100 origin-top-right z-50 border border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.55)]">
             <div class="px-4 py-3 border-b border-white/10 bg-white/[0.03]">
-              <p class="text-xs text-white/40 font-medium mb-0.5">Conectado como</p>
+              <p class="text-[11px] text-white/40 font-medium mb-0.5">Conectado como</p>
               <p class="font-bold text-white truncate text-sm">{{ user }}</p>
             </div>
             <div class="p-1.5">
               <a routerLink="/perfil"
                 class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-white/5 text-white/70 hover:text-white transition-colors text-sm font-medium">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                 </svg>
                 Mi Perfil
               </a>
-              <button (click)="logout()"
+              <button (click)="logout()" type="button"
                 class="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-red-500/10 text-red-400 hover:text-red-300 transition-colors text-sm font-medium">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                 </svg>
@@ -217,8 +262,8 @@
       <!-- Guest -->
       <ng-template #guest>
         <a routerLink="/login"
-          class="flex items-center gap-2 px-4 py-2 bg-white text-[#0A0714] rounded-full text-sm font-bold ml-1 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gradient-to-r hover:from-[#A78BFA] hover:to-[#6D28D9] hover:text-white active:scale-95 shadow-sm">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          class="flex items-center gap-2 px-3.5 sm:px-4 py-2 bg-white text-[#0A0714] rounded-full text-sm font-bold ml-0.5 sm:ml-1 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gradient-to-r hover:from-[#A78BFA] hover:to-[#6D28D9] hover:text-white active:scale-95 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A78BFA]/60">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
           </svg>
@@ -231,111 +276,185 @@
 
 <!-- Overlay Backdrop -->
 <div *ngIf="menuOpen"
-  class="fixed inset-0 z-[9998] bg-black/75 backdrop-blur-md transition-opacity duration-300 ease-out"
-  (click)="closeMenu()">
+  class="fixed inset-0 z-[9998] bg-black/70 backdrop-blur-md transition-opacity duration-300 ease-out"
+  (click)="closeMenu()" aria-hidden="true">
 </div>
 
 <!-- Sidebar Drawer -->
 <div *ngIf="menuOpen"
-  class="fixed top-0 left-0 h-full z-[9999] w-72 sm:w-80 bg-[#0A0714] text-white border-r border-white/10 shadow-[20px_0_50px_rgba(0,0,0,0.9)] flex flex-col overflow-hidden animate-slideRight">
+  class="fixed top-0 left-0 h-full z-[9999] w-[min(18rem,85vw)] sm:w-80 bg-[#0A0714] text-white border-r border-white/10 shadow-[24px_0_60px_rgba(0,0,0,0.85)] flex flex-col overflow-hidden animate-slideRight"
+  role="dialog" aria-modal="true" aria-label="Menú de categorías">
 
-    <div class="flex flex-col h-full relative overflow-hidden">
+  <div class="flex flex-col h-full relative overflow-hidden">
 
-      <!-- Resplandor ambiental sidebar -->
-      <div class="absolute -top-20 -left-16 w-64 h-64 rounded-full bg-[#6D28D9] blur-[100px] opacity-20 pointer-events-none"></div>
+    <!-- Resplandor sidebar -->
+    <div
+      class="absolute -top-24 -left-20 w-72 h-72 rounded-full bg-[#6D28D9] blur-[110px] opacity-[0.18] pointer-events-none">
+    </div>
 
-      <!-- Header sidebar -->
-      <div class="flex items-center justify-between px-5 py-5 border-b border-white/10 relative z-10">
-        <span class="font-chewy text-2xl text-white tracking-wide">
-          Paw<span class="pl-gradient-text">Luxury</span>
+    <!-- Header sidebar -->
+    <div class="flex items-center justify-between px-5 py-5 border-b border-white/10 relative z-10">
+      <span class="font-chewy text-2xl text-white tracking-wide">
+        Paw<span class="pl-gradient-text">Luxury</span>
+      </span>
+      <button (click)="closeMenu()" type="button"
+        class="p-2 text-white/55 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A78BFA]/60"
+        aria-label="Cerrar menú">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Label -->
+    <div class="px-6 pt-6 pb-2 relative z-10">
+      <span class="text-[10px] font-extrabold uppercase tracking-[0.22em] text-[#A78BFA]/90">
+        Categorías Principales
+      </span>
+    </div>
+
+    <!-- Nav -->
+    <nav class="flex-1 overflow-y-auto px-3.5 pb-6 space-y-1 relative z-10 custom-scrollbar">
+      <a routerLink="/perros" (click)="goToSection('/perros')"
+        class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/75 hover:text-white hover:bg-white/8 active:scale-[0.98] font-semibold text-[15px] transition-all duration-200 group">
+        <span
+          class="w-8 h-8 rounded-xl bg-[#6D28D9]/18 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors shrink-0">
         </span>
-        <button (click)="closeMenu()"
-          class="p-2 text-white/60 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300 active:scale-95 focus:outline-none">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
+        <span>Perros</span>
+      </a>
+      <a routerLink="/gatos" (click)="goToSection('/gatos')"
+        class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/75 hover:text-white hover:bg-white/8 active:scale-[0.98] font-semibold text-[15px] transition-all duration-200 group">
+        <span
+          class="w-8 h-8 rounded-xl bg-[#6D28D9]/18 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors shrink-0">
+        </span>
+        <span>Gatos</span>
+      </a>
+      <a routerLink="/peces" (click)="goToSection('/peces')"
+        class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/75 hover:text-white hover:bg-white/8 active:scale-[0.98] font-semibold text-[15px] transition-all duration-200 group">
+        <span
+          class="w-8 h-8 rounded-xl bg-[#6D28D9]/18 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors shrink-0">
+        </span>
+        <span>Peces</span>
+      </a>
+      <a routerLink="/aves" (click)="goToSection('/aves')"
+        class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/75 hover:text-white hover:bg-white/8 active:scale-[0.98] font-semibold text-[15px] transition-all duration-200 group">
+        <span
+          class="w-8 h-8 rounded-xl bg-[#6D28D9]/18 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors shrink-0">
+        </span>
+        <span>Aves</span>
+      </a>
+      <a routerLink="/pequenos" (click)="goToSection('/pequenos')"
+        class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/75 hover:text-white hover:bg-white/8 active:scale-[0.98] font-semibold text-[15px] transition-all duration-200 group">
+        <span
+          class="w-8 h-8 rounded-xl bg-[#6D28D9]/18 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors shrink-0">
+        </span>
+        <span>Animales Pequeños</span>
+      </a>
+      <a routerLink="/granja" (click)="goToSection('/granja')"
+        class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/75 hover:text-white hover:bg-white/8 active:scale-[0.98] font-semibold text-[15px] transition-all duration-200 group">
+        <span
+          class="w-8 h-8 rounded-xl bg-[#6D28D9]/18 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors shrink-0">
+        </span>
+        <span>Granja</span>
+      </a>
 
-      <!-- Label -->
-      <div class="px-6 pt-6 pb-2 relative z-10">
-        <span class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#A78BFA]">Categorías Principales</span>
-      </div>
+      <div class="mx-2 my-4 border-t border-white/10"></div>
 
-      <!-- Nav links con microanimaciones e íconos -->
-      <nav class="flex-1 overflow-y-auto px-4 pb-6 space-y-1.5 relative z-10">
-        <a routerLink="/perros" (click)="goToSection('/perros')"
-          class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/80 hover:text-white hover:bg-white/10 active:scale-[0.98] font-semibold text-base transition-all duration-200 group">
-          <span class="w-8 h-8 rounded-xl bg-[#6D28D9]/20 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors text-sm">🐶</span>
-          <span>Perros</span>
-        </a>
-        <a routerLink="/gatos" (click)="goToSection('/gatos')"
-          class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/80 hover:text-white hover:bg-white/10 active:scale-[0.98] font-semibold text-base transition-all duration-200 group">
-          <span class="w-8 h-8 rounded-xl bg-[#6D28D9]/20 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors text-sm">🐱</span>
-          <span>Gatos</span>
-        </a>
-        <a routerLink="/peces" (click)="goToSection('/peces')"
-          class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/80 hover:text-white hover:bg-white/10 active:scale-[0.98] font-semibold text-base transition-all duration-200 group">
-          <span class="w-8 h-8 rounded-xl bg-[#6D28D9]/20 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors text-sm">🐠</span>
-          <span>Peces</span>
-        </a>
-        <a routerLink="/aves" (click)="goToSection('/aves')"
-          class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/80 hover:text-white hover:bg-white/10 active:scale-[0.98] font-semibold text-base transition-all duration-200 group">
-          <span class="w-8 h-8 rounded-xl bg-[#6D28D9]/20 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors text-sm">🦜</span>
-          <span>Aves</span>
-        </a>
-        <a routerLink="/pequenos" (click)="goToSection('/pequenos')"
-          class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/80 hover:text-white hover:bg-white/10 active:scale-[0.98] font-semibold text-base transition-all duration-200 group">
-          <span class="w-8 h-8 rounded-xl bg-[#6D28D9]/20 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors text-sm">🐹</span>
-          <span>Animales Pequeños</span>
-        </a>
-        <a routerLink="/granja" (click)="goToSection('/granja')"
-          class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-white/80 hover:text-white hover:bg-white/10 active:scale-[0.98] font-semibold text-base transition-all duration-200 group">
-          <span class="w-8 h-8 rounded-xl bg-[#6D28D9]/20 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors text-sm">🐴</span>
-          <span>Granja</span>
-        </a>
+      <a routerLink="/medicin" (click)="goToSection('/medicin')"
+        class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-[#A78BFA] hover:text-white hover:bg-[#6D28D9]/25 active:scale-[0.98] font-semibold text-[15px] transition-all duration-200 group">
+        <span
+          class="w-8 h-8 rounded-xl bg-[#6D28D9]/25 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors shrink-0">
+        </span>
+        <span>Farmacia & Cuidado</span>
+      </a>
+    </nav>
 
-        <div class="mx-2 my-4 border-t border-white/10"></div>
-
-        <a routerLink="/medicin" (click)="goToSection('/medicin')"
-          class="flex items-center gap-3.5 px-4 py-3 rounded-2xl text-[#A78BFA] hover:text-white hover:bg-[#6D28D9]/30 active:scale-[0.98] font-semibold text-base transition-all duration-200 group">
-          <span class="w-8 h-8 rounded-xl bg-[#6D28D9]/30 text-[#A78BFA] group-hover:bg-[#6D28D9] group-hover:text-white flex items-center justify-center transition-colors text-sm">💊</span>
-          <span>Farmacia & Cuidado</span>
-        </a>
-      </nav>
-
-      <!-- Footer sidebar -->
-      <div class="px-5 py-4 border-t border-white/10 relative z-10">
-        <p class="text-xs text-white/25 font-semibold text-center tracking-widest uppercase">Premium Pet Care</p>
-      </div>
+    <!-- Footer sidebar -->
+    <div class="px-5 py-4 border-t border-white/10 relative z-10">
+      <p class="text-[11px] text-white/25 font-semibold text-center tracking-[0.2em] uppercase">
+        Premium Pet Care
+      </p>
     </div>
   </div>
+</div>
 
-<!-- Solo incluir si el <style> del home/footer NO está cargado globalmente en la página -->
+<!-- Solo incluir si el <style> del home/footer NO está cargado globalmente -->
 <style>
-  .pl-font { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
-  .pl-display { font-family: 'Manrope', 'Inter', sans-serif; }
+  .pl-font {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  .pl-display {
+    font-family: 'Manrope', 'Inter', sans-serif;
+  }
+
   .pl-gradient-text {
     background: linear-gradient(100deg, #C4B5FD 0%, #8B5CF6 45%, #FFFFFF 100%);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
+
   .pl-btn-primary {
-    display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
-    padding: .85rem 1.6rem; border-radius: 999px; font-weight: 700; font-size: .9rem;
-    color: #0A0714; background: #FFFFFF;
-    transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, background .35s ease, color .35s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #0A0714;
+    background: #FFFFFF;
+    transition:
+      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.35s ease,
+      background 0.35s ease,
+      color 0.35s ease;
   }
+
   .pl-btn-primary:hover {
     transform: translateY(-2px);
-    background: linear-gradient(100deg,#A78BFA,#6D28D9);
+    background: linear-gradient(100deg, #A78BFA, #6D28D9);
     color: #fff;
     box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.65);
   }
-  @keyframes slideRight {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(0); }
+
+  .pl-btn-primary:active {
+    transform: translateY(0) scale(0.98);
   }
+
+  @keyframes slideRight {
+    from {
+      transform: translateX(-100%);
+      opacity: 0.9;
+    }
+
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
   .animate-slideRight {
-    animation: slideRight 0.25s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation: slideRight 0.28s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  }
+
+  /* Scrollbar sutil para carrito y sidebar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(167, 139, 250, 0.25);
+    border-radius: 999px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(167, 139, 250, 0.4);
   }
 </style>
